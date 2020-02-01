@@ -9,7 +9,8 @@ const BUILD_STATIC: string = "static";
 
 const SRC_DIR = join(process.cwd(), "src");
 const PUBLIC_DIR = join(process.cwd(), "public_static");
-const PROD_DIR = join(PUBLIC_DIR, "products");
+// const PROD_DIR = join(PUBLIC_DIR, "products");
+const PROD_DIR = join(PUBLIC_DIR);
 const ASSETS_DIR = join(PROD_DIR, "assets");
 
 class Config {
