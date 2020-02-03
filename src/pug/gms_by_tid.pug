@@ -1,0 +1,27 @@
+extends _template/_base
+
+block stanza
+  script(src=`${pathToLibs}gms_by_tid.js`)
+
+block main
+  #contents
+    h1.page_ttl Growth media by organisms
+    ul.showcase_icn
+      li CC BY
+    p.lead Retrieving the microbial growth media of specified KEGG organism IDs
+    .showcase_detail
+      ul.showcase_id
+        li
+          dl
+            dt t_id
+            dd
+              p.id_box
+                input(type="text" value="T04525,T00311" data-param-key="t_id")
+                span.required required
+              p.eg KEGG organism identifier
+      .showcase_code
+        <code>&lt;togostanza-gms_by_tid t_id='T04525,T00311'&gt;&lt;/togostanza-gms_by_tid&gt;</code>
+      p.explain The above element will automatically embed the following Stanza in your HTML page.
+      .showcase_box
+        <togostanza-gms_by_tid t_id="T04525,T00311"></togostanza-gms_by_tid>
+    include ./_include/gms_by_tid.html

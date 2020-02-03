@@ -25,12 +25,13 @@ class Config {
         dest: join(PROD_DIR),
         watch: ["pug", "json", "js", "svg", "html"],
         data: ["_include/settings.js", "_include/meta.js"],
-        files_priority: {
-          "index.html": "top.pug",
-        },
         files: {
           "index.html": "top.pug",
-          "sub/index.html": "sub.pug",
+          "gms_by_clstid.html": "gms_by_clstid.pug",
+          "gms_by_tid.html": "gms_by_tid.pug",
+          "growth_medium.html": "growth_medium.pug",
+          "event_listener.html": "event_listener.pug",
+          "gm_component.html": "gm_component.pug"
         }
       },
       less: {
@@ -39,6 +40,7 @@ class Config {
         watch: ["less"],
         files_priority: {
           "main.css": "main.less",
+          "top.css": "top.less",
         },
         files: {
           "main.css": "main.less",

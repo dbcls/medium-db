@@ -1,0 +1,13 @@
+<script>
+  const stanza = document.querySelector('togostanza-gms_by_tid');
+  const inputs = document.querySelectorAll('.showcase_id input');
+
+  Array.prototype.forEach.call(inputs, function(input) {
+    const onParamChange = function() {
+      stanza.setAttribute(input.dataset.paramKey, input.value);
+    };
+
+    input.addEventListener('input', onParamChange);
+    onParamChange();
+  });
+</script>

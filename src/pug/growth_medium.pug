@@ -1,0 +1,26 @@
+extends _template/_base
+
+block stanza
+  script(src=`${pathToLibs}growth_medium.js`)
+
+block main
+  #contents
+    h1.page_ttl Growth medium
+    ul.showcase_icn
+    p.lead Retrieving the microbial growth medium of a spefied GM ID
+    .showcase_detail
+      ul.showcase_id
+        li
+          dl
+            dt gm_id
+            dd
+              .id_box
+                input(type="text" value="NBRC_M1005" data-param-key="gm_id")
+                span.required required
+              p.eg Growth medium identifier
+      .showcase_code
+        <code>&lt;togostanza-growth_medium&gt;&lt;/togostanza-growth_medium&gt;</code>
+      p.explain The above element will automatically embed the following Stanza in your HTML page.
+      .showcase_box
+        <togostanza-growth_medium gm_id="NBRC_M1005"></togostanza-growth_medium>
+    include ./_include/growth_medium.html

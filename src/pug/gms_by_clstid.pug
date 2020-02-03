@@ -1,0 +1,11 @@
+extends _template/_base
+
+block stanza
+  script(src=`${pathToLibs}gms_by_clstid.js`)
+
+block main
+  input(type="text" value="26_200" data-param-key="clst_id")
+  p.output
+  .showcase_box
+    <togostanza-gms_by_clstid clst_id="26_200"></togostanza-gms_by_clstid>
+  include ./_include/gms_by_clstid.html
