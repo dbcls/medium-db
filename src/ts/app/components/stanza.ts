@@ -1,16 +1,12 @@
 import {qs} from "imagelogic-tools/src/dom/qs";
 
 export class Stanza {
-  func() {
-    console.log("test");
-    this.getVal();
-  }
-
-  getVal() {
-    const input: HTMLInputElement = qs("[data-param-key='clst_id']");
-    console.log(input.value);
+  onParmChange(type: string) {
+    console.log("run");
+    const input: HTMLInputElement = qs("[data-param-key]");
+    const stanza: HTMLElement = qs(type);
     input.addEventListener("input", () => {
-      qs(".output").innerText = input.value;
+      stanza.setAttribute(input.dataset.paramKey, input.value);
     });
   }
 

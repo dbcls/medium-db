@@ -10,7 +10,15 @@ export class MainDoc extends DocBase {
 
   protected onReady() {
     this.stanza = new Stanza();
-    this.stanza.func();
+    if (document.body.classList.contains("gms_by_clstid")) {
+      this.stanza.onParmChange("togostanza-gms_by_clstid");
+    }
+    if (document.body.classList.contains("gms_by_tid")) {
+      this.stanza.onParmChange("togostanza-gms_by_tid");
+    }
+    if (document.body.classList.contains("growth_medium")) {
+      this.stanza.onParmChange("togostanza-growth_medium");
+    }
   }
 
 }
