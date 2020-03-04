@@ -1,10 +1,8 @@
-extends _template/_base
+extends ../_template/_base
 
 block vars
-  - lev1ID = "growth_medium";
+  - stanzaID = "growth_medium";
 
-block stanza
-  script(src=`${pathToLibs}growth_medium.js`)
 
 block main
   input(type="text" value="NBRC_M1005" data-param-key="gm_id")

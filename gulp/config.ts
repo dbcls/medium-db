@@ -26,12 +26,12 @@ class Config {
         watch: ["pug", "json", "js", "svg", "html"],
         data: ["_include/settings.js", "_include/meta.js"],
         files: {
-          "index.html": "top.pug",
-          "gms_by_clstid.html": "gms_by_clstid.pug",
-          "gms_by_tid.html": "gms_by_tid.pug",
-          "growth_medium.html": "growth_medium.pug",
-          "event_listener.html": "event_listener.pug",
-          "gm_component.html": "gm_component.pug"
+          "stanza/index.html": "stanza/list.pug",
+          "stanza/gms_by_clstid.html": "stanza/gms_by_clstid.pug",
+          "stanza/gms_by_tid.html": "stanza/gms_by_tid.pug",
+          "stanza/growth_medium.html": "stanza/growth_medium.pug",
+          "stanza/event_listener.html": "stanza/event_listener.pug",
+          "stanza/gm_component.html": "stanza/gm_component.pug"
         }
       },
       less: {
@@ -62,6 +62,12 @@ class Config {
         }
       },
       sync: [
+        {
+          name:"stanza",
+          src: join(SRC_DIR, "stanza"),
+          dest: join(PROD_DIR, "stanza"),
+          watch: true
+        },
         {
           name: "img",
           src: join(SRC_DIR, "assets/img"),
@@ -95,7 +101,7 @@ class Config {
         pngquant: [0.4, 1],
         jpegmin: 80,
       },
-      url: "http://google.com",
+      url: "http://medium-db.loclahost",
     }
   ];
 

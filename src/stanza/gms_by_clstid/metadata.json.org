@@ -1,0 +1,22 @@
+{
+  "@context": {
+    "stanza": "http://togostanza.org/resource/stanza#"
+  },
+  "@id": "gms_by_clstid",
+  "stanza:label": "Hello Example",
+  "stanza:definition": "Greeting.",
+  "stanza:parameter": [
+  ],
+  "stanza:usage": "<togostanza-gms_by_clstid></togostanza-gms_by_clstid>",
+  "stanza:type": "Stanza",
+  "stanza:context": "",
+  "stanza:display": "",
+  "stanza:provider": "provider of this stanza",
+  "stanza:license": "",
+  "stanza:author": "author name",
+  "stanza:address": "name@example.org",
+  "stanza:contributor": [
+  ],
+  "stanza:created": "2019-08-26",
+  "stanza:updated": "2019-08-26"
+}

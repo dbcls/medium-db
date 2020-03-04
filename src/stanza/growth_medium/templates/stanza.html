@@ -1,0 +1,30 @@
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.2/css/bootstrap.min.css">
+
+
+<h3>{{result.body.id}}</h3>
+<div class="container">
+  <p class="mb-0">Name: {{result.body.name}}</p>
+  <p class="mb-0"><a href="{{result.body.src_url}}">Original source</a></p>
+</div>
+
+<div class="container">
+<h4>Medium components</h4>
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th>GMO ID</th>
+      <th>Name</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each result.body.components}}
+    <tr>
+      <td>{{id}}</td>
+      <td>{{label}}</td>
+      <td>{{role_label}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>

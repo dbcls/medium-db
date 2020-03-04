@@ -1,0 +1,29 @@
+{
+  "@context": {
+    "stanza": "http://togostanza.org/resource/stanza#"
+  },
+  "@id": "gms_by_clstid",
+  "stanza:label": "Growth media by a cluster ID",
+  "stanza:definition": "Retrieving the microbial growth media of a specified cluster IDs",
+  "stanza:parameter": [
+     {
+       "stanza:key": "clst_id",
+       "stanza:example": "26_200",
+       "stanza:description": "cluster identifier",
+       "stanza:required": true
+     }
+  ],
+  "stanza:usage": "<togostanza-gms_by_clstid clst_id='26_200'></togostanza-gms_by_clstid>",
+  "stanza:type": "Stanza",
+  "stanza:context": "",
+  "stanza:display": "",
+  "stanza:provider": "provider of this stanza",
+  "stanza:license": "CC BY",
+  "stanza:author": "Shuichi Kawashima",
+  "stanza:address": "kwsm@dbcls.rois.ac.jp",
+  "stanza:contributor": [
+    "Yuki Moriya"
+  ],
+  "stanza:created": "2019-08-24",
+  "stanza:updated": "2019-08-24"
+}

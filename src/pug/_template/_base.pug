@@ -8,8 +8,11 @@
 - var lev = 0;
 - var pathToRoot =  ""
 - var lev1ID = "";
+- var stanzaID = "";
 
 block vars
+- titleBase = stanzaID;
+- lev1ID = stanzaID;
 
 - title = titleChild ? titleChild + ' | ' + titleBase : titleBase;
 - bodyClasses.push(lev1ID);
@@ -20,10 +23,13 @@ block vars
 - var pathToJS = pathToAssets + "js/";
 - var pathToCSS = pathToAssets + "css/";
 - var pathToLibs = pathToAssets + "libs/";
+- var pathToStanza = pathToRoot + "stanza/";
 - var pathToSVG = pathToAssets + "images/svg/";
 - var pathToImgLG = pathToAssets + "images/lg/";
 - var pathToImgMD = pathToAssets + "images/md/";
 - var pathToImgSM = pathToAssets + "images/sm/";
+
+
 
 
 doctype html
@@ -38,7 +44,7 @@ html(lang = 'ja', xmlns:og="http://ogp.me/ns#")
     script(src="https://cdn.jsdelivr.net/combine/npm/@babel/polyfill@7.2.5/dist/polyfill.min.js,npm/@ungap/url-search-params@0.1.2/min.js,npm/whatwg-fetch@3.0.0/dist/fetch.umd.js" crossorigin="")
     script(src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@1.3.0/webcomponents-loader.js" crossorigin="")
     script(src=`${pathToLibs}stanza.js`)
-    block stanza
+    script(src=`${pathToStanza}${stanzaID}/index.js`)
     link(href=`${pathToLibs}html5reset.css`, rel="stylesheet", type="text/css")
     link(href=`${pathToCSS}main.css`, rel="stylesheet", type="text/css")
     block links

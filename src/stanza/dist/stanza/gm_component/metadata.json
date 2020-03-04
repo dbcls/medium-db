@@ -1,0 +1,28 @@
+{
+  "@context": {
+    "stanza": "http://togostanza.org/resource/stanza#"
+  },
+  "@id": "gm_component",
+  "stanza:label": "Hello Example",
+  "stanza:definition": "Greeting.",
+  "stanza:parameter": [
+     {
+       "stanza:key": "t_id",
+       "stanza:example": "T04525,T00311",
+       "stanza:description": "KEGG organism identifier",
+       "stanza:required": true
+     }
+  ],
+  "stanza:usage": "<togostanza-gm_component t_id='T04525,T00311'></togostanza-gm_component>",
+  "stanza:type": "Stanza",
+  "stanza:context": "",
+  "stanza:display": "",
+  "stanza:provider": "provider of this stanza",
+  "stanza:license": "",
+  "stanza:author": "author name",
+  "stanza:address": "name@example.org",
+  "stanza:contributor": [
+  ],
+  "stanza:created": "2019-08-23",
+  "stanza:updated": "2019-08-23"
+}

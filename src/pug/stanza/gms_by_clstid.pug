@@ -1,10 +1,8 @@
-extends _template/_base
+extends ../_template/_base
 
 block vars
-  - lev1ID = "gms_by_clstid";
-
-block stanza
-  script(src=`${pathToLibs}gms_by_clstid.js`)
+  - lev = 1
+  - stanzaID = "gms_by_clstid";
 
 block main
   input(type="text" value="26_200" data-param-key="clst_id")

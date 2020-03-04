@@ -1,10 +1,7 @@
-extends _template/_base
+extends ../_template/_base
 
 block vars
-  - lev1ID = "gms_by_tid";
-
-block stanza
-  script(src=`${pathToLibs}gms_by_tid.js`)
+  - stanzaID = "gms_by_tid";
 
 block main
   #contents

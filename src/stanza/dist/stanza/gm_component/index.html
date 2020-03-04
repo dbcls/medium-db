@@ -1,0 +1,86 @@
+
+
+<script src="../assets/js/stanza.js"></script>
+<script>
+  (function() {
+    const descriptor = {"templates":{"stanza.html":"\u003ctable\u003e\n  \u003cthead\u003e\n    \u003ctr\u003e\n      {{#each result.head}}\n      \u003cth colspan=\"{{cols}}\" rowspan=\"{{rows}}\"\u003e{{text}}\u003c/th\u003e\n      {{/each}}\n    \u003c/tr\u003e\n    \u003ctr\u003e\n      {{#each result.subHead}}\n      \u003cth\u003e{{text}}\u003c/th\u003e\n      {{/each}}\n    \u003c/tr\u003e\n  \u003c/thead\u003e\n  \u003ctbody\u003e\n    \u003ctr\u003e\n    {{#each result.body}}\n      \u003ctd rowspan=\"{{rows}}\"\u003e{{organism}}\u003c/td\u003e\n      {{#each gm}}\n      \u003ctd\u003e{{label}}\u003c/td\u003e\n      {{#each exist}}\n      \u003ctd style=\"background-color: {{color}};\"\u003e \u003c/td\u003e\n      {{/each}}\n    \u003c/tr\u003e\u003ctr\u003e\n      {{/each}}\n    {{/each}}\n    \u003c/tr\u003e\n  \u003c/tbody\u003e\n\u003c/table\u003e\n\n"},"parameters":["t_id"],"elementName":"togostanza-gm_component","development":true};
+
+    if ('Promise' in window && 'URLSearchParams' in window && 'fetch' in window) {
+      const Stanza = TogoStanza.initialize(descriptor);
+
+      Stanza(function(stanza, params) {
+
+    let formBody = [];
+    for (let key in params) {
+        if(params[key]) formBody.push(key + "=" + encodeURIComponent(params[key]));
+    }
+
+    let options = {
+        method: "POST",
+        mode:  "cors",
+        body: formBody.join("&"),
+        headers: {
+            "Accept": "application/json",
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    };
+
+    let apiUrl = "http://ep.dbcls.jp/sparqlist/api/";
+    let apiName = "gms_by_tids";
+
+    let q = fetch(apiUrl + apiName, options).then(res => res.json());
+
+    q.then(function(json){
+
+	let data = {};
+	let component = {};
+	let keys = Object.keys(json);
+	
+	for(let i = 0; i < keys.length; i++){
+	    if(json[keys[i]].component){
+		for(let j = 0; j < json[keys[i]].component.length; j++){
+		    component[json[keys[i]].component[j]] = 1;
+		}
+	    }	
+	}
+	let sortedComponent = Object.keys(component);
+	data.head = [{text: "Organism", cols: 1, rows: 2}, {text: "Growth medium", cols: 1, rows: 2}, {text: "Components", cols: sortedComponent.length, rows: 1}];
+	data.subHead = [];
+	for(let i = 0; i < sortedComponent.length; i++){
+	    data.subHead.push({text: sortedComponent[i].replace("http://purl.jp/bio/10/gmo/", "")});
+	}
+	data.body = [];
+	
+	for(let i = 0; i < keys.length; i++){
+	    if(keys[i].match(/^T\d{5}$/)){
+		let list = [];
+		for(let j = 0; j < json[keys[i]].gm.length; j++){
+		    let exist = [];
+		    for(let k = 0; k < sortedComponent.length; k++){
+			if(json[json[keys[i]].gm[j]].component.includes(sortedComponent[k])) exist.push({color: "mediumaquamarine"});
+			else exist.push({color: "transparent"});
+		    }
+		    list.push({label: json[keys[i]].gm[j].replace("http://purl.jp/bio/10/gm/", ""), exist: exist});
+		}
+		data.body.push({organism: keys[i], rows: json[keys[i]].gm.length, gm: list})
+	    }	
+	}
+	
+	console.log(data);
+	
+	stanza.render({
+	    template: "stanza.html",
+	    parameters: {
+                result: data
+	    }
+	});
+    });
+});
+
+    } else {
+      const element = document.querySelector(descriptor.elementName);
+
+      element.innerHTML = "<p>Your Web browser does not support the features required for the stanza to work. If you are using Internet Explorer 11, placing the following snippet before loading webcomponents-loader.js may resolve this issue:</p>\n<pre><code>&lt;script src=\"https://cdn.jsdelivr.net/combine/npm/@babel/polyfill@7.2.5/dist/polyfill.min.js,npm/@ungap/url-search-params@0.1.2/min.js,npm/whatwg-fetch@3.0.0/dist/fetch.umd.js\" crossorigin&gt;&lt;/script&gt;</code></pre>";
+    }
+  })();
+</script>
