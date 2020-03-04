@@ -64,7 +64,7 @@ class Config {
       sync: [
         {
           name:"stanza",
-          src: join(SRC_DIR, "stanza"),
+          src: join(SRC_DIR, "stanza/dist/stanza"),
           dest: join(PROD_DIR, "stanza"),
           watch: true
         },
