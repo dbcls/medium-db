@@ -4,6 +4,11 @@ block vars
   - stanzaIDs = ["media", "components", "organisms"]
 
 block main
-  togostanza-media
-  togostanza-components
-  togostanza-organisms
+  input#queryInput(placeholder="search")
+  togostanza-media#media(query="")
+  togostanza-components#components(query="")
+  togostanza-organisms#organisms(query="")
+
+
+block scripts
+  script(src=`${pathToJS}top.js`)

@@ -66,5 +66,8 @@
     "gulp.dev": "gulp watch.gulp"
   },
   "author": "Satoshi Onoda",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "rxjs": "^6.5.4"
+  }
 }
