@@ -27,7 +27,7 @@ class Config {
         data: ["_include/settings.js", "_include/meta.js"],
         files: {
           "index.html": "top.pug",
-          "medium/index.html": "medium.pug",
+          "media/index.html": "media.pug",
           "component/index.html": "component.pug",
           "organism/index.html": "organism.pug",
         }
