@@ -3,8 +3,8 @@
     "stanza": "http://togostanza.org/resource/stanza#"
   },
   "@id": "media",
-  "stanza:label": "Hello Example",
-  "stanza:definition": "Greeting.",
+  "stanza:label": "Growth media list",
+  "stanza:definition": "",
   "stanza:parameter": [
     {
       "stanza:key": "query",
