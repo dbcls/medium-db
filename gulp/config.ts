@@ -99,7 +99,7 @@ class Config {
         pngquant: [0.4, 1],
         jpegmin: 80,
       },
-      url: "http://medium-db.loclahost",
+      url: "http://medium-db.localhost",
     }
   ];
 

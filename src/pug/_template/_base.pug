@@ -58,6 +58,7 @@ html(lang = 'ja', xmlns:og="http://ogp.me/ns#")
     meta(property='og:url', content=``)
     title= title
   body(class=bodyClasses)
+    include ../_include/header.html
     main
       block main
     script(src=`${pathToJS}main.js`)

@@ -1,1 +1,6 @@
+{{#unless query}}
 <p>{{greeting}}</p>
+{{/unless}}
+{{#if query}}
+<p>Querying Organisms of ... {{query}}</p>
+{{/if}}
