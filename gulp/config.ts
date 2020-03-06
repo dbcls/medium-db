@@ -61,7 +61,7 @@ class Config {
       },
       sync: [
         {
-          name:"stanza",
+          name: "stanza",
           src: join(SRC_DIR, "stanza/dist/stanza"),
           dest: join(PROD_DIR, "stanza"),
           watch: true
@@ -80,6 +80,11 @@ class Config {
           name: "fonts",
           src: join(SRC_DIR, "assets/fonts"),
           dest: join(ASSETS_DIR, "fonts"),
+          watch: false
+        }, {
+          name: "redirects",
+          src: join(SRC_DIR, "redirects"),
+          dest: PROD_DIR,
           watch: false
         }
       ]
