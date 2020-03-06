@@ -26,12 +26,10 @@ class Config {
         watch: ["pug", "json", "js", "svg", "html"],
         data: ["_include/settings.js", "_include/meta.js"],
         files: {
-          "stanza/index.html": "stanza/list.pug",
-          "stanza/gms_by_clstid.html": "stanza/gms_by_clstid.pug",
-          "stanza/gms_by_tid.html": "stanza/gms_by_tid.pug",
-          "stanza/growth_medium.html": "stanza/growth_medium.pug",
-          "stanza/event_listener.html": "stanza/event_listener.pug",
-          "stanza/gm_component.html": "stanza/gm_component.pug"
+          "index.html": "top.pug",
+          "medium/index.html": "medium.pug",
+          "component/index.html": "component.pug",
+          "organism/index.html": "organism.pug",
         }
       },
       less: {
