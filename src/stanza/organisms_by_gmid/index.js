@@ -1,8 +1,10 @@
 Stanza(function(stanza, params) {
+  const query = params["query"];
   stanza.render({
     template: "stanza.html",
     parameters: {
-      greeting: "Hello, world!"
+      query: query,
+      greeting:"Hello organisms by gmid!"
     }
   });
 });

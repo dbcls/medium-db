@@ -3,16 +3,18 @@
 <script src="../assets/js/stanza.js"></script>
 <script>
   (function() {
-    const descriptor = {"templates":{"stanza.html":"\u003cp\u003e{{greeting}}\u003c/p\u003e\n"},"parameters":[],"elementName":"togostanza-media_by_gmoid","development":false};
+    const descriptor = {"templates":{"stanza.html":"{{#unless query}}\n  \u003cp\u003e{{greeting}}\u003c/p\u003e\n{{/unless}}\n{{#if query}}\n  \u003cp\u003eQuerying media of gmoid ... {{query}}\u003c/p\u003e\n{{/if}}\n"},"parameters":["query"],"elementName":"togostanza-media_by_gmoid","development":false};
 
     if ('Promise' in window && 'URLSearchParams' in window && 'fetch' in window) {
       const Stanza = TogoStanza.initialize(descriptor);
 
       Stanza(function(stanza, params) {
+  const query = params["query"];
   stanza.render({
     template: "stanza.html",
     parameters: {
-      greeting: "Hello, world!"
+      query: query,
+      greeting:"Hello media by gmoid!"
     }
   });
 });

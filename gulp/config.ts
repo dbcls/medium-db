@@ -55,8 +55,10 @@ class Config {
         dest: join(ASSETS_DIR, "js"),
         watch: ["ts"],
         files: {
-          "main.js": "main.ts",
           "top.js": "top.ts",
+          "component.js": "component.ts",
+          "media.js": "media.ts",
+          "organism.js": "organism.ts",
         }
       },
       sync: [

@@ -2,12 +2,18 @@
   "@context": {
     "stanza": "http://togostanza.org/resource/stanza#"
   },
-  "@id": "organism_by_gmid",
+  "@id": "organisms_by_gmid",
   "stanza:label": "Hello Example",
   "stanza:definition": "Greeting.",
   "stanza:parameter": [
+    {
+      "stanza:key": "query",
+      "stanza:example": "",
+      "stanza:description": "",
+      "stanza:required": false
+    }
   ],
-  "stanza:usage": "<togostanza-organism_by_gmid></togostanza-organism_by_gmid>",
+  "stanza:usage": "<togostanza-organisms_by_gmid></togostanza-organism_by_gmid>",
   "stanza:type": "Stanza",
   "stanza:context": "",
   "stanza:display": "",

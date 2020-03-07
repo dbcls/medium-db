@@ -5,4 +5,9 @@ block vars
   - stanzaIDs = ["organism_by_taxid", "media_by_taxid"]
 
 block main
-  | this is organism
+  togostanza-organism_by_taxid#info(query="")
+  togostanza-media_by_taxid#media(query="")
+
+
+block scripts
+  script(src=`${pathToJS}organism.js`)

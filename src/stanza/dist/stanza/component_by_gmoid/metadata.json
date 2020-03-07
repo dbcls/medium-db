@@ -6,6 +6,12 @@
   "stanza:label": "Hello Example",
   "stanza:definition": "Greeting.",
   "stanza:parameter": [
+    {
+      "stanza:key": "query",
+      "stanza:example": "",
+      "stanza:description": "",
+      "stanza:required": false
+    }
   ],
   "stanza:usage": "<togostanza-component_by_gmoid></togostanza-component_by_gmoid>",
   "stanza:type": "Stanza",

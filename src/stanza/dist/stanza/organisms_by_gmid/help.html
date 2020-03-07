@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <script src="https://cdn.jsdelivr.net/combine/npm/@babel/polyfill@7.2.5/dist/polyfill.min.js,npm/@ungap/url-search-params@0.1.2/min.js,npm/whatwg-fetch@3.0.0/dist/fetch.umd.js" crossorigin></script>
     <script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@1.3.0/webcomponents-loader.js" crossorigin></script>
-    <link rel="import" href="../organism_by_gmid/">
+    <link rel="import" href="../organisms_by_gmid/">
     <link rel="stylesheet" href="../assets/css/ts.css">
     <title>Hello Example</title>
   </head>
@@ -23,10 +23,28 @@
       <div class="showcase_detail">
         <ul class="showcase_id">
           
+            <li>
+              <dl>
+                <dt>query</dt>
+
+                <dd>
+                  <p class="id_box">
+                    <input type="text" value="" data-param-key="query">
+
+                    
+                  </p>
+
+                  <p class="eg">
+                    
+                  </p>
+                </dd>
+              </dl>
+            </li>
+          
         </ul>
 
         <div class="showcase_code">
-          <code>&lt;togostanza-organism_by_gmid&gt;&lt;/togostanza-organism_by_gmid&gt;</code>
+          <code>&lt;togostanza-organisms_by_gmid&gt;&lt;/togostanza-organism_by_gmid&gt;</code>
         </div>
 
         <p class="explain">
@@ -34,11 +52,11 @@
         </p>
 
         <div class="showcase_box">
-          <togostanza-organism_by_gmid></togostanza-organism_by_gmid>
+          <togostanza-organisms_by_gmid></togostanza-organism_by_gmid>
         </div>
       </div>
       <script>
-        const stanza = document.querySelector('togostanza-organism_by_gmid');
+        const stanza = document.querySelector('togostanza-organisms_by_gmid');
         const inputs = document.querySelectorAll('.showcase_id input');
 
         Array.prototype.forEach.call(inputs, function(input) {

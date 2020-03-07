@@ -5,4 +5,8 @@ block vars
   - stanzaIDs = ["component_by_gmoid", "media_by_gmoid"]
 
 block main
-  | this is component
+  togostanza-component_by_gmoid#info(query="")
+  togostanza-media_by_gmoid#media(query="")
+
+block scripts
+  script(src=`${pathToJS}component.js`)
