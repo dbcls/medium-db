@@ -1,22 +1,62 @@
 <table>
-<tr><td>Name</td><td>{{result.body.scientific_name}}</td></tr>
-<tr>
-  <td>Taxonomy ID</td>
-  <td>{{result.body.taxid}} [<a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{result.body.taxid}}">NCBI</a>], [<a href="http://togogenome.org/organism/{{result.body.taxid}}">TogoGenome</a>]</td></tr>
-<tr><td>Authority name</td><td>{{result.body.authority_name}}</td></tr>
+  <tr>
+    <td>Name</td>
+    <td>{{result.body.scientific_name}}</td>
+  </tr>
+  <tr>
+    <td>Taxonomy ID</td>
+    <td>{{result.body.taxid}} [
+      <a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{result.body.taxid}}">NCBI</a>], [
+      <a href="http://togogenome.org/organism/{{result.body.taxid}}">TogoGenome</a>
+      ]
+    </td>
+  </tr>
+  <tr>
+    <td>Authority name</td>
+    <td>{{result.body.authority_name}}</td>
+  </tr>
 </table>
-<table>
-<tr><td>Phylum</td><td>Class</td><td>Order</td><td>Family</td></tr>
-<tr>
-  <td>{{result.body.phylum.label}} [<a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{result.body.phylum.taxid}}">NCBI</a>]</td>
-  <td>{{result.body.class.label}} [<a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{result.body.class.taxid}}">NCBI</a>]</td>
-  <td>{{result.body.order.label}} [<a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{result.body.order.taxid}}">NCBI</a>]</td>
-  <td>{{result.body.family.label}} [<a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{result.body.family.taxid}}">NCBI</a>]</td>
-</tr>
-</table>
+<h3>LINEAGE</h3>
+<ul>
+  {{#each result.body.lineage}}
+    <li>
+      <span>{{rank}}:{{label}}</span><br>
+      [<a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{taxid}}" target="_blank">NCBI</a>]
+    </li>
+  {{/each}}
+</ul>
+<!--<table>-->
+<!--  <tr>-->
+<!--    <td>Phylum</td>-->
+<!--    <td>Class</td>-->
+<!--    <td>Order</td>-->
+<!--    <td>Family</td>-->
+<!--  </tr>-->
+<!--  <tr>-->
+<!--    <td>{{result.body.phylum.label}} [-->
+<!--      <a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{result.body.phylum.taxid}}-->
+<!--      ">NCBI</a>]-->
+<!--    </td>-->
+<!--    <td>{{result.body.class.label}} [-->
+<!--      <a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{result.body.class.taxid}}-->
+<!--      ">NCBI</a>]-->
+<!--    </td>-->
+<!--    <td>{{result.body.order.label}} [-->
+<!--      <a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{result.body.order.taxid}}-->
+<!--      ">NCBI</a>]-->
+<!--    </td>-->
+<!--    <td>{{result.body.family.label}} [-->
+<!--      <a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{result.body.family.taxid}}-->
+<!--      ">NCBI</a>]-->
+<!--    </td>-->
+<!--  </tr>-->
+<!--</table>-->
+
 <p>Type strains</p>
 <table>
   {{#each result.body.type_material}}
-  <tr><td>{{label}}</td></tr>
+    <tr>
+      <td>{{label}}</td>
+    </tr>
   {{/each}}
 </table>
