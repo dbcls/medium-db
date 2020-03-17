@@ -42,10 +42,12 @@ html(lang = 'ja', xmlns:og="http://ogp.me/ns#")
     meta(name="viewport", content="width=device-width,initial-scale=1.0,minimum-scale=1.0")
     meta(name="description", content=`${meta.description}`)
     meta(name="keywords", content=``)
+    link(href="https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@300&display=swap" rel="stylesheet")
     script(src="https://cdn.jsdelivr.net/combine/npm/@babel/polyfill@7.2.5/dist/polyfill.min.js,npm/@ungap/url-search-params@0.1.2/min.js,npm/whatwg-fetch@3.0.0/dist/fetch.umd.js" crossorigin="")
     script(src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@1.3.0/webcomponents-loader.js" crossorigin="")
     each stanzaID in stanzaIDs
       link(rel="import", href=`${pathToStanza}${stanzaID}`)
+
     link(href=`${pathToLibs}html5reset.css`, rel="stylesheet", type="text/css")
     link(href=`${pathToCSS}main.css`, rel="stylesheet", type="text/css")
     block links

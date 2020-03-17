@@ -2,10 +2,12 @@ extends _template/_base
 
 block vars
   - lev = 1
-  - stanzaIDs = ["organism_by_taxid", "media_by_taxid"]
+  - stanzaIDs = ["gmdb_organism_by_taxid", "media_by_taxid"]
 
 block main
-  togostanza-organism_by_taxid#info(query="")
+  h2 Organism Infomation
+  togostanza-gmdb_organism_by_taxid#info(query="")
+  h2 Related Media
   togostanza-media_by_taxid#media(query="")
 
 

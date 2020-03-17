@@ -1,62 +1,148 @@
-<table>
-  <tr>
-    <td>Name</td>
-    <td>{{result.body.scientific_name}}</td>
-  </tr>
-  <tr>
-    <td>Taxonomy ID</td>
-    <td>{{result.body.taxid}} [
-      <a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{result.body.taxid}}">NCBI</a>], [
-      <a href="http://togogenome.org/organism/{{result.body.taxid}}">TogoGenome</a>
-      ]
-    </td>
-  </tr>
-  <tr>
-    <td>Authority name</td>
-    <td>{{result.body.authority_name}}</td>
-  </tr>
-</table>
-<h3>LINEAGE</h3>
-<ul>
-  {{#each result.body.lineage}}
-    <li>
-      <span>{{rank}}:{{label}}</span><br>
-      [<a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{taxid}}" target="_blank">NCBI</a>]
-    </li>
-  {{/each}}
-</ul>
-<!--<table>-->
-<!--  <tr>-->
-<!--    <td>Phylum</td>-->
-<!--    <td>Class</td>-->
-<!--    <td>Order</td>-->
-<!--    <td>Family</td>-->
-<!--  </tr>-->
-<!--  <tr>-->
-<!--    <td>{{result.body.phylum.label}} [-->
-<!--      <a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{result.body.phylum.taxid}}-->
-<!--      ">NCBI</a>]-->
-<!--    </td>-->
-<!--    <td>{{result.body.class.label}} [-->
-<!--      <a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{result.body.class.taxid}}-->
-<!--      ">NCBI</a>]-->
-<!--    </td>-->
-<!--    <td>{{result.body.order.label}} [-->
-<!--      <a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{result.body.order.taxid}}-->
-<!--      ">NCBI</a>]-->
-<!--    </td>-->
-<!--    <td>{{result.body.family.label}} [-->
-<!--      <a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{result.body.family.taxid}}-->
-<!--      ">NCBI</a>]-->
-<!--    </td>-->
-<!--  </tr>-->
-<!--</table>-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<style>
+  .wrapper {
+    font-size: 18px;
+    font-family: 'Fira Sans Condensed', sans-serif;
+    padding: 16px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    color: #333;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  }
 
-<p>Type strains</p>
-<table>
-  {{#each result.body.type_material}}
-    <tr>
-      <td>{{label}}</td>
-    </tr>
-  {{/each}}
-</table>
+  a {
+    color: #256d80;
+  }
+
+  .link-btn {
+    background-color: #44b8cc;
+    color: #FFF;
+    padding: 4px 8px 2px;
+    border-radius: 3px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    line-height: 1;
+  }
+
+
+  .tax-id .value {
+    margin: 0 16px 0 4px;
+    line-height: 1.5;
+  }
+
+  .tax-id .links {
+    position: relative;
+    top: -2px;
+    margin-top: 4px;
+    white-space: nowrap;
+  }
+
+
+  .name {
+    margin: 24px 0 16px;
+  }
+
+
+  .name .value {
+    font-size: 48px;
+  }
+
+  h3 {
+    font-weight: 600;
+    margin-top: 24px;
+    font-size: 20px;
+  }
+
+  .simple-list {
+    line-height: 1.2;
+    margin-top: 8px;
+  }
+
+  .lineage-list {
+    display: flex;
+    margin-top: 8px;
+    flex-wrap: wrap;
+    margin-bottom: -8px;
+  }
+
+  .lineage-list li {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-right: 16px;
+    margin-bottom: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .lineage-list .rank {
+    border-bottom: 1px solid #ddd;
+    padding: 4px;
+  }
+
+  .lineage-list .label, .lineage-list .link {
+    padding: 4px 8px;
+  }
+
+  .lineage-list .link {
+    text-align: left;
+  }
+</style>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@300;600&display=swap');
+</style>
+
+<div class="wrapper">
+
+  {{#if error}}
+    <p>{{msg}}</p>
+  {{/if}}
+
+  {{#unless error}}
+    <p class="tax-id">
+      <span class="key">Taxonomy ID: </span>
+      <span class="value">{{result.taxid}}</span>
+      <span class="links">
+        <a class="link-btn" href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{result.taxid}}">NCBI</a>
+        <a class="link-btn" href="http://togogenome.org/organism/{{result.taxid}}">TogoGenome</a>
+      </span>
+
+    </p>
+    <p class="name">
+      <span class="value">{{result.scientific_name}}</span>
+    </p>
+    {{#if result.authority_name}}
+      Authority name:<br>{{result.authority_name}}
+    {{/if}}
+
+    <h3>LINEAGE</h3>
+    <ul class="lineage-list">
+      {{#each result.lineage}}
+        <li class="list-group-item">
+          <span class="rank">{{rank}}</span>
+          <span class="label">{{label}}</span>
+          <span class="link">
+            <a class="link-btn" href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{taxid}}"
+          target="_blank">NCBI</a>
+          </span>
+
+        </li>
+      {{/each}}
+    </ul>
+
+    {{#if result.type_material}}
+      <h3>TYPE STRAINS</h3>
+      <ul class="simple-list">
+        {{#each result.type_material}}
+          <li>{{label}}</li>
+        {{/each}}
+      </ul>
+    {{/if}}
+  {{/unless}}
+</div>

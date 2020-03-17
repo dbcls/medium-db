@@ -3,7 +3,7 @@
 <script src="../assets/js/stanza.js"></script>
 <script>
   (function() {
-    const descriptor = {"templates":{"stanza.html":"\u003ctable\u003e\n  \u003ctr\u003e\n    \u003ctd\u003eName\u003c/td\u003e\n    \u003ctd\u003e{{result.body.scientific_name}}\u003c/td\u003e\n  \u003c/tr\u003e\n  \u003ctr\u003e\n    \u003ctd\u003eTaxonomy ID\u003c/td\u003e\n    \u003ctd\u003e{{result.body.taxid}} [\n      \u003ca href=\"https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info\u0026id={{result.body.taxid}}\"\u003eNCBI\u003c/a\u003e], [\n      \u003ca href=\"http://togogenome.org/organism/{{result.body.taxid}}\"\u003eTogoGenome\u003c/a\u003e\n      ]\n    \u003c/td\u003e\n  \u003c/tr\u003e\n  \u003ctr\u003e\n    \u003ctd\u003eAuthority name\u003c/td\u003e\n    \u003ctd\u003e{{result.body.authority_name}}\u003c/td\u003e\n  \u003c/tr\u003e\n\u003c/table\u003e\n\u003ch3\u003eLINEAGE\u003c/h3\u003e\n\u003cul\u003e\n  {{#each result.body.lineage}}\n    \u003cli\u003e\n      \u003cspan\u003e{{rank}}:{{label}}\u003c/span\u003e\u003cbr\u003e\n      [\u003ca href=\"https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info\u0026id={{taxid}}\" target=\"_blank\"\u003eNCBI\u003c/a\u003e]\n    \u003c/li\u003e\n  {{/each}}\n\u003c/ul\u003e\n\u003c!--\u003ctable\u003e--\u003e\n\u003c!--  \u003ctr\u003e--\u003e\n\u003c!--    \u003ctd\u003ePhylum\u003c/td\u003e--\u003e\n\u003c!--    \u003ctd\u003eClass\u003c/td\u003e--\u003e\n\u003c!--    \u003ctd\u003eOrder\u003c/td\u003e--\u003e\n\u003c!--    \u003ctd\u003eFamily\u003c/td\u003e--\u003e\n\u003c!--  \u003c/tr\u003e--\u003e\n\u003c!--  \u003ctr\u003e--\u003e\n\u003c!--    \u003ctd\u003e{{result.body.phylum.label}} [--\u003e\n\u003c!--      \u003ca href=\"https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info\u0026id={{result.body.phylum.taxid}}--\u003e\n\u003c!--      \"\u003eNCBI\u003c/a\u003e]--\u003e\n\u003c!--    \u003c/td\u003e--\u003e\n\u003c!--    \u003ctd\u003e{{result.body.class.label}} [--\u003e\n\u003c!--      \u003ca href=\"https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info\u0026id={{result.body.class.taxid}}--\u003e\n\u003c!--      \"\u003eNCBI\u003c/a\u003e]--\u003e\n\u003c!--    \u003c/td\u003e--\u003e\n\u003c!--    \u003ctd\u003e{{result.body.order.label}} [--\u003e\n\u003c!--      \u003ca href=\"https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info\u0026id={{result.body.order.taxid}}--\u003e\n\u003c!--      \"\u003eNCBI\u003c/a\u003e]--\u003e\n\u003c!--    \u003c/td\u003e--\u003e\n\u003c!--    \u003ctd\u003e{{result.body.family.label}} [--\u003e\n\u003c!--      \u003ca href=\"https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info\u0026id={{result.body.family.taxid}}--\u003e\n\u003c!--      \"\u003eNCBI\u003c/a\u003e]--\u003e\n\u003c!--    \u003c/td\u003e--\u003e\n\u003c!--  \u003c/tr\u003e--\u003e\n\u003c!--\u003c/table\u003e--\u003e\n\n\u003cp\u003eType strains\u003c/p\u003e\n\u003ctable\u003e\n  {{#each result.body.type_material}}\n    \u003ctr\u003e\n      \u003ctd\u003e{{label}}\u003c/td\u003e\n    \u003c/tr\u003e\n  {{/each}}\n\u003c/table\u003e\n"},"parameters":["query"],"elementName":"togostanza-gmdb_organism_by_taxid","development":false};
+    const descriptor = {"templates":{"stanza.html":"\u003clink rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css\"\u003e\n\u003cstyle\u003e\n  .wrapper {\n    font-size: 18px;\n    font-family: 'Fira Sans Condensed', sans-serif;\n    padding: 16px;\n    background-color: #ffffff;\n    border-radius: 5px;\n    font-weight: 300;\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: antialiased;\n    font-smoothing: antialiased;\n    color: #333;\n    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);\n  }\n\n  a {\n    color: #256d80;\n  }\n\n  .link-btn {\n    background-color: #44b8cc;\n    color: #FFF;\n    padding: 4px 8px 2px;\n    border-radius: 3px;\n    text-decoration: none;\n    font-size: 14px;\n    font-weight: 600;\n    display: inline-block;\n    line-height: 1;\n  }\n\n\n  .tax-id .value {\n    margin: 0 16px 0 4px;\n    line-height: 1.5;\n  }\n\n  .tax-id .links {\n    position: relative;\n    top: -2px;\n    margin-top: 4px;\n    white-space: nowrap;\n  }\n\n\n  .name {\n    margin: 24px 0 16px;\n  }\n\n\n  .name .value {\n    font-size: 48px;\n  }\n\n  h3 {\n    font-weight: 600;\n    margin-top: 24px;\n    font-size: 20px;\n  }\n\n  .simple-list {\n    line-height: 1.2;\n    margin-top: 8px;\n  }\n\n  .lineage-list {\n    display: flex;\n    margin-top: 8px;\n    flex-wrap: wrap;\n    margin-bottom: -8px;\n  }\n\n  .lineage-list li {\n    display: flex;\n    flex-direction: column;\n    text-align: center;\n    margin-right: 16px;\n    margin-bottom: 8px;\n    border: 1px solid #ddd;\n    border-radius: 5px;\n  }\n\n  .lineage-list .rank {\n    border-bottom: 1px solid #ddd;\n    padding: 4px;\n  }\n\n  .lineage-list .label, .lineage-list .link {\n    padding: 4px 8px;\n  }\n\n  .lineage-list .link {\n    text-align: left;\n  }\n\u003c/style\u003e\n\u003cstyle\u003e\n  @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@300;600\u0026display=swap');\n\u003c/style\u003e\n\n\u003cdiv class=\"wrapper\"\u003e\n\n  {{#if error}}\n    \u003cp\u003e{{msg}}\u003c/p\u003e\n  {{/if}}\n\n  {{#unless error}}\n    \u003cp class=\"tax-id\"\u003e\n      \u003cspan class=\"key\"\u003eTaxonomy ID: \u003c/span\u003e\n      \u003cspan class=\"value\"\u003e{{result.taxid}}\u003c/span\u003e\n      \u003cspan class=\"links\"\u003e\n        \u003ca class=\"link-btn\" href=\"https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info\u0026id={{result.taxid}}\"\u003eNCBI\u003c/a\u003e\n        \u003ca class=\"link-btn\" href=\"http://togogenome.org/organism/{{result.taxid}}\"\u003eTogoGenome\u003c/a\u003e\n      \u003c/span\u003e\n\n    \u003c/p\u003e\n    \u003cp class=\"name\"\u003e\n      \u003cspan class=\"value\"\u003e{{result.scientific_name}}\u003c/span\u003e\n    \u003c/p\u003e\n    {{#if result.authority_name}}\n      Authority name:\u003cbr\u003e{{result.authority_name}}\n    {{/if}}\n\n    \u003ch3\u003eLINEAGE\u003c/h3\u003e\n    \u003cul class=\"lineage-list\"\u003e\n      {{#each result.lineage}}\n        \u003cli class=\"list-group-item\"\u003e\n          \u003cspan class=\"rank\"\u003e{{rank}}\u003c/span\u003e\n          \u003cspan class=\"label\"\u003e{{label}}\u003c/span\u003e\n          \u003cspan class=\"link\"\u003e\n            \u003ca class=\"link-btn\" href=\"https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info\u0026id={{taxid}}\"\n          target=\"_blank\"\u003eNCBI\u003c/a\u003e\n          \u003c/span\u003e\n\n        \u003c/li\u003e\n      {{/each}}\n    \u003c/ul\u003e\n\n    {{#if result.type_material}}\n      \u003ch3\u003eTYPE STRAINS\u003c/h3\u003e\n      \u003cul class=\"simple-list\"\u003e\n        {{#each result.type_material}}\n          \u003cli\u003e{{label}}\u003c/li\u003e\n        {{/each}}\n      \u003c/ul\u003e\n    {{/if}}\n  {{/unless}}\n\u003c/div\u003e\n"},"parameters":["query"],"elementName":"togostanza-gmdb_organism_by_taxid","development":false};
 
     if ('Promise' in window && 'URLSearchParams' in window && 'fetch' in window) {
       const Stanza = TogoStanza.initialize(descriptor);
@@ -24,54 +24,54 @@
   // console.log(query);
   let api_url = "http://ep.dbcls.jp/sparqlist/api/";
   let api_name = `gmdb_organism_by_taxid?taxid=${query}`;
-  // let api_name = `gmdb_organism_by_taxid`;
+  let data = {};
+  let msg = "";
+  let error = false;
 
-  let q = fetch(api_url + api_name, options).then(res => res.json());
 
-  q.then(function(json){
-    let data = {};
-    data.body = {};
-    data.body.type_material = [];
-    data.body.lineage = [];
+  fetch(api_url + api_name, options)
+    .then(res => res.json())
+    .then(json => success(json))
+    .catch(e => fail(e))
+    .finally(() => {
+      stanza.render({
+        template: "stanza.html",
+        parameters: {
+          result: data,
+          msg: msg,
+          error: error
+        }
+      });
+    });
 
-    data.body.scientific_name = json.scientific_name;
-    data.body.taxid = json.taxid;
+
+  function success(json){
+    data.type_material = [];
+    data.lineage = [];
+
+    data.scientific_name = json.scientific_name;
+    data.taxid = json.taxid;
     if(json.authority_name){
-      data.body.authority_name = json.authority_name;
+      data.authority_name = json.authority_name;
     }
     if(json.type_material){
       for(let i = 0; i < json.type_material.length; i++){
-        data.body.type_material.push(json.type_material[i]);
+        data.type_material.push(json.type_material[i]);
       }
     }
     if(json.lineage){
-      json.lineage.forEach(elm => data.body.lineage.push(elm));
+      json.lineage.forEach(elm => data.lineage.push(elm));
     }
-    /*
-     ;
-     data.body.phylum = {};
-     data.body.phylum.uri = json.phylum.uri;
-     data.body.phylum.label = json.phylum.label;
-     data.body.phylum.taxid = json.phylum.taxid;
-     data.body.order = {};
-     data.body.order.uri = json.order.uri;
-     data.body.order.label = json.order.label;
-     data.body["class"] = {};
-     data.body["class"].uri = json["class"].uri;
-     data.body["class"].label = json["class"].label;
-     data.body.family = {};
-     data.body.family.uri = json.family.uri;
-     data.body.family.label = json.family.label;
-     */
+  }
 
-    stanza.render({
-      template: "stanza.html",
-      parameters: {
-        result: data
-      }
-    });
-  });
+  function fail(e){
+    error = true;
+    msg = "make query such as 315405";
+  }
 });
+
+
+
 
     } else {
       const element = document.querySelector(descriptor.elementName);

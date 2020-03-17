@@ -11,6 +11,8 @@ import {ENV_DEV, ENV_PROD} from "./gulp/utils/consts";
 import {liveReload, reloadBrowser, runWatchCompile, runWatchCopy} from "./gulp/tasks/watches";
 import {processImagemin} from "./gulp/tasks/imagemin";
 import {openURL} from "./gulp/tasks/open";
+import {exec} from "child_process";
+import {join} from "path";
 
 
 export enum KEYS {
@@ -254,3 +256,29 @@ config.build.forEach((build: IBuild) => {
 });
 
 
+gulp.task("stanza.build", (done) => {
+  exec("ts build", {cwd: join(process.cwd(), "src/stanza")}, (err, stdout, stderr) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+    }
+    done();
+  });
+});
+
+gulp.task("stanza.build.watch", () => {
+  // const watchList: string[] = [
+  //   "gmdb_organism_by_taxid"
+  // ];
+  const globs: string[] = [];
+  const base: string = join(process.cwd(), "src/stanza");
+  globs.push(join(base, "/**/*.*"));
+  const dist = join(base, "dist", "/**/*.*");
+  globs.push(`!${dist}`);
+  // watchList.forEach(str => {
+  //   globs.push(join(base, str, "/**/*.*"));
+  // });
+  gulp.watch(globs, gulp.series("stanza.build"));
+});
