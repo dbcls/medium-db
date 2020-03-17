@@ -56,7 +56,7 @@ Stanza(function(stanza, params){
 
   function fail(e){
     error = true;
-    msg = "make query such as 315405";
+    msg = "make a query such as 315405";
   }
 });
 
