@@ -1,7 +1,6 @@
 Stanza(function(stanza, params){
   const query = params["query"];
-
-  let options = {
+  const options = {
     method: "POST",
     mode: "cors",
     body: "",
@@ -10,18 +9,15 @@ Stanza(function(stanza, params){
       "Content-Type": "application/x-www-form-urlencoded"
     }
   };
-
-  // console.log(query);
-  let api_url = "http://ep.dbcls.jp/sparqlist/api/";
-  let api_name = `gmdb_organism_by_taxid?taxid=${query}`;
-  let data = {};
+  const api_url = "http://ep.dbcls.jp/sparqlist/api/";
+  const api_name = `gmdb_organism_by_taxid?taxid=${query}`;
+  const data = {};
   let msg = "";
   let error = false;
 
 
-  fetch(api_url + api_name, options)
-    .then(res => res.json())
-    .then(json => success(json))
+  fetch(`${api_url}${api_name}`, options)
+    .then(res => success(res.json()))
     .catch(e => fail(e))
     .finally(() => {
       stanza.render({
