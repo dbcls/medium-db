@@ -2,10 +2,12 @@ extends _template/_base
 
 block vars
   - lev = 1
-  - stanzaIDs = ["component_by_gmoid", "media_by_gmoid"]
+  - stanzaIDs = ["gmdb_component_by_gmoid", "media_by_gmoid"]
 
 block main
-  togostanza-component_by_gmoid#info(query="")
+  h2 Component Information
+  togostanza-gmdb_component_by_gmoid#info(gmo_id="")
+  h2 Related Media
   togostanza-media_by_gmoid#media(query="")
 
 block scripts

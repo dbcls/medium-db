@@ -11,7 +11,7 @@ export class ComponentDoc extends MainDoc {
 
     const info:HTMLElement = qs("#info");
     const media:HTMLElement = qs("#media");
-    info.setAttribute("query", param);
+    info.setAttribute("gmo_id", param);
     media.setAttribute("query", param);
   }
 }
