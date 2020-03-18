@@ -29,7 +29,6 @@ Stanza(function(stanza, params){
 
 
   function success(json){
-    console.log(json);
     data.type_material = [];
     data.lineage = [];
 
