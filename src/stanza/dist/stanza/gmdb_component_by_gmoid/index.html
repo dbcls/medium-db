@@ -3,139 +3,156 @@
 <script src="../assets/js/stanza.js"></script>
 <script>
   (function() {
-    const descriptor = {"templates":{"stanza.html":"\u003cp\u003e{{result.body.gmo_id}}: {{result.body.pref_label}}\u003c/p\u003e\n\n\u003ctable\u003e\n{{#each result.body.alt_labels_en}}\n\u003ctr\u003e\n  \u003ctd\u003e{{label}}\u003c/td\u003e\n  \u003ctd\u003e{{value}}\u003c/td\u003e\n\u003c/tr\u003e\n{{/each}}\n\u003ctr\u003e\n  \u003ctd\u003eProperty\u003c/td\u003e\n  \u003ctd\u003e\n  {{#each result.body.properties}}\n  \u003ca href=\"http://growthmedium.org/vocab/{{gmo_id}}\"\u003e{{label_en}} \u003c/a\u003e\n  {{/each}}\n  \u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n  \u003ctd\u003eFunction\u003c/td\u003e\n  \u003ctd\u003e\n  {{#each result.body.roles}}\n  \u003ca href=\"http://growthmedium.org/component/{{gmo_id}}\"\u003e{{label_en}} \u003c/a\u003e\n  {{/each}}\n  \u003c/td\u003e\n\u003c/tr\u003e\n{{#each result.body.super_classes}}\n\u003ctr\u003e\n  \u003ctd\u003e{{label}}\u003c/td\u003e\n  \u003ctd\u003e\u003ca href=\"http://growthmedium.org/component/{{gmo_id}}\"\u003e{{gmo_id}}\u003c/a\u003e: {{label_en}}\u003c/td\u003e\n\u003c/tr\u003e\n{{/each}}\n{{#each result.body.sub_classes}}\n\u003ctr\u003e\n  \u003ctd\u003e{{label}}\u003c/td\u003e\n  \u003ctd\u003e\u003ca href=\"http://growthmedium.org/component/{{gmo_id}}\"\u003e{{gmo_id}}\u003c/a\u003e: {{label_en}}\u003c/td\u003e\n\u003c/tr\u003e\n{{/each}}\n\u003ctr\u003e\n  \u003ctd\u003eLink\u003c/td\u003e\n  \u003ctd\u003e\n  {{#each result.body.links}}\n  \u003ca href=\"{{uri}}\"\u003e{{label}} \u003c/a\u003e\n  {{/each}}\n  \u003c/td\u003e\n\u003c/tr\u003e\n\u003c/table\u003e\n"},"parameters":["gmo_id"],"elementName":"togostanza-gmdb_component_by_gmoid","development":false};
+    const descriptor = {"templates":{"stanza.html":"\u003clink rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css\"\u003e\n\u003cstyle\u003e\n  .wrapper {\n    font-size: 18px;\n    font-family: 'Fira Sans Condensed', sans-serif;\n    padding: 16px;\n    background-color: #ffffff;\n    border-radius: 5px;\n    font-weight: 300;\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: antialiased;\n    font-smoothing: antialiased;\n    color: #333;\n    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);\n  }\n\n  a {\n    color: #256d80;\n    text-decoration: underline;\n  }\n  a:hover{\n    text-decoration: none;\n  }\n\n  .name {\n    margin: 24px 0 16px;\n  }\n\n\n  .name .value {\n    font-size: 48px;\n  }\n\n  h3 {\n    font-weight: 600;\n    margin-top: 24px;\n    font-size: 20px;\n  }\n\n  ul {\n    line-height: 1.2;\n    margin-top: 8px;\n  }\n\n  .super-class, .sub-class{\n    display: flex;\n  }\n  .super-class li, .sub-class li{\n    display: flex;\n    flex-direction: column;\n    border: 1px solid #ddd;\n    border-radius: 5px;\n  }\n\n  .super-class li span, .sub-class li span{\n    border-bottom: 1px solid #ddd;\n  }\n\n  .super-class li *, .sub-class li *{\n    padding: 4px;\n  }\n\n\n\n\u003c/style\u003e\n\u003cstyle\u003e\n  @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@300;600\u0026display=swap');\n\u003c/style\u003e\n\n\u003cdiv class=\"wrapper\"\u003e\n  {{#if error}}\n  \u003cp\u003e{{msg}}\u003c/p\u003e\n  {{/if}}\n\n  {{#unless error}}\n\n  \u003cp class=\"gmo-id\"\u003e\n    \u003cspan class=\"key\"\u003egmo-id : \u003c/span\u003e\n    \u003cspan class=\"value\"\u003e{{result.gmo_id}}\u003c/span\u003e\n  \u003c/p\u003e\n  \u003cp class=\"name\"\u003e\n    \u003cspan class=\"value\"\u003e{{result.pref_label}}\u003c/span\u003e\n  \u003c/p\u003e\n\n  {{#if result.alt_labels_en}}\n  \u003ch3\u003eAlternative Labels\u003c/h3\u003e\n  \u003cul\u003e\n    {{#each result.alt_labels_en}}\n    \u003cli\u003e{{value}}\u003c/li\u003e\n    {{/each}}\n  \u003c/ul\u003e\n  {{/if}}\n\n  {{#if result.properties}}\n  \u003ch3\u003eProperty\u003c/h3\u003e\n  \u003cul\u003e\n    {{#each result.properties}}\n    \u003cli\u003e\n      \u003ca href=\"{{host}}/vocab/{{gmo_id}}\" target=\"_blank\"\u003e{{label_en}}\u003c/a\u003e\n    \u003c/li\u003e\n    {{/each}}\n  \u003c/ul\u003e\n  {{/if}}\n\n  {{#if result.roles}}\n  \u003ch3\u003eFunction\u003c/h3\u003e\n  \u003cul\u003e\n    {{#each result.roles}}\n    \u003cli\u003e\n      \u003ca href=\"{{host}}/component/{{gmo_id}}\" target=\"_blank\"\u003e{{label_en}}\u003c/a\u003e\n    \u003c/li\u003e\n    {{/each}}\n  \u003c/ul\u003e\n  {{/if}}\n\n  \u003ch3\u003eSuper class\u003c/h3\u003e\n  \u003cul class=\"super-class\"\u003e\n    {{#each result.super_classes}}\n    \u003cli\u003e\n      \u003cspan\u003e{{label_en}}\u003c/span\u003e\n      \u003ca href=\"{{host}}/component/{{gmo_id}}\" target=\"_blank\"\u003e{{gmo_id}}\u003c/a\u003e\n    \u003c/li\u003e\n    {{/each}}\n  \u003c/ul\u003e\n\n  \u003ch3\u003eSub class\u003c/h3\u003e\n  \u003cul class=\"sub-class\"\u003e\n    {{#each result.sub_classes}}\n    \u003cli\u003e\n      \u003cspan\u003e{{label_en}}\u003c/span\u003e\n      \u003ca href=\"http://growthmedium.org/component/{{gmo_id}}\" target=\"_blank\"\u003e{{gmo_id}}\u003c/a\u003e\n    \u003c/li\u003e\n    {{/each}}\n  \u003c/ul\u003e\n\n  \u003ch3\u003eLink\u003c/h3\u003e\n  \u003cul\u003e\n    {{#each result.links}}\n    \u003cli\u003e\n      \u003ca href=\"{{uri}}\" target=\"_blank\"\u003e{{label}}\u003c/a\u003e\n    \u003c/li\u003e\n    {{/each}}\n  \u003c/ul\u003e\n\n\n\u003c/div\u003e{{/unless}}\n"},"parameters":["gmo_id"],"elementName":"togostanza-gmdb_component_by_gmoid","development":false};
 
     if ('Promise' in window && 'URLSearchParams' in window && 'fetch' in window) {
       const Stanza = TogoStanza.initialize(descriptor);
 
-      Stanza(function(stanza, params) {
+      Stanza(function(stanza, params){
 
+  const api_url = "http://ep.dbcls.jp/sparqlist/api/";
+  const api_name = "gmdb_component_by_gmoid";
+  const options = makeOptions(params);
+  const data = {};
+  let msg = "";
+  let error = false;
+
+  if(!params["gmo_id"]){
+    error = true;
+    msg = "gmo_id (e.g. GMO_001010) is required";
+  }
+
+  fetch(`${api_url}${api_name}`, options)
+    .then(res => res.json())
+    .then(json => success(json))
+    .catch(e => fail(e))
+    .finally(() => {
+      stanza.render({
+        template: "stanza.html",
+        parameters: {
+          result: data,
+          msg: msg,
+          error: error
+        }
+      });
+    });
+
+  function success(json){
+    data.alt_labels_en = [];
+    data.alt_labels_ja = [];
+    data.super_classes = [];
+    data.sub_classes = [];
+    data.links = [];
+    data.properties = [];
+    data.roles = [];
+    const host = location.host;
+
+
+    data.gmo_id = json.id;
+    data.pref_label = json.pref_label;
+    data.json_label_ja = json.label_ja;
+
+    if(json.alt_labels_en){
+      data.alt_labels_en = json.alt_labels_en.map(str => ({value: str}));
+    }
+
+    if(json.super_classes){
+      data.super_classes = json.super_classes.map(obj => ({
+        gmo_id: obj.gmo_id,
+        uri: obj.uri,
+        label_en: obj.label_en
+      }));
+    }
+
+    if(json.sub_classes){
+      data.sub_classes = json.sub_classes.map(obj => ({
+        gmo_id: obj.gmo_id,
+        uri: obj.uri,
+        label_en: obj.label_en
+      }));
+    }
+
+    if(json.links){
+      for(let i = 0; i < json.links.length; i++){
+        let link = json.links[i];
+        switch(true){
+          case /pccompound/.test(link):
+            data.links.push({
+              "label": "PubChem",
+              "uri": json.links[i]
+            });
+            break;
+          case /wikipedia/.test(link):
+            data.links.push({
+              "label": "Wikipedia",
+              "uri": json.links[i]
+            });
+            break;
+          case /ncicb/.test(link):
+            data.links.push({
+              "label": "NCI Thesaurus",
+              "uri": json.links[i]
+            });
+            break;
+          case /CHEBI/.test(link):
+            data.links.push({
+              "label": "ChEBI",
+              "uri": json.links[i]
+            });
+            break;
+          case /SNOMEDCT/.test(link):
+            data.links.push({
+              "label": "SNOMED-CT",
+              "uri": json.links[i]
+            });
+            break;
+        }
+      }
+    }
+
+    if(json.properties){
+      for(let i = 0; i < json.properties.length; i++){
+        data.properties.push(json.properties[i]);
+        data.properties[i].host = host;
+
+      }
+    }
+
+    if(json.roles){
+      for(let i = 0; i < json.roles.length; i++){
+        data.roles.push(json.roles[i]);
+      }
+    }
+  }
+
+  function fail(e){
+    const gmoID = params["gmo_id"];
+    error = true;
+    msg = `Not found. gmo_id: ${gmoID}`;
+  }
+
+});
+
+
+function makeOptions(params){
   let formBody = [];
 
-  for (let key in params) {
-    if (params[key]) {
-      formBody.push(key + "=" + endocdeURIComponent(params[key]));
+  for(let key in params){
+    if(params[key]){
+      formBody.push(key + "=" + encodeURIComponent(params[key]));
     }
-  };
+  }
 
-  const options = {
+  return {
     method: "POST",
     mode: "cors",
     body: formBody.join("&"),
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded'
+      "Accept": "application/json",
+      "Content-Type": "application/x-www-form-urlencoded"
     }
   };
-
-  let api_url = "http://ep.dbcls.jp/sparqlist/api/";
-  let api_name = "gmdb_component_by_gmoid";
-
-  let q = fetch(api_url + api_name, options).then(res=>res.json());
-
-  console.log(q);
-  q.then(function(json) {
-    let data = {};
-    data.body = {};
-    data.body.alt_labels_en = [];
-    data.body.alt_labels_ja = [];
-    data.body.super_classes = [];
-    data.body.sub_classes = [];
-    data.body.links = [];
-    data.body.properties = [];
-    data.body.roles = [];
-
-    data.body.gmo_id = json.id;
-    data.body.pref_label = json.pref_label;
-    data.body.json_label_ja = json.label_ja;
-
-    if (json.alt_labels_en) {
-      for (let i = 0; i < json.alt_labels_en.length; i++) {
-        if (i == 0) {
-          data.body.alt_labels_en.push({"label": "Alternative label",
-                                        "value": json.alt_labels_en[i]});
-        } else {
-          data.body.alt_labels_en.push({"label": "",
-                                        "value": json.alt_labels_en[i]});
-        }
-      }
-    }
-    if (json.super_classes) { 
-      for (let i = 0; i < json.super_classes.length; i++) {
-        if (i == 0) {
-          data.body.super_classes.push({"label": "Super class",
-                                        "gmo_id": json.super_classes[i].gmo_id,
-                                        "uri": json.super_classes[i].uri,
-                                        "label_en": json.super_classes[i].label_en});
-        } else {
-          data.body.super_classes.push({"label": "",
-                                        "gmo_id": json.super_classes[i].gmo_id,
-                                        "uri": json.super_classes[i].uri,
-                                        "label_en": json.super_classes[i].label_en});
-        }
-      }
-    }
-    if (json.sub_classes) {
-      for (let i = 0; i < json.sub_classes.length; i++) {
-        if (i == 0) {
-          data.body.sub_classes.push({"label": "Sub class",
-                                      "gmo_id": json.sub_classes[i].gmo_id,
-                                      "uri": json.sub_classes[i].uri,
-                                      "label_en": json.sub_classes[i].label_en});
-        } else {
-          data.body.sub_classes.push({"label": "",
-                                      "gmo_id": json.sub_classes[i].gmo_id,
-                                      "uri": json.sub_classes[i].uri,
-                                      "label_en": json.sub_classes[i].label_en});
-        }
-      }
-    }
-    if (json.links) {
-      for (let i = 0; i < json.links.length; i++) {
-        let link = json.links[i];
-        switch(true) {
-        case /pccompound/.test(link):
-          data.body.links.push({"label": "PubChem",
-                                "uri": json.links[i]});
-          break;
-        case /wikipedia/.test(link):
-          data.body.links.push({"label": "Wikipedia",
-                                "uri": json.links[i]});
-          break;
-        case /ncicb/.test(link):
-          data.body.links.push({"label": "NCI Thesaurus",
-                                "uri": json.links[i]});
-          break;
-        case /CHEBI/.test(link):
-          data.body.links.push({"label": "ChEBI",
-                                "uri": json.links[i]});
-          break;
-        case /SNOMEDCT/.test(link):
-          data.body.links.push({"label": "SNOMED-CT",
-                                "uri": json.links[i]});
-          break;
-        }
-      }
-    }
-    if (json.properties) {
-      for (let i = 0; i < json.properties.length; i++) {
-        data.body.properties.push(json.properties[i]);
-      }
-    }
-    if (json.roles) { 
-      for (let i = 0; i < json.roles.length; i++) {
-        data.body.roles.push(json.roles[i]);
-      }
-    }
-
-    stanza.render({
-      template: "stanza.html",
-      parameters: {
-        result: data
-      }
-    });
-  });
-});
+}
 
     } else {
       const element = document.querySelector(descriptor.elementName);

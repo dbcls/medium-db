@@ -1,46 +1,146 @@
-<p>{{result.body.gmo_id}}: {{result.body.pref_label}}</p>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<style>
+  .wrapper {
+    font-size: 18px;
+    font-family: 'Fira Sans Condensed', sans-serif;
+    padding: 16px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    color: #333;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  }
 
-<table>
-{{#each result.body.alt_labels_en}}
-<tr>
-  <td>{{label}}</td>
-  <td>{{value}}</td>
-</tr>
-{{/each}}
-<tr>
-  <td>Property</td>
-  <td>
-  {{#each result.body.properties}}
-  <a href="http://growthmedium.org/vocab/{{gmo_id}}">{{label_en}} </a>
-  {{/each}}
-  </td>
-</tr>
-<tr>
-  <td>Function</td>
-  <td>
-  {{#each result.body.roles}}
-  <a href="http://growthmedium.org/component/{{gmo_id}}">{{label_en}} </a>
-  {{/each}}
-  </td>
-</tr>
-{{#each result.body.super_classes}}
-<tr>
-  <td>{{label}}</td>
-  <td><a href="http://growthmedium.org/component/{{gmo_id}}">{{gmo_id}}</a>: {{label_en}}</td>
-</tr>
-{{/each}}
-{{#each result.body.sub_classes}}
-<tr>
-  <td>{{label}}</td>
-  <td><a href="http://growthmedium.org/component/{{gmo_id}}">{{gmo_id}}</a>: {{label_en}}</td>
-</tr>
-{{/each}}
-<tr>
-  <td>Link</td>
-  <td>
-  {{#each result.body.links}}
-  <a href="{{uri}}">{{label}} </a>
-  {{/each}}
-  </td>
-</tr>
-</table>
+  a {
+    color: #256d80;
+    text-decoration: underline;
+  }
+  a:hover{
+    text-decoration: none;
+  }
+
+  .name {
+    margin: 24px 0 16px;
+  }
+
+
+  .name .value {
+    font-size: 48px;
+  }
+
+  h3 {
+    font-weight: 600;
+    margin-top: 24px;
+    font-size: 20px;
+  }
+
+  ul {
+    line-height: 1.2;
+    margin-top: 8px;
+  }
+
+  .super-class, .sub-class{
+    display: flex;
+  }
+  .super-class li, .sub-class li{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .super-class li span, .sub-class li span{
+    border-bottom: 1px solid #ddd;
+  }
+
+  .super-class li *, .sub-class li *{
+    padding: 4px;
+  }
+
+
+
+</style>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@300;600&display=swap');
+</style>
+
+<div class="wrapper">
+  {{#if error}}
+  <p>{{msg}}</p>
+  {{/if}}
+
+  {{#unless error}}
+
+  <p class="gmo-id">
+    <span class="key">gmo-id : </span>
+    <span class="value">{{result.gmo_id}}</span>
+  </p>
+  <p class="name">
+    <span class="value">{{result.pref_label}}</span>
+  </p>
+
+  {{#if result.alt_labels_en}}
+  <h3>Alternative Labels</h3>
+  <ul>
+    {{#each result.alt_labels_en}}
+    <li>{{value}}</li>
+    {{/each}}
+  </ul>
+  {{/if}}
+
+  {{#if result.properties}}
+  <h3>Property</h3>
+  <ul>
+    {{#each result.properties}}
+    <li>
+      <a href="{{host}}/vocab/{{gmo_id}}" target="_blank">{{label_en}}</a>
+    </li>
+    {{/each}}
+  </ul>
+  {{/if}}
+
+  {{#if result.roles}}
+  <h3>Function</h3>
+  <ul>
+    {{#each result.roles}}
+    <li>
+      <a href="{{host}}/component/{{gmo_id}}" target="_blank">{{label_en}}</a>
+    </li>
+    {{/each}}
+  </ul>
+  {{/if}}
+
+  <h3>Super class</h3>
+  <ul class="super-class">
+    {{#each result.super_classes}}
+    <li>
+      <span>{{label_en}}</span>
+      <a href="{{host}}/component/{{gmo_id}}" target="_blank">{{gmo_id}}</a>
+    </li>
+    {{/each}}
+  </ul>
+
+  <h3>Sub class</h3>
+  <ul class="sub-class">
+    {{#each result.sub_classes}}
+    <li>
+      <span>{{label_en}}</span>
+      <a href="http://growthmedium.org/component/{{gmo_id}}" target="_blank">{{gmo_id}}</a>
+    </li>
+    {{/each}}
+  </ul>
+
+  <h3>Link</h3>
+  <ul>
+    {{#each result.links}}
+    <li>
+      <a href="{{uri}}" target="_blank">{{label}}</a>
+    </li>
+    {{/each}}
+  </ul>
+
+
+</div>{{/unless}}
