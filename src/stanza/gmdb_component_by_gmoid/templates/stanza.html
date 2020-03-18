@@ -1,0 +1,46 @@
+<p>{{result.body.gmo_id}}: {{result.body.pref_label}}</p>
+
+<table>
+{{#each result.body.alt_labels_en}}
+<tr>
+  <td>{{label}}</td>
+  <td>{{value}}</td>
+</tr>
+{{/each}}
+<tr>
+  <td>Property</td>
+  <td>
+  {{#each result.body.properties}}
+  <a href="http://growthmedium.org/vocab/{{gmo_id}}">{{label_en}} </a>
+  {{/each}}
+  </td>
+</tr>
+<tr>
+  <td>Function</td>
+  <td>
+  {{#each result.body.roles}}
+  <a href="http://growthmedium.org/component/{{gmo_id}}">{{label_en}} </a>
+  {{/each}}
+  </td>
+</tr>
+{{#each result.body.super_classes}}
+<tr>
+  <td>{{label}}</td>
+  <td><a href="http://growthmedium.org/component/{{gmo_id}}">{{gmo_id}}</a>: {{label_en}}</td>
+</tr>
+{{/each}}
+{{#each result.body.sub_classes}}
+<tr>
+  <td>{{label}}</td>
+  <td><a href="http://growthmedium.org/component/{{gmo_id}}">{{gmo_id}}</a>: {{label_en}}</td>
+</tr>
+{{/each}}
+<tr>
+  <td>Link</td>
+  <td>
+  {{#each result.body.links}}
+  <a href="{{uri}}">{{label}} </a>
+  {{/each}}
+  </td>
+</tr>
+</table>
