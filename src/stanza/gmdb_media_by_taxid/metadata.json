@@ -1,0 +1,22 @@
+{
+  "@context": {
+    "stanza": "http://togostanza.org/resource/stanza#"
+  },
+  "@id": "gmdb_media_by_taxid",
+  "stanza:label": "Growth media",
+  "stanza:definition": "",
+  "stanza:parameter": [
+  ],
+  "stanza:usage": "<togostanza-gmdb_media_by_taxid tax_id=\"203404\"></togostanza-gmdb_media_by_taxid>",
+  "stanza:type": "Stanza",
+  "stanza:context": "",
+  "stanza:display": "",
+  "stanza:provider": "DBCLS",
+  "stanza:license": "",
+  "stanza:author": "Shuichi Kawashima",
+  "stanza:address": "kwsm At dbcls.rois.ac.jp",
+  "stanza:contributor": [
+  ],
+  "stanza:created": "2020-03-18",
+  "stanza:updated": "2020-03-18"
+}
