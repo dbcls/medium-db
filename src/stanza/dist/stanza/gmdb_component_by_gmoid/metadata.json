@@ -1,0 +1,28 @@
+{
+  "@context": {
+    "stanza": "http://togostanza.org/resource/stanza#"
+  },
+  "@id": "gmdb_component_by_gmoid",
+  "stanza:label": "GMO component",
+  "stanza:definition": "Greeting.",
+  "stanza:parameter": [
+    {
+      "stanza:key": "gmo_id",
+      "stanza:example": "GMO_001010",
+      "stanza:description": "Growth Medium Ontology (GMO) identifier",
+      "stanza:required": true
+    }
+  ],
+  "stanza:usage": "<togostanza-gmdb_component_by_gmoid gmo_id=\"GMO_001010\"></togostanza-gmdb_component_by_gmoid>",
+  "stanza:type": "Stanza",
+  "stanza:context": "",
+  "stanza:display": "",
+  "stanza:provider": "DBCLS",
+  "stanza:license": "",
+  "stanza:author": "Shuichi Kawashima",
+  "stanza:address": "kwsm At dbcls.rois.ac.jp",
+  "stanza:contributor": [
+  ],
+  "stanza:created": "2020-03-18",
+  "stanza:updated": "2020-03-18"
+}

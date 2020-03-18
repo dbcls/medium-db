@@ -5,31 +5,31 @@
     <meta charset="utf-8">
     <script src="https://cdn.jsdelivr.net/combine/npm/@babel/polyfill@7.2.5/dist/polyfill.min.js,npm/@ungap/url-search-params@0.1.2/min.js,npm/whatwg-fetch@3.0.0/dist/fetch.umd.js" crossorigin></script>
     <script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@1.3.0/webcomponents-loader.js" crossorigin></script>
-    <link rel="import" href="../gmdb_organism_by_taxid/">
+    <link rel="import" href="../gmdb_component_by_gmoid/">
     <link rel="stylesheet" href="../assets/css/ts.css">
-    <title>organism by taxid</title>
+    <title>GMO component</title>
   </head>
 
   <body>
     <div id="contents">
-      <h1 class="page_ttl">organism by taxid</h1>
+      <h1 class="page_ttl">GMO component</h1>
 
       <ul class="showcase_icn">
         
       </ul>
 
-      <p class="lead">Organism information with the given NCBI taxID</p>
+      <p class="lead">Greeting.</p>
 
       <div class="showcase_detail">
         <ul class="showcase_id">
           
             <li>
               <dl>
-                <dt>taxid</dt>
+                <dt>gmo_id</dt>
 
                 <dd>
                   <p class="id_box">
-                    <input type="text" value="" data-param-key="taxid">
+                    <input type="text" value="GMO_001010" data-param-key="gmo_id">
 
                     
                       <span class="required">required</span>
@@ -37,7 +37,7 @@
                   </p>
 
                   <p class="eg">
-                    
+                    Growth Medium Ontology (GMO) identifier
                   </p>
                 </dd>
               </dl>
@@ -46,7 +46,7 @@
         </ul>
 
         <div class="showcase_code">
-          <code>&lt;togostanza-gmdb_organism_by_taxid&gt;&lt;/togostanza-gmdb_organism_by_taxid&gt;</code>
+          <code>&lt;togostanza-gmdb_component_by_gmoid gmo_id=&#34;GMO_001010&#34;&gt;&lt;/togostanza-gmdb_component_by_gmoid&gt;</code>
         </div>
 
         <p class="explain">
@@ -54,11 +54,11 @@
         </p>
 
         <div class="showcase_box">
-          <togostanza-gmdb_organism_by_taxid></togostanza-gmdb_organism_by_taxid>
+          <togostanza-gmdb_component_by_gmoid gmo_id="GMO_001010"></togostanza-gmdb_component_by_gmoid>
         </div>
       </div>
       <script>
-        const stanza = document.querySelector('togostanza-gmdb_organism_by_taxid');
+        const stanza = document.querySelector('togostanza-gmdb_component_by_gmoid');
         const inputs = document.querySelectorAll('.showcase_id input');
 
         Array.prototype.forEach.call(inputs, function(input) {

@@ -1,23 +1,20 @@
 Stanza(function(stanza, params){
-  const query = params["query"];
-  const options = {
-    method: "POST",
-    mode: "cors",
-    body: "",
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/x-www-form-urlencoded"
-    }
-  };
   const api_url = "http://ep.dbcls.jp/sparqlist/api/";
-  const api_name = `gmdb_organism_by_taxid?taxid=${query}`;
+  const api_name = `gmdb_organism_by_taxid`;
+  const options = makeOptions(params);
   const data = {};
   let msg = "";
   let error = false;
 
+  if(!params["taxid"]) {
+    error = true;
+    msg = "taxid (e.g. 315405) is required"
+  }
+
 
   fetch(`${api_url}${api_name}`, options)
-    .then(res => success(res.json()))
+    .then(res => res.json())
+    .then(json => success(json))
     .catch(e => fail(e))
     .finally(() => {
       stanza.render({
@@ -32,6 +29,7 @@ Stanza(function(stanza, params){
 
 
   function success(json){
+    console.log(json);
     data.type_material = [];
     data.lineage = [];
 
@@ -51,10 +49,31 @@ Stanza(function(stanza, params){
   }
 
   function fail(e){
+    const taxID = params["taxid"];
     error = true;
-    msg = "make a query such as 315405";
+    msg = `Not found. taxid: ${taxID}`;
   }
 });
 
 
+
+function makeOptions(params){
+  let formBody = [];
+
+  for (let key in params) {
+    if (params[key]) {
+      formBody.push(key + "=" + encodeURIComponent(params[key]));
+    }
+  }
+
+  return  {
+    method: "POST",
+    mode: "cors",
+    body: formBody.join("&"),
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  };
+}
 

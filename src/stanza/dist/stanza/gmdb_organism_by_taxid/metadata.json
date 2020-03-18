@@ -7,10 +7,10 @@
   "stanza:definition": "Organism information with the given NCBI taxID",
   "stanza:parameter": [
     {
-      "stanza:key": "query",
+      "stanza:key": "taxid",
       "stanza:example": "",
       "stanza:description": "",
-      "stanza:required": false
+      "stanza:required": true
     }
   ],
   "stanza:usage": "<togostanza-gmdb_organism_by_taxid></togostanza-gmdb_organism_by_taxid>",
