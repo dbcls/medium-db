@@ -83,26 +83,18 @@
 
   .lineage-list .rank {
     border-bottom: 1px solid #ddd;
-    padding: 4px;
-  }
-
-  .lineage-list .label, .lineage-list .link {
     padding: 4px 8px;
   }
 
-  .lineage-list .link {
-    text-align: left;
-  }
-
-  .capsule-list{
+  .capsule-list {
     margin-top: 8px;
     margin-bottom: -8px;
     display: flex;
     flex-wrap: wrap;
   }
 
-  .capsule-list li{
-    border:1px solid #44b8cc;;
+  .capsule-list li {
+    border: 1px solid #44b8cc;;
     padding: 5px 10px;
     border-radius: 20px;
     margin-right: 8px;
@@ -116,47 +108,61 @@
 <div class="wrapper">
 
   {{#if error}}
-  <p>{{msg}}</p>
+    <p>{{msg}}</p>
   {{/if}}
 
   {{#unless error}}
-  <p class="tax-id">
-    <span class="key">Taxonomy ID: </span>
-    <span class="value">{{result.taxid}}</span>
-    <span class="links">
+    <p class="tax-id">
+      <span class="key">Taxonomy ID: </span>
+      <span class="value">{{result.taxid}}</span>
+      <span class="links">
         <a class="link-btn" target="_blank"
            href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{result.taxid}}">NCBI</a>
         <a class="link-btn" target="_blank" href="http://togogenome.org/organism/{{result.taxid}}">TogoGenome</a>
       </span>
 
 
-  </p>
-  <p class="name">
-    <span class="value">{{result.scientific_name}}</span>
-  </p>
-  {{#if result.authority_name}} Authority name:<br>{{result.authority_name}} {{/if}}
+    </p>
+    <p class="name">
+      <span class="value">{{result.scientific_name}}</span>
+    </p>
+    {{#if result.authority_name}} Authority name:<br>{{result.authority_name}} {{/if}}
 
-  <h3>LINEAGE</h3>
-  <ul class="lineage-list">
-    {{#each result.lineage}}
-    <li class="list-group-item">
-      <span class="rank">{{rank}}</span>
-      <span class="label">{{label}}</span>
-      <span class="link">
+    <h3>LINEAGE</h3>
+    <ul class="lineage-list">
+      {{#each result.lineage}}
+        <li class="list-group-item">
+          <span class="rank">{{rank}}</span>
+          <span class="label">{{label}}
             <a class="link-btn" target="_blank"
                href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id={{taxid}}">NCBI</a>
           </span>
+        </li>
 
-    </li>
-    {{/each}}
-  </ul>
 
-  {{#if result.type_material}}
-  <h3>TYPE STRAINS</h3>
-  <ul class="capsule-list">
-    {{#each result.type_material}}
-    <li>{{label}}</li>
-    {{/each}}
-  </ul>
-  {{/if}} {{/unless}}
+        </li>
+      {{/each}}
+    </ul>
+
+    {{#if result.type_material}}
+      <h3>TYPE STRAINS</h3>
+      <ul class="capsule-list">
+        {{#each result.type_material}}
+          <li>{{label}}</li>
+        {{/each}}
+      </ul>
+    {{/if}}
+
+    {{#if result.other_type_material}}
+      {{#each result.other_type_material}}
+        <h3>TYPE STRAINS SYNONYMS: {{key}}</h3>
+        <ul class="capsule-list">
+          {{#each labels}}
+            <li>{{this}}</li>
+          {{/each}}
+        </ul>
+      {{/each}}
+    {{/if}}
+
+  {{/unless}}
 </div>

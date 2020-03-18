@@ -6,9 +6,9 @@ Stanza(function(stanza, params){
   let msg = "";
   let error = false;
 
-  if(!params["taxid"]) {
+  if(!params["taxid"]){
     error = true;
-    msg = "taxid (e.g. 315405) is required"
+    msg = "taxid (e.g. 315405) is required";
   }
 
 
@@ -31,41 +31,60 @@ Stanza(function(stanza, params){
   function success(json){
     data.type_material = [];
     data.lineage = [];
+    data.other_type_material = [];
 
     data.scientific_name = json.scientific_name;
     data.taxid = json.taxid;
     if(json.authority_name){
       data.authority_name = json.authority_name;
     }
+
+    if(json.lineage){
+      json.lineage.forEach(elm => data.lineage.push(elm));
+      data.lineage.forEach(obj => obj.rank = obj.rank.toUpperCase())
+    }
+
     if(json.type_material){
       for(let i = 0; i < json.type_material.length; i++){
         data.type_material.push(json.type_material[i]);
       }
     }
-    if(json.lineage){
-      json.lineage.forEach(elm => data.lineage.push(elm));
+
+    if(json.other_type_material){
+      const others = json.other_type_material;
+      const names = others.map(obj => obj.name).reduce(function(a, b){
+        if(a.indexOf(b) < 0){
+          a.push(b);
+        }
+        return a;
+      }, []);
+      names.forEach(name => {
+        data.other_type_material.push({
+          key: name,
+          labels: others.filter(obj => obj.name === name).map(obj => obj.label)
+        });
+      });
     }
   }
 
   function fail(e){
     const taxID = params["taxid"];
     error = true;
-    msg = `Not found. taxid: ${taxID}`;
+    msg = `Error: ${e}`;
   }
 });
-
 
 
 function makeOptions(params){
   let formBody = [];
 
-  for (let key in params) {
-    if (params[key]) {
+  for(let key in params){
+    if(params[key]){
       formBody.push(key + "=" + encodeURIComponent(params[key]));
     }
   }
 
-  return  {
+  return {
     method: "POST",
     mode: "cors",
     body: formBody.join("&"),
