@@ -1,14 +1,24 @@
-<table>
-<thead>
-  <tr>
-    <th>ID</th><th>Name</th></th>
-  </tr>
-</thead>
-{{#each result.body.media}}
-  <tr>
-    <td><a href="http://growthmedium.org/medium/{{gm_id}}">{{gm_id}}</a></td>
-    <td>{{label}}</td>
-  </tr>
-{{/each}}
-</table>
+{{#if error}}
+  <p>{{msg}}</p>
+{{/if}}
+{{#unless error}}
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      </th>
+    </tr>
+    </thead>
+    {{#each result.body.media}}
+      <tr>
+        <td>
+          <a href="http://growthmedium.org/medium/{{gm_id}}">{{gm_id}}</a>
+        </td>
+        <td>{{label}}</td>
+      </tr>
+    {{/each}}
+  </table>
+{{/unless}}
+
 

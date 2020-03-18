@@ -93,6 +93,21 @@
   .lineage-list .link {
     text-align: left;
   }
+
+  .capsule-list{
+    margin-top: 8px;
+    margin-bottom: -8px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .capsule-list li{
+    border:1px solid #44b8cc;;
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
 </style>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@300;600&display=swap');
@@ -138,7 +153,7 @@
 
   {{#if result.type_material}}
   <h3>TYPE STRAINS</h3>
-  <ul class="simple-list">
+  <ul class="capsule-list">
     {{#each result.type_material}}
     <li>{{label}}</li>
     {{/each}}

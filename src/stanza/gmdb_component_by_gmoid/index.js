@@ -28,6 +28,13 @@ Stanza(function(stanza, params){
     });
 
   function success(json){
+    if(json.length === 0){
+      const gmoID = params["gmo_id"];
+      error = true;
+      msg = `Not found. gmo_id: ${gmoID}`;
+      return;
+    }
+
     data.alt_labels_en = [];
     data.alt_labels_ja = [];
     data.super_classes = [];
@@ -116,9 +123,8 @@ Stanza(function(stanza, params){
   }
 
   function fail(e){
-    const gmoID = params["gmo_id"];
     error = true;
-    msg = `Not found. gmo_id: ${gmoID}`;
+    msg = `Server Error: ${e}`;
   }
 
 });

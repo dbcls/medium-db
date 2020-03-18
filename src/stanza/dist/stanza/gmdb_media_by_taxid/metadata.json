@@ -6,6 +6,12 @@
   "stanza:label": "Growth media",
   "stanza:definition": "",
   "stanza:parameter": [
+    {
+      "stanza:key": "tax_id",
+      "stanza:example": "",
+      "stanza:description": "",
+      "stanza:required": true
+    }
   ],
   "stanza:usage": "<togostanza-gmdb_media_by_taxid tax_id=\"203404\"></togostanza-gmdb_media_by_taxid>",
   "stanza:type": "Stanza",
