@@ -70,39 +70,25 @@ Stanza(function(stanza, params){
     }
 
     if(json.links){
-      for(let i = 0; i < json.links.length; i++){
-        let link = json.links[i];
+      data.links = json.links.map(str => ({
+        label: getLinkLabel(str),
+        url: str,
+      })).filter(obj => !!obj.label);
+
+      function getLinkLabel(link){
         switch(true){
           case /pccompound/.test(link):
-            data.links.push({
-              "label": "PubChem",
-              "uri": json.links[i]
-            });
-            break;
+            return "PubChem";
           case /wikipedia/.test(link):
-            data.links.push({
-              "label": "Wikipedia",
-              "uri": json.links[i]
-            });
-            break;
+            return "Wikipedia";
           case /ncicb/.test(link):
-            data.links.push({
-              "label": "NCI Thesaurus",
-              "uri": json.links[i]
-            });
-            break;
+            return "NCI Thesaurus";
           case /CHEBI/.test(link):
-            data.links.push({
-              "label": "ChEBI",
-              "uri": json.links[i]
-            });
-            break;
+            return "ChEBI";
           case /SNOMEDCT/.test(link):
-            data.links.push({
-              "label": "SNOMED-CT",
-              "uri": json.links[i]
-            });
-            break;
+            return "SNOMED-CT";
+          default:
+            return "";
         }
       }
     }
@@ -127,6 +113,22 @@ Stanza(function(stanza, params){
 
 });
 
+function getLinkLabel(link){
+  switch(true){
+    case /pccompound/.test(link):
+      return "PubChem";
+    case /wikipedia/.test(link):
+      return "Wikipedia";
+    case /ncicb/.test(link):
+      return "NCI Thesaurus";
+    case /CHEBI/.test(link):
+      return "ChEBI";
+    case /SNOMEDCT/.test(link):
+      return "SNOMED-CT";
+    default:
+      return "";
+  }
+}
 
 function makeOptions(params){
   let formBody = [];
