@@ -3,19 +3,92 @@
 <script src="../assets/js/stanza.js"></script>
 <script>
   (function() {
-    const descriptor = {"templates":{"stanza.html":"\u003cp\u003e{{greeting}}\u003c/p\u003e\n"},"parameters":["keywords"],"elementName":"togostanza-gmdb_list_components_by_keywords","development":false};
+    const descriptor = {"templates":{"stanza.html":"\u003clink rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css\"\u003e\n\u003cstyle\u003e\n  @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@300;600\u0026display=swap');\n\u003c/style\u003e\n\u003cstyle\u003e\n  .wrapper {\n    font-size: 18px;\n    font-family: 'Fira Sans Condensed', sans-serif;\n    padding: 16px;\n    background-color: #ffffff;\n    border-radius: 5px;\n    font-weight: 300;\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: antialiased;\n    font-smoothing: antialiased;\n    color: #333;\n    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);\n  }\n  .query-key{\n    background-color: #f5f4f3;\n    padding: 5px;\n    color: #CC3366;\n  }\n\u003c/style\u003e\n\n\n{{#if error}}{{#if msg}}\n  \u003cp\u003e{{msg}}\u003c/p\u003e\n{{/if}}{{/if}}\n\n{{#unless error}}\n  \u003cdiv class=\"wrapper\"\u003e\n    \u003ch2\u003e\n      Querying components with keywords:\n      {{#each result.query}}\n        \u003cspan class=\"query-key\"\u003e{{this}}\u003c/span\u003e\n      {{/each}}\n    \u003c/h2\u003e\n  \u003c/div\u003e\n{{/unless}}\n\n"},"parameters":["keywords"],"elementName":"togostanza-gmdb_list_components_by_keywords","development":false};
 
     if ('Promise' in window && 'URLSearchParams' in window && 'fetch' in window) {
       const Stanza = TogoStanza.initialize(descriptor);
 
-      Stanza(function(stanza, params) {
-  stanza.render({
-    template: "stanza.html",
-    parameters: {
-      greeting: "Hello, world!"
+      Stanza(function(stanza, params){
+
+  const api_url = "http://ep.dbcls.jp/sparqlist/api/";
+  const api_name = "gmdb_media_by_taxid";
+  const queryKey = "keywords";
+  const data = {};
+  //
+  let msg = "";
+  let error = false;
+  let q;
+
+
+  if(!params[queryKey]){
+    q = new Promise((resolve, error) => {
+      error(`No Parameter. ${queryKey} (e.g. XXXXXXX) is required`);
+    });
+  }else{
+    q = fetch(`${api_url}${api_name}`, makeOptions(params));
+  }
+
+
+  q.then(res => res.json())
+    .then(json => success(json))
+    .catch(error => fail(error))
+    .finally(() => {
+      stanza.render({
+        template: "stanza.html",
+        parameters: {
+          result: data,
+          msg: msg,
+          error: error
+        }
+      });
+    });
+
+  function success(json){
+    if(json.length === 0){
+      throw new Error(`Not found. ${queryKey}: ${params[queryKey]}`);
     }
-  });
+
+    data.query = params[queryKey]
+      .split(",")
+      .map(str => `${str.trim()}`)
+      .filter(str => !!str);
+  }
+
+  function fail(e){
+    error = true;
+    if(e.toString().match(/No Parameter/) !== null){
+      msg = ``;
+    }else{
+      msg = `${e}`;
+    }
+  }
 });
+
+
+function makeOptions(params){
+  let formBody = [];
+
+  for(let key in params){
+    if(params[key]){
+      const value = params[key]
+        .split(",")
+        .map(str => str.trim())
+        .filter(str => !!str)
+        .join(",");
+      formBody.push(key + "=" + encodeURIComponent(value));
+    }
+  }
+
+  return {
+    method: "POST",
+    mode: "cors",
+    body: formBody.join("&"),
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  };
+}
 
     } else {
       const element = document.querySelector(descriptor.elementName);
