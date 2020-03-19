@@ -1,13 +1,17 @@
 extends _template/_base
 
 block vars
-  - stanzaIDs = ["media", "components", "organisms"]
+  - stanzaIDs = ["gmdb_list_media_by_gmids","gmdb_list_media_by_keywords","gmdb_list_components_by_gmoids","gmdb_list_components_by_keywords","gmdb_list_organisms_by_taxids","gmdb_list_organisms_by_keywords"]
+
 
 block main
   input#queryInput(placeholder="search")
-  togostanza-media#media(query="")
-  togostanza-components#components(query="")
-  togostanza-organisms#organisms(query="")
+  togostanza-gmdb_list_media_by_gmids#mediaByIDs(gm_ids="")
+  togostanza-gmdb_list_media_by_keywords#mediaByKeywords(keywords="")
+  togostanza-gmdb_list_components_by_gmoids#componentsByIDs(gmo_ids="")
+  togostanza-gmdb_list_components_by_keywords#componentsByKeywords(keywords="")
+  togostanza-gmdb_list_organisms_by_taxids#organismsByIDs(tax_ids="")
+  togostanza-gmdb_list_organisms_by_keywords#organismsByKeywords(keywords="")
 
 
 block scripts
