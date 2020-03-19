@@ -81,7 +81,7 @@ export function matchWithGMID(str: string): boolean {
     case str.match(/^JCM_M(\d+)$/) !== null:
     case str.match(/^NBRC_M(\d+)$/) !== null:
     case str.match(/^HM(\w+)$/) !== null:
-    case str.match(/^SY(\w+)$/) !== null:
+    case str.match(/^SY\d(\w*)$/) !== null:
       return true;
     default:
       return false;
@@ -89,11 +89,11 @@ export function matchWithGMID(str: string): boolean {
 }
 
 export function matchWithGMOID(str: string): boolean {
-  return str.match(/^(\d){1,7}$/) !== null;
+  return str.match(/^GMO_(\d){6}$/) !== null;
 }
 
 export function matchWithTAXID(str: string): boolean {
-  return str.match(/^GMO_(\d){6}$/) !== null;
+  return str.match(/^(\d){1,7}$/) !== null;
 }
 
 interface QueryKeys {
