@@ -1,0 +1,13 @@
+{{#if error}}{{#if msg}}
+  <p>{{msg}}</p>
+{{/if}}{{/if}}
+
+{{#unless error}}
+  <h2>
+    Querying components with gmo_id:
+    {{#each result.query}}
+      <span>{{this}}</span>
+    {{/each}}
+  </h2>
+{{/unless}}
+
