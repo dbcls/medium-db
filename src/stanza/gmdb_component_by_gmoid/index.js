@@ -108,17 +108,15 @@ Stanza(function(stanza, params){
     }
 
     if(json.properties){
-      for(let i = 0; i < json.properties.length; i++){
-        data.properties.push(json.properties[i]);
-        data.properties[i].host = host;
+      data.properties = json.properties.map(obj => {
+        obj.host = host;
+        return obj;
+      });
 
-      }
     }
 
     if(json.roles){
-      for(let i = 0; i < json.roles.length; i++){
-        data.roles.push(json.roles[i]);
-      }
+      data.roles = json.roles.map(obj => obj);
     }
   }
 

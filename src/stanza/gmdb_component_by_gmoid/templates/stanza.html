@@ -42,23 +42,11 @@
     margin-top: 8px;
   }
 
-  .super-class, .sub-class{
-    display: flex;
-  }
-  .super-class li, .sub-class li{
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+  ul li{
+    margin-top: 5px;
   }
 
-  .super-class li span, .sub-class li span{
-    border-bottom: 1px solid #ddd;
-  }
 
-  .super-class li *, .sub-class li *{
-    padding: 4px;
-  }
 
 
 
@@ -113,26 +101,32 @@
   </ul>
   {{/if}}
 
+  {{#if result.super_classes}}
   <h3>Super class</h3>
   <ul class="super-class">
     {{#each result.super_classes}}
     <li>
-      <span>{{label_en}}</span>
+      <span>{{label_en}} : </span>
       <a href="{{host}}/component/{{gmo_id}}" target="_blank">{{gmo_id}}</a>
     </li>
     {{/each}}
   </ul>
+  {{/if}}
 
+  {{#if result.sub_classes}}
   <h3>Sub class</h3>
   <ul class="sub-class">
     {{#each result.sub_classes}}
     <li>
-      <span>{{label_en}}</span>
-      <a href="http://growthmedium.org/component/{{gmo_id}}" target="_blank">{{gmo_id}}</a>
+      <span>{{label_en}} : </span>
+      <a href="{{host}}/component/{{gmo_id}}" target="_blank">{{gmo_id}}</a>
     </li>
     {{/each}}
   </ul>
+  {{/if}}
 
+
+  {{#if result.links}}
   <h3>Link</h3>
   <ul>
     {{#each result.links}}
@@ -141,6 +135,6 @@
     </li>
     {{/each}}
   </ul>
-
+  {{/if}}
 
 </div>{{/unless}}
