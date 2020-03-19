@@ -113,23 +113,6 @@ Stanza(function(stanza, params){
 
 });
 
-function getLinkLabel(link){
-  switch(true){
-    case /pccompound/.test(link):
-      return "PubChem";
-    case /wikipedia/.test(link):
-      return "Wikipedia";
-    case /ncicb/.test(link):
-      return "NCI Thesaurus";
-    case /CHEBI/.test(link):
-      return "ChEBI";
-    case /SNOMEDCT/.test(link):
-      return "SNOMED-CT";
-    default:
-      return "";
-  }
-}
-
 function makeOptions(params){
   let formBody = [];
 
