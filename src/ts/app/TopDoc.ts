@@ -1,8 +1,7 @@
 import {MainDoc} from "./MainDoc";
 import {qs} from "imagelogic-tools/src/dom/qs";
-import {fromEvent} from "rxjs";
-import {debounceTime, map, tap} from "rxjs/operators";
-
+import {fromEvent, Observable} from "rxjs";
+import {debounceTime, map, startWith, tap} from "rxjs/operators";
 
 export class TopDoc extends MainDoc {
   constructor() {
@@ -10,6 +9,8 @@ export class TopDoc extends MainDoc {
   }
 
   protected onReady() {
+    const info: HTMLElement = qs("#info");
+    const stanzas: HTMLElement = qs("#stanzaWrapper");
     const input: HTMLInputElement = qs("#queryInput");
     const mediaByIDs: HTMLElement = qs("#mediaByIDs");
     const mediaByKeywords: HTMLElement = qs("#mediaByKeywords");
@@ -18,10 +19,16 @@ export class TopDoc extends MainDoc {
     const organismsByIDs: HTMLElement = qs("#organismsByIDs");
     const organismsByKeywords: HTMLElement = qs("#organismsByKeywords");
 
-
-    fromEvent(input, "input").pipe(
+    const input$: Observable<string> = fromEvent(input, "input").pipe(
       map(r => (r.currentTarget as HTMLInputElement).value),
-      debounceTime(500),
+      debounceTime(300)
+    );
+
+    input$.subscribe(r => {
+      !!r ? this.toggleDisplay(stanzas, info) : this.toggleDisplay(info, stanzas);
+    });
+
+    input$.pipe(
       map(r => mapToQuery(r))
     ).subscribe((r: QueryKeys) => {
       mediaByIDs.setAttribute("gm_ids", r.gm_ids);
@@ -30,6 +37,24 @@ export class TopDoc extends MainDoc {
       mediaByKeywords.setAttribute("keywords", r.keywords);
       componentsByKeywords.setAttribute("keywords", r.keywords);
       organismsByKeywords.setAttribute("keywords", r.keywords);
+    });
+  }
+
+  private toggleDisplay(toShow: HTMLElement, toHide: HTMLElement) {
+    toShow.style.display = "block";
+    anime({
+      targets: toShow,
+      opacity: [0, 1],
+      duration: 300,
+      delay: 120,
+      easing: "easeOutQuart"
+    });
+    anime({
+      targets: toHide,
+      opacity: [1, 0],
+      duration: 100,
+      easing: "easeOutQuart",
+      complete: () => toHide.style.display = "none"
     });
   }
 }

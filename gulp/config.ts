@@ -36,13 +36,8 @@ class Config {
         src: join(SRC_DIR, "less"),
         dest: join(ASSETS_DIR, "css"),
         watch: ["less"],
-        files_priority: {
-          "main.css": "main.less",
-          "top.css": "top.less",
-        },
         files: {
           "main.css": "main.less",
-          "top.css": "top.less",
         },
         autoprefixer: {
           browsers: [

@@ -8,7 +8,7 @@
   "stanza:parameter": [
     {
       "stanza:key": "taxid",
-      "stanza:example": "",
+      "stanza:example": "315405",
       "stanza:description": "",
       "stanza:required": true
     }

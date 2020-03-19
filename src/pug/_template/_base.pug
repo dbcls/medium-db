@@ -11,8 +11,7 @@
 - var stanzaIDs = [];
 
 block vars
-- titleBase = stanzaID;
-- lev1ID = stanzaID;
+- titleBase = "Medium DB";
 
 - title = titleChild ? titleChild + ' | ' + titleBase : titleBase;
 - bodyClasses.push(lev1ID);
@@ -64,6 +63,7 @@ html(lang = 'ja', xmlns:og="http://ogp.me/ns#")
     include ../_include/header.html
     main
       block main
+    script(src=`${pathToLibs}anime.min.js`)
     block scripts
     
 

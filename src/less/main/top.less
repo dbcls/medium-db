@@ -1,0 +1,36 @@
+@import (reference) "../_include/variables";
+
+body.top{
+  #queryInput{
+    display: block;
+    width: 80%;
+    max-width: 480px;
+    margin: 40px auto 40px;
+    font-size: 32px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #CCCCCC;
+  }
+  .info{
+    @base-color:#44b8cc;
+    display: block;
+    width: 80%;
+    max-width: 640px;
+    margin: 40px auto 80px;
+    line-height: 1.4;
+    font-size: 20px;
+    border: 1px solid @base-color;
+    padding: 8px;
+    border-radius: 5px;
+    color: darken(@base-color, 20);
+    background-color: fadeout(@base-color, 95);
+  }
+
+  .stanza{
+    margin-bottom: 20px;
+    display: block;
+
+  }
+
+}
+
