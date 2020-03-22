@@ -1,14 +1,14 @@
 import {MainDoc} from "./MainDoc";
 import {qs} from "imagelogic-tools/src/dom/qs";
 import {fromEvent, Observable} from "rxjs";
-import {debounceTime, map, startWith, tap} from "rxjs/operators";
+import {debounceTime, first, map, startWith, tap} from "rxjs/operators";
 
 export class TopDoc extends MainDoc {
   constructor() {
     super();
   }
 
-  protected onReady() {
+  protected onLoadWin() {
     const info: HTMLElement = qs("#info");
     const stanzas: HTMLElement = qs("#stanzaWrapper");
     const input: HTMLInputElement = qs("#queryInput");
@@ -21,12 +21,14 @@ export class TopDoc extends MainDoc {
 
     const input$: Observable<string> = fromEvent(input, "input").pipe(
       map(r => (r.currentTarget as HTMLInputElement).value),
+      // startWith("SY46,HM_D00205,NBRC_M5,JCM_M25,Glucose, GMO_001010, 315405"),
+      startWith(input.value),
       debounceTime(300)
     );
-
     input$.subscribe(r => {
       !!r ? this.toggleDisplay(stanzas, info) : this.toggleDisplay(info, stanzas);
     });
+
 
     input$.pipe(
       map(r => mapToQuery(r))

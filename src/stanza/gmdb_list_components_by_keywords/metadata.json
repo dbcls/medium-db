@@ -8,7 +8,7 @@
   "stanza:parameter": [
     {
       "stanza:key": "keywords",
-      "stanza:example": "abc, xyz",
+      "stanza:example": "Glucose",
       "stanza:description": "",
       "stanza:required": true
     }

@@ -8,7 +8,7 @@
   "stanza:parameter": [
     {
       "stanza:key": "gm_ids",
-      "stanza:example": "abc",
+      "stanza:example": "SY46,HM_D00205,NBRC_M5,JCM_M25",
       "stanza:description": "",
       "stanza:required": true
     }

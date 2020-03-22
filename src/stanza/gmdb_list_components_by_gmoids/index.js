@@ -1,15 +1,28 @@
 Stanza(function(stanza, params){
 
   const api_url = "http://ep.dbcls.jp/sparqlist/api/";
-  const api_name = "gmdb_media_by_taxid";
+  const api_name = "gmdb_list_components_by_gmoids";
   const queryKey = "gmo_ids";
   const data = {};
   //
-  let msg = "";
+  data.query = params[queryKey]
+    .split(",")
+    .map(str => `${str.trim()}`)
+    .filter(str => !!str);
+  //
+  let msg = "searching...";
   let error = false;
+  stanza.render({
+    template: "stanza.html",
+    parameters: {
+      result: data,
+      msg: msg,
+      error: error
+    }
+  });
+
+
   let q;
-
-
   if(!params[queryKey]){
     q = new Promise((resolve, error) => {
       error(`No Parameter. ${queryKey} (e.g. XXXXXXX) is required`);
@@ -35,8 +48,10 @@ Stanza(function(stanza, params){
 
   function success(json){
     if(json.length === 0){
-      throw new Error(`Not found. ${queryKey}: ${params[queryKey]}`);
+      msg = "not found";
     }
+
+    data.items = json;
 
     data.query = params[queryKey]
       .split(",")
@@ -72,7 +87,7 @@ function makeOptions(params){
   return {
     method: "POST",
     mode: "cors",
-    body: formBody.join("&"),
+    body: formBody.join("&").replace("keywords", "keyword"),
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/x-www-form-urlencoded"
