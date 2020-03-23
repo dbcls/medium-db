@@ -34,6 +34,7 @@ Stanza(function(stanza, params){
       msg = `Not found. gmo_id: ${gmoID}`;
       return;
     }
+    console.log(json);
 
     data.alt_labels_en = [];
     data.alt_labels_ja = [];

@@ -21,7 +21,7 @@ export class TopDoc extends MainDoc {
 
     const input$: Observable<string> = fromEvent(input, "input").pipe(
       map(r => (r.currentTarget as HTMLInputElement).value),
-      // startWith("SY46,HM_D00205,NBRC_M5,JCM_M25,Glucose, GMO_001010, 315405"),
+      startWith("SY46,HM_D00205,NBRC_M5,JCM_M25,Glucose, GMO_001010, 315405"),
       startWith(input.value),
       debounceTime(300)
     );

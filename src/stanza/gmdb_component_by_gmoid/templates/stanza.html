@@ -18,8 +18,25 @@
     color: #256d80;
     text-decoration: underline;
   }
-  a:hover{
+
+  a:hover {
     text-decoration: none;
+  }
+
+  p.simple-iteration span {
+    margin-right: 8px;
+  }
+
+  .link-btn {
+    background-color: #44b8cc;
+    color: #FFF;
+    padding: 4px 8px 2px;
+    border-radius: 3px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    line-height: 1;
   }
 
   .name {
@@ -34,20 +51,24 @@
   h3 {
     font-weight: 600;
     margin-top: 24px;
+    margin-bottom: 8px;
     font-size: 20px;
   }
 
-  ul {
+  .id-list {
     line-height: 1.2;
     margin-top: 8px;
   }
 
-  ul li{
+  .id-list li {
     margin-top: 5px;
+    display: flex;
+    flex-wrap: wrap;
   }
 
-
-
+  .id-list span:first-child{
+    margin-right: 10px;
+  }
 
 
 </style>
@@ -56,85 +77,83 @@
 </style>
 
 <div class="wrapper">
-  {{#if error}}
-  <p>{{msg}}</p>
-  {{/if}}
+{{#if error}}
+    <p>{{msg}}</p>
+{{/if}}
 
-  {{#unless error}}
+{{#unless error}}
 
-  <p class="gmo-id">
-    <span class="key">gmo-id : </span>
-    <span class="value">{{result.gmo_id}}</span>
-  </p>
-  <p class="name">
-    <span class="value">{{result.pref_label}}</span>
-  </p>
+    <p class="gmo-id">
+      <span class="key">gmo-id: </span>
+      <span class="value">{{result.gmo_id}}</span>
+    </p>
+    <p class="name">
+      <span class="value">{{result.pref_label}}</span>
+    </p>
 
   {{#if result.alt_labels_en}}
-  <h3>Alternative Labels</h3>
-  <ul>
-    {{#each result.alt_labels_en}}
-    <li>{{value}}</li>
-    {{/each}}
-  </ul>
+      <p class="simple-iteration">Alternative labels:<br>
+        {{#each result.alt_labels_en}}
+          <span>{{value}}{{#unless @last}}, {{/unless}}</span>
+        {{/each}}
+      </p>
   {{/if}}
 
   {{#if result.properties}}
-  <h3>Property</h3>
-  <ul>
-    {{#each result.properties}}
-    <li>
-      <a href="{{host}}/vocab/{{gmo_id}}" target="_blank">{{label_en}}</a>
-    </li>
-    {{/each}}
-  </ul>
+      <h3>PROPERTIES</h3>
+      <p class="simple-iteration">
+        {{#each result.properties}}
+          <span>
+            {{label_en}}{{#unless @last}}, {{/unless}}
+          </span>
+        {{/each}}
+      </p>
   {{/if}}
 
   {{#if result.roles}}
-  <h3>Function</h3>
-  <ul>
-    {{#each result.roles}}
-    <li>
-      <a href="{{host}}/component/{{gmo_id}}" target="_blank">{{label_en}}</a>
-    </li>
-    {{/each}}
-  </ul>
+      <h3>FUNCTIONS</h3>
+      <ul>
+        {{#each result.roles}}
+          <li>
+            <a href="{{host}}/component/{{gmo_id}}" target="_blank">{{label_en}}</a>
+          </li>
+        {{/each}}
+      </ul>
   {{/if}}
 
   {{#if result.super_classes}}
-  <h3>Super class</h3>
-  <ul class="super-class">
-    {{#each result.super_classes}}
-    <li>
-      <span>{{label_en}} : </span>
-      <a href="{{host}}/component/{{gmo_id}}" target="_blank">{{gmo_id}}</a>
-    </li>
-    {{/each}}
-  </ul>
+      <h3>SUPER CLASS</h3>
+      <ul class="id-list">
+        {{#each result.super_classes}}
+          <li>
+            <span><a href="{{host}}/component/{{gmo_id}}">{{gmo_id}}</a></span>
+            <span>{{label_en}} </span>
+          </li>
+        {{/each}}
+      </ul>
   {{/if}}
 
   {{#if result.sub_classes}}
-  <h3>Sub class</h3>
-  <ul class="sub-class">
-    {{#each result.sub_classes}}
-    <li>
-      <span>{{label_en}} : </span>
-      <a href="{{host}}/component/{{gmo_id}}" target="_blank">{{gmo_id}}</a>
-    </li>
-    {{/each}}
-  </ul>
+      <h3>SUB CLASS</h3>
+      <ul class="id-list">
+        {{#each result.sub_classes}}
+          <li>
+            <span><a href="{{host}}/component/{{gmo_id}}" target="_blank">{{gmo_id}}</a></span>
+            <span>{{label_en}}</span>
+          </li>
+        {{/each}}
+      </ul>
   {{/if}}
 
 
   {{#if result.links}}
-  <h3>Link</h3>
-  <ul>
-    {{#each result.links}}
-    <li>
-      <a href="{{uri}}" target="_blank">{{label}}</a>
-    </li>
-    {{/each}}
-  </ul>
+      <h3>LINKS</h3>
+      <p>
+        {{#each result.links}}
+          <a class="link-btn" href="{{uri}}" target="_blank">{{label}}</a>
+        {{/each}}
+      </p>
   {{/if}}
 
-</div>{{/unless}}
+  </div>
+{{/unless}}

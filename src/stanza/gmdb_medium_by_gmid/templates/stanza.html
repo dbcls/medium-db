@@ -1,0 +1,185 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<style>
+  .wrapper {
+    font-size: 18px;
+    font-family: 'Fira Sans Condensed', sans-serif;
+    padding: 16px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    color: #333;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  a {
+    color: #256d80;
+  }
+
+  .link-btn {
+    background-color: #44b8cc;
+    color: #FFF;
+    padding: 4px 8px 2px;
+    border-radius: 3px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    line-height: 1;
+  }
+
+
+  .tax-id .value {
+    margin: 0 16px 0 4px;
+    line-height: 1.5;
+  }
+
+  .tax-id .links {
+    position: relative;
+    top: -2px;
+    margin-top: 4px;
+    white-space: nowrap;
+  }
+
+
+  .name {
+    margin: 24px 0 16px;
+  }
+
+
+  .name .value {
+    font-size: 48px;
+  }
+
+  h3 {
+    font-weight: 600;
+    margin-top: 24px;
+    font-size: 20px;
+  }
+
+  .simple-list {
+    line-height: 1.2;
+    margin-top: 8px;
+  }
+
+  .component-table {
+    margin-top: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .component-table th {
+    font-weight: 600;
+    text-align: left;
+  }
+
+  .component-table td, th {
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+  }
+
+  .component-table .name {
+    white-space: nowrap;
+  }
+
+  .component-table span {
+    white-space: nowrap;
+  }
+
+  .lineage-list {
+    display: flex;
+    margin-top: 8px;
+    flex-wrap: wrap;
+    margin-bottom: -8px;
+  }
+
+  .lineage-list li {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-right: 16px;
+    margin-bottom: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .lineage-list .rank {
+    border-bottom: 1px solid #ddd;
+    padding: 4px 8px;
+  }
+
+  .lineage-list .label {
+    padding: 4px 8px;
+  }
+
+  .capsule-list {
+    margin-top: 8px;
+    margin-bottom: -8px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .capsule-list li {
+    border: 1px solid #44b8cc;
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
+</style>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@300;600&display=swap');
+</style>
+
+<div class="wrapper">
+
+  {{#if error}}
+    <p>{{msg}}</p>
+  {{/if}}
+
+  {{#unless error}}
+    <p class="gm-id">
+      <span class="key">Growth Medium ID: </span>
+      <span class="value">{{result.id}}</span>
+      <span class="links">
+        <a class="link-btn" target="_blank" href="{{result.src_url}}">{{result.src_label}}</a>
+      </span>
+    </p>
+    <p class="name">
+      <span class="value">{{result.name}}</span>
+    </p>
+    <h3>Components</h3>
+    <table class="component-table">
+      <tr>
+        <th class="id">GMO ID</th>
+        <th class="name">NAME</th>
+        <th class="properties">PROPERTIES</th>
+        <th class="functions">FUNCTIONS</th>
+      </tr>
+      {{#each result.components}}
+        <tr>
+          <td class="id">
+            <a href="/component/{{gmo_id}}">{{gmo_id}}</a>
+          </td>
+          <td class="name">{{label_en}}</td>
+          <td class="properties">
+            {{#if properties}}
+              {{#each properties}}
+                <span>{{lable_en}}{{#unless @last}}, {{/unless}}</span>
+              {{/each}}
+            {{/if}}
+          </td>
+          <td class="functions">
+            {{#if roles}}
+              {{#each roles}}
+                <span>{{lable_en}}{{#unless @last}}, {{/unless}}</span>
+              {{/each}}
+            {{/if}}
+          </td>
+        </tr>
+      {{/each}}
+    </table>
+
+  {{/unless}}
+</div>
