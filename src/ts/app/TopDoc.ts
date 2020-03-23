@@ -19,15 +19,25 @@ export class TopDoc extends MainDoc {
     const organismsByIDs: HTMLElement = qs("#organismsByIDs");
     const organismsByKeyword: HTMLElement = qs("#organismsByKeyword");
 
+    const urlQuery = location.search.split("=").pop();
+    if(urlQuery){
+      input.value = urlQuery
+    }
+    const originalValue = input.value;
+
+
+
     const input$: Observable<string> = fromEvent(input, "input").pipe(
       map(r => (r.currentTarget as HTMLInputElement).value),
-      startWith("SY46,HM_D00205,NBRC_M5,JCM_M25,Glucose, GMO_001010, 315405"),
-      startWith(input.value),
+      // startWith("SY46,HM_D00205,NBRC_M5,JCM_M25,Glucose, GMO_001010, 315405"),
+      startWith(originalValue),
       debounceTime(300)
     );
     input$.subscribe(r => {
       !!r ? this.toggleDisplay(stanzas, info) : this.toggleDisplay(info, stanzas);
     });
+
+
 
 
     input$.pipe(

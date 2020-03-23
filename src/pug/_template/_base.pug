@@ -61,6 +61,11 @@ html(lang = 'ja', xmlns:og="http://ogp.me/ns#")
     title= title
   body(class=bodyClasses)
     include ../_include/header.html
+    header.site-header
+      nav
+        a(href="/"):  figure.logo
+      form(method="GET" action="/")
+        input(placeholder="search", name="query")
     main
       block main
     script(src=`${pathToLibs}anime.min.js`)

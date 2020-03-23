@@ -1,6 +1,33 @@
 body{
   background-color: #f4f3f2;
 }
+
+///
+main{
+  max-width: 1024px;
+  display: block;
+  margin: 0 auto;
+  padding: 30px;
+  box-sizing: border-box;
+
+  //header 24px, footer 28px, site-header 45px;
+  min-height: ~"calc(100vh - 24px - 28px - 60px)";
+}
+
+.site-header{
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  height: 45px;
+  box-sizing: border-box;
+  padding: 10px;
+}
+.site-header .logo{
+  display: block;
+  width: 100px;
+  height: 25px;
+  background-color: #DDD;
+}
 main h2:first-child{
   margin-top: 0;
 }
