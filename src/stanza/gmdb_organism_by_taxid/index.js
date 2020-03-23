@@ -6,9 +6,9 @@ Stanza(function(stanza, params){
   let msg = "";
   let error = false;
 
-  if(!params["taxid"]){
+  if(!params["tax_id"]){
     error = true;
-    msg = "taxid (e.g. 315405) is required";
+    msg = "tax_id (e.g. 315405) is required";
   }
 
 

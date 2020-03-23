@@ -7,7 +7,7 @@
   "stanza:definition": "Organism information with the given NCBI taxID",
   "stanza:parameter": [
     {
-      "stanza:key": "taxid",
+      "stanza:key": "tax_id",
       "stanza:example": "315405",
       "stanza:description": "",
       "stanza:required": true
