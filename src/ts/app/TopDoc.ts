@@ -19,7 +19,7 @@ export class TopDoc extends MainDoc {
     const organismsByIDs: HTMLElement = qs("#organismsByIDs");
     const organismsByKeyword: HTMLElement = qs("#organismsByKeyword");
 
-    const urlQuery = location.search.split("=").pop();
+    const urlQuery = location.search.split("=").pop().replace(/\+/g, " ").trim();
     if(urlQuery){
       input.value = urlQuery
     }
