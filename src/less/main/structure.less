@@ -7,20 +7,25 @@ main{
   max-width: 1024px;
   display: block;
   margin: 0 auto;
-  padding: 30px;
+  padding: 80px 30px 30px;
   box-sizing: border-box;
 
-  //header 24px, footer 28px, site-header 45px;
-  min-height: ~"calc(100vh - 24px - 28px - 60px)";
+  //header 24px, footer 28px;
+  min-height: ~"calc(100vh - 24px - 28px)";
 }
 
 .site-header{
+  position: fixed;
+  top:24px;
+  left: 0;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   background-color: #fff;
   height: 45px;
   box-sizing: border-box;
   padding: 10px;
+  border-bottom: 1px solid #eee;
 }
 .site-header .logo{
   display: block;
