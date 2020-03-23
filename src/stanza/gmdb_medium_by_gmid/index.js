@@ -29,13 +29,12 @@ Stanza(function(stanza, params){
 
 
   function success(json){
-    console.log(json);
     data.id = json.gm.toString().split("/").pop();
     data.name = json.name;
     data.components = json.components;
+    data.components.forEach(elm => elm.can_wrap = elm.label_en.length >= 20);
     data.src_url = json.src_url;
     data.src_label = getSrcLabel(json.src_url);
-    console.log(data);
   }
 
   function fail(e){
@@ -57,7 +56,7 @@ function getSrcLabel(str){
     case str.match(/atcc\.org/) !== null:
       return "ATCC";
     default:
-      return "SRC"
+      return "SRC";
 
   }
 }

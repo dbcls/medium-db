@@ -1,1 +1,92 @@
-<p>{{greeting}}</p>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@300;600&display=swap');
+</style>
+<style>
+  .wrapper {
+    font-size: 18px;
+    font-family: 'Fira Sans Condensed', sans-serif;
+    padding: 16px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    color: #333;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  h2{
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .query-key {
+    background-color: #f5f4f3;
+    padding: 5px 10px;
+    color: #CC3366;
+    font-weight: 300;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 5px;
+  }
+
+  .id-list {
+    border: 1px solid #CCC;
+    border-radius: 5px;
+  }
+
+  .id-list li {
+    padding: 12px 8px;
+    border-bottom: 1px solid #CCC;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .id-list li:last-child {
+    border: none;
+  }
+  .id-list span:first-child{
+    /*width: 20%;*/
+    min-width: 100px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-right: 10px;
+  }
+  .id-list span:last-child{
+
+  }
+  a {
+    color: #256d80;
+  }
+</style>
+
+{{#if error}}{{#if msg}}
+  <p>{{msg}}</p>
+{{/if}}{{/if}}
+
+{{#unless error}}
+  <div class="wrapper">
+    <h2>
+      Querying organisms with tax_id:
+      {{#each result.query}}
+        <span class="query-key">{{this}}</span>
+      {{/each}}
+    </h2>
+    {{#if result.items.length}}
+      <ul class="id-list">
+        {{#each result.items}}
+          <li>
+            <span class="id"><a href="/organism/{{tax_id}}">{{tax_id}}</a></span>
+            <span class="label">{{label}}</span>
+          </li>
+        {{/each}}
+      </ul>
+    {{/if}}
+    {{#unless result.items.length}}
+      <p class="msg">{{msg}}</p>
+    {{/unless}}
+  </div>
+{{/unless}}
+

@@ -79,54 +79,15 @@
     padding: 8px 16px;
   }
 
-  .component-table .name {
-    white-space: nowrap;
-  }
 
   .component-table span {
     white-space: nowrap;
   }
 
-  .lineage-list {
-    display: flex;
-    margin-top: 8px;
-    flex-wrap: wrap;
-    margin-bottom: -8px;
+  .component-table span.can-wrap {
+    white-space: normal;
   }
 
-  .lineage-list li {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    margin-right: 16px;
-    margin-bottom: 8px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-
-  .lineage-list .rank {
-    border-bottom: 1px solid #ddd;
-    padding: 4px 8px;
-  }
-
-  .lineage-list .label {
-    padding: 4px 8px;
-  }
-
-  .capsule-list {
-    margin-top: 8px;
-    margin-bottom: -8px;
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .capsule-list li {
-    border: 1px solid #44b8cc;
-    padding: 5px 10px;
-    border-radius: 20px;
-    margin-right: 8px;
-    margin-bottom: 8px;
-  }
 </style>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@300;600&display=swap');
@@ -162,7 +123,9 @@
           <td class="id">
             <a href="/component/{{gmo_id}}">{{gmo_id}}</a>
           </td>
-          <td class="name">{{label_en}}</td>
+          <td class="name">
+            <span class="{{#if can_wrap}}can-wrap{{/if}}">{{label_en}}</span>
+          </td>
           <td class="properties">
             {{#if properties}}
               {{#each properties}}
