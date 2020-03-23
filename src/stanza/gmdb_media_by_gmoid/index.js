@@ -1,8 +1,8 @@
 Stanza(function(stanza, params){
 
   const api_url = "http://ep.dbcls.jp/sparqlist/api/";
-  const api_name = "gmdb_media_by_taxid";
-  const queryKey = "tax_id";
+  const api_name = "gmdb_media_by_gmoid";
+  const queryKey = "gmo_id";
   const data = {};
   //
   data.query = params[queryKey]

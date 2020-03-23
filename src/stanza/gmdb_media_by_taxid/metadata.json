@@ -3,12 +3,12 @@
     "stanza": "http://togostanza.org/resource/stanza#"
   },
   "@id": "gmdb_media_by_taxid",
-  "stanza:label": "Growth media",
+  "stanza:label": "gmdb_media_by_taxid",
   "stanza:definition": "",
   "stanza:parameter": [
     {
       "stanza:key": "tax_id",
-      "stanza:example": "",
+      "stanza:example": "166393",
       "stanza:description": "",
       "stanza:required": true
     }
