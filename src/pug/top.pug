@@ -2,22 +2,22 @@ extends _template/_base
 
 block vars
   - lev1ID = "top";
-  - stanzaIDs = ["gmdb_list_media_by_gmids","gmdb_list_media_by_keywords","gmdb_list_components_by_gmoids","gmdb_list_components_by_keywords","gmdb_list_organisms_by_taxids","gmdb_list_organisms_by_keywords"]
+  - stanzaIDs = ["gmdb_list_media_by_gmids","gmdb_list_media_by_keyword","gmdb_list_components_by_gmoids","gmdb_list_components_by_keyword","gmdb_list_organisms_by_taxids","gmdb_list_organisms_by_keyword"]
 
 
 block main
   input#queryInput(placeholder="search")
   p.info#info
-    | Try searching with any IDs and keywords you are come up with.<br>
+    | Try searching with any IDs and keyword you are come up with.<br>
     | Terms should be separated by "," if multiple queries are requested.<br>
     | e.g. Glucose, GMO_001010, 315405
   .stanza-wrapper#stanzaWrapper
     togostanza-gmdb_list_media_by_gmids#mediaByIDs.stanza(gm_ids="")
-    togostanza-gmdb_list_media_by_keywords#mediaByKeywords.stanza(keywords="")
+    togostanza-gmdb_list_media_by_keyword#mediaByKeyword.stanza(keyword="")
     togostanza-gmdb_list_components_by_gmoids#componentsByIDs.stanza(gmo_ids="")
-    togostanza-gmdb_list_components_by_keywords#componentsByKeywords.stanza(keywords="")
+    togostanza-gmdb_list_components_by_keyword#componentsByKeyword.stanza(keyword="")
     togostanza-gmdb_list_organisms_by_taxids#organismsByIDs.stanza(tax_ids="")
-    togostanza-gmdb_list_organisms_by_keywords#organismsByKeywords.stanza(keywords="")
+    togostanza-gmdb_list_organisms_by_keyword#organismsByKeyword.stanza(keyword="")
 
 
 block scripts

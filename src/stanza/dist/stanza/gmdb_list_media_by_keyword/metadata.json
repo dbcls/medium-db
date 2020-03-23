@@ -2,18 +2,18 @@
   "@context": {
     "stanza": "http://togostanza.org/resource/stanza#"
   },
-  "@id": "gmdb_list_organisms_by_keywords",
-  "stanza:label": "gmdb_list_organisms_by_keywords",
-  "stanza:definition": "gmdb_list_organisms_by_keywords",
+  "@id": "gmdb_list_media_by_keyword",
+  "stanza:label": "gmdb_list_media_by_keyword",
+  "stanza:definition": "gmdb_list_media_by_keyword",
   "stanza:parameter": [
     {
-      "stanza:key": "keywords",
-      "stanza:example": "Fructobacillus",
+      "stanza:key": "keyword",
+      "stanza:example": "MRS medium",
       "stanza:description": "",
       "stanza:required": true
     }
   ],
-  "stanza:usage": "<togostanza-gmdb_list_organisms_by_keywords></togostanza-gmdb_list_organisms_by_keywords>",
+  "stanza:usage": "<togostanza-gmdb_list_media_by_keyword></togostanza-gmdb_list_media_by_keyword>",
   "stanza:type": "Stanza",
   "stanza:context": "",
   "stanza:display": "",

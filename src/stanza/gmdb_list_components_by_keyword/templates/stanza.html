@@ -72,7 +72,7 @@
 {{#unless error}}
   <div class="wrapper">
     <h2>
-      Querying media with keywords:
+      Querying components with keyword:
       {{#each result.query}}
         <span class="query-key">{{this}}</span>
       {{/each}}
@@ -81,7 +81,7 @@
       <ul class="id-list">
         {{#each result.items}}
           <li>
-            <span class="id"><a href="/medium/{{gm_id}}">{{gm_id}}</a></span>
+            <span class="id"><a href="/component/{{gmo_id}}">{{gmo_id}}</a></span>
             <span class="label">{{label}}</span>
           </li>
         {{/each}}

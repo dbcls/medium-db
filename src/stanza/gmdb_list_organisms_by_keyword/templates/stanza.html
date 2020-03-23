@@ -17,7 +17,7 @@
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
   }
 
-  h2 {
+  h2{
     margin-bottom: 10px;
     font-weight: 600;
   }
@@ -47,19 +47,16 @@
   .id-list li:last-child {
     border: none;
   }
-
-  .id-list span:first-child {
+  .id-list span:first-child{
     /*width: 20%;*/
-    min-width: 100px;
+    width: 100px;
     flex-grow: 0;
     flex-shrink: 0;
     margin-right: 10px;
   }
-
-  .id-list span:last-child {
+  .id-list span:last-child{
 
   }
-
   a {
     color: #256d80;
   }
@@ -72,16 +69,17 @@
 {{#unless error}}
   <div class="wrapper">
     <h2>
-      Querying components with keywords:
+      Querying organisms with keyword:
       {{#each result.query}}
         <span class="query-key">{{this}}</span>
       {{/each}}
     </h2>
+
     {{#if result.items.length}}
       <ul class="id-list">
         {{#each result.items}}
           <li>
-            <span class="id"><a href="/component/{{gmo_id}}">{{gmo_id}}</a></span>
+            <span class="id"><a href="/organism/{{tax_id}}">{{tax_id}}</a></span>
             <span class="label">{{label}}</span>
           </li>
         {{/each}}

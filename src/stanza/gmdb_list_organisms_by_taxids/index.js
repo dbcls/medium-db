@@ -87,7 +87,7 @@ function makeOptions(params){
   return {
     method: "POST",
     mode: "cors",
-    body: formBody.join("&").replace("keywords", "keyword"),
+    body: formBody.join("&").replace("keyword", "keyword"),
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/x-www-form-urlencoded"

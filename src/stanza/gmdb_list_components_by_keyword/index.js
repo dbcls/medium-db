@@ -1,8 +1,8 @@
 Stanza(function(stanza, params){
 
   const api_url = "http://ep.dbcls.jp/sparqlist/api/";
-  const api_name = "gmdb_list_components_by_keywords";
-  const queryKey = "keywords";
+  const api_name = "gmdb_list_components_by_keyword";
+  const queryKey = "keyword";
   const data = {};
   //
   data.query = params[queryKey]
@@ -87,7 +87,7 @@ function makeOptions(params){
   return {
     method: "POST",
     mode: "cors",
-    body: formBody.join("&").replace("keywords", "keyword"),
+    body: formBody.join("&"),
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/x-www-form-urlencoded"
