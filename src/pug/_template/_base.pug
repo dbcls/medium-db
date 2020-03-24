@@ -62,13 +62,17 @@ html(lang = 'ja', xmlns:og="http://ogp.me/ns#")
   body(class=bodyClasses)
     include ../_include/header.html
     header.site-header
+      a(href="/"): figure.logo
       nav
-        a(href="/"):  figure.logo
-      form(method="GET" action="/")
-        input(placeholder="search", name="query")
+        ul
+          li: a(href="/") Home
+          li: a(href=TBD) Documents
+          li: a(href=TBD) tid_roundtree
+        form(method="GET" action="/")
+          input(placeholder="search", name="query")
     main
       block main
     script(src=`${pathToLibs}anime.min.js`)
     block scripts
-    
+
 
