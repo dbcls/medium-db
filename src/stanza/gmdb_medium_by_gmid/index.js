@@ -33,6 +33,13 @@ Stanza(function(stanza, params){
     data.name = json.name;
     data.components = json.components;
     data.components.forEach(elm => elm.can_wrap = elm.label_en.length >= 20);
+    data.components.forEach(elm => {
+      const properties = elm.properties;
+      properties.forEach(prop => {
+        console.log(prop.label_en);
+        prop.short_label = getShortPropertyLabel(prop.label_en);
+      });
+    });
     data.src_url = json.src_url;
     data.src_label = getSrcLabel(json.src_url);
   }
@@ -44,8 +51,20 @@ Stanza(function(stanza, params){
   }
 });
 
+function getShortPropertyLabel(str){
+  const dic = {
+    "Simple component": "Simple",
+    "Complex component": "Complex",
+    "Defined component": "Defined",
+    "Undefined component": "Undefined",
+    "Inorganic compound": "Inorganic",
+    "Organic compound": "Organic",
+    "Solution": "Solution",
+  };
+  return dic[str] ? dic[str] : "ERR";
+}
+
 function getSrcLabel(str){
-  console.log(str);
   switch(true){
     case str.match(/jcm\.riken/) !== null:
       return "JCM";
@@ -57,7 +76,6 @@ function getSrcLabel(str){
       return "ATCC";
     default:
       return "SRC";
-
   }
 }
 

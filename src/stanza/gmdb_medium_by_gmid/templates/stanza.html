@@ -76,7 +76,20 @@
 
   .component-table td, th {
     border: 1px solid #ddd;
-    padding: 8px 16px;
+    padding: 8px 8px;
+  }
+
+  .properties span {
+    border: 1px solid #6FA80C;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 3px;
+  }
+
+  .functions span{
+    font-size: 13px;
+    font-weight: 600;
   }
 
 
@@ -114,9 +127,9 @@
     <table class="component-table">
       <tr>
         <th class="id">GMO ID</th>
-        <th class="name">NAME</th>
-        <th class="properties">PROPERTIES</th>
-        <th class="functions">FUNCTIONS</th>
+        <th class="name">Name</th>
+        <th class="properties">Properties</th>
+        <th class="functions">Functions</th>
       </tr>
       {{#each result.components}}
         <tr>
@@ -129,14 +142,14 @@
           <td class="properties">
             {{#if properties}}
               {{#each properties}}
-                <span>{{lable_en}}{{#unless @last}}, {{/unless}}</span>
+                <span>{{short_label}}</span>
               {{/each}}
             {{/if}}
           </td>
           <td class="functions">
             {{#if roles}}
               {{#each roles}}
-                <span>{{lable_en}}{{#unless @last}}, {{/unless}}</span>
+                <span>{{label_en}}{{#unless @last}}, {{/unless}}</span>
               {{/each}}
             {{/if}}
           </td>
