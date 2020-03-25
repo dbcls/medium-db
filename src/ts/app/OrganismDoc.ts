@@ -11,8 +11,10 @@ export class OrganismDoc extends MainDoc {
 
     const info: HTMLElement = qs("#info");
     const media: HTMLElement = qs("#media");
+    const TAXID:HTMLElement = qs("#TAXID");
     info.setAttribute("tax_id", param);
     media.setAttribute("tax_id", param);
+    TAXID.innerText = param;
   }
 }
 

@@ -11,7 +11,10 @@ export class ComponentDoc extends MainDoc {
 
     const info: HTMLElement = qs("#info");
     const media: HTMLElement = qs("#media");
+    const GMOID:HTMLElement = qs("#GMOID");
     info.setAttribute("gmo_id", param);
     media.setAttribute("gmo_id", param);
+
+    GMOID.innerText = param;
   }
 }

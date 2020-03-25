@@ -71,12 +71,6 @@
 
 {{#unless error}}
   <div class="wrapper">
-    <h2>
-      Querying media with Taxonomy ID:
-      {{#each result.query}}
-        <span class="query-key">{{this}}</span>
-      {{/each}}
-    </h2>
     {{#if result.items.length}}
       <ul class="id-list">
         {{#each result.items}}

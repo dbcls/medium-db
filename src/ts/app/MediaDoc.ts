@@ -11,7 +11,10 @@ export class MediaDoc extends MainDoc {
 
     const info: HTMLElement = qs("#info");
     const organisms: HTMLElement = qs("#organisms");
+    const GMID: HTMLElement = qs("#GMID");
     info.setAttribute("gm_id", param);
     organisms.setAttribute("gm_id", param);
+    GMID.innerText = param;
+
   }
 }

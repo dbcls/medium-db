@@ -35,6 +35,7 @@ Stanza(function(stanza, params){
     data.components.forEach(elm => elm.can_wrap = elm.label_en.length >= 20);
     data.components.forEach(elm => {
       const properties = elm.properties;
+      if(!properties){return;}
       properties.forEach(prop => {
         console.log(prop.label_en);
         prop.short_label = getShortPropertyLabel(prop.label_en);

@@ -50,7 +50,7 @@
 
 
   .name .value {
-    font-size: 48px;
+    font-size: 40px;
   }
 
   h3 {
@@ -104,6 +104,10 @@
     margin-right: 8px;
     margin-bottom: 8px;
   }
+  .synonyms{
+    margin-left: 20px;
+    margin-top: 8px;
+  }
 </style>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@300;600&display=swap');
@@ -132,7 +136,7 @@
     </p>
     {{#if result.authority_name}} Authority name:<br>{{result.authority_name}} {{/if}}
 
-    <h3>LINEAGE</h3>
+    <h3>Lineage</h3>
     <ul class="lineage-list">
       {{#each result.lineage}}
         <li class="list-group-item">
@@ -149,7 +153,7 @@
     </ul>
 
     {{#if result.type_material}}
-      <h3>TYPE STRAINS</h3>
+      <h3>Type strains</h3>
       <ul class="capsule-list">
         {{#each result.type_material}}
           <li>{{label}}</li>
@@ -159,12 +163,15 @@
 
     {{#if result.other_type_material}}
       {{#each result.other_type_material}}
-        <h3>TYPE STRAINS SYNONYMS: {{key}}</h3>
-        <ul class="capsule-list">
-          {{#each labels}}
-            <li>{{this}}</li>
-          {{/each}}
-        </ul>
+      <h3>Heterotypic synonyms: {{key}}</h3>
+        <div class="synonyms">
+          <h4>Type strains</h4>
+          <ul class="capsule-list">
+            {{#each labels}}
+              <li>{{this}}</li>
+            {{/each}}
+          </ul>
+        </div>
       {{/each}}
     {{/if}}
 

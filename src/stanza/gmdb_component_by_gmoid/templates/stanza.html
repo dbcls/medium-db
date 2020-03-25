@@ -45,7 +45,7 @@
 
 
   .name .value {
-    font-size: 48px;
+    font-size: 40px;
   }
 
   h3 {
@@ -100,7 +100,7 @@
   {{/if}}
 
   {{#if result.properties}}
-      <h3>PROPERTIES</h3>
+      <h3>Properties</h3>
       <p class="simple-iteration">
         {{#each result.properties}}
           <span>
@@ -111,7 +111,7 @@
   {{/if}}
 
   {{#if result.roles}}
-      <h3>FUNCTIONS</h3>
+      <h3>Functions</h3>
       <ul>
         {{#each result.roles}}
           <li>
@@ -122,7 +122,7 @@
   {{/if}}
 
   {{#if result.super_classes}}
-      <h3>SUPER CLASSES</h3>
+      <h3>Super classes</h3>
       <ul class="id-list">
         {{#each result.super_classes}}
           <li>
@@ -134,7 +134,7 @@
   {{/if}}
 
   {{#if result.sub_classes}}
-      <h3>SUB CLASSES</h3>
+      <h3>Sub classes</h3>
       <ul class="id-list">
         {{#each result.sub_classes}}
           <li>
@@ -147,7 +147,7 @@
 
 
   {{#if result.links}}
-      <h3>LINKS</h3>
+      <h3>Links</h3>
       <p>
         {{#each result.links}}
           <a class="link-btn" href="{{uri}}" target="_blank">{{label}}</a>
