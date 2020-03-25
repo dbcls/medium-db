@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <script src="https://cdn.jsdelivr.net/combine/npm/@babel/polyfill@7.2.5/dist/polyfill.min.js,npm/@ungap/url-search-params@0.1.2/min.js,npm/whatwg-fetch@3.0.0/dist/fetch.umd.js" crossorigin></script>
     <script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@1.3.0/webcomponents-loader.js" crossorigin></script>
-    <link rel="import" href="../gm_roundtree/">
+    <link rel="import" href="../gmdb_roundtree/">
     <link rel="stylesheet" href="../assets/css/ts.css">
     <title>GM clustering tree</title>
   </head>
@@ -46,7 +46,7 @@
         </ul>
 
         <div class="showcase_code">
-          <code>&lt;togostanza-gm_roundtree newick=&#39;http://keggoc-rdf.dbcls.jp/tmp/phylo2.newick&#39;&gt;&lt;/togostanza-gm_roundtree&gt;</code>
+          <code>&lt;togostanza-gmdb_roundtree newick=&#39;http://keggoc-rdf.dbcls.jp/tmp/phylo2.newick&#39;&gt;&lt;/togostanza-gmdb_roundtree&gt;</code>
         </div>
 
         <p class="explain">
@@ -54,11 +54,11 @@
         </p>
 
         <div class="showcase_box">
-          <togostanza-gm_roundtree newick='http://keggoc-rdf.dbcls.jp/tmp/phylo2.newick'></togostanza-gm_roundtree>
+          <togostanza-gmdb_roundtree newick='http://keggoc-rdf.dbcls.jp/tmp/phylo2.newick'></togostanza-gmdb_roundtree>
         </div>
       </div>
       <script>
-        const stanza = document.querySelector('togostanza-gm_roundtree');
+        const stanza = document.querySelector('togostanza-gmdb_roundtree');
         const inputs = document.querySelectorAll('.showcase_id input');
 
         Array.prototype.forEach.call(inputs, function(input) {

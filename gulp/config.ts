@@ -31,6 +31,7 @@ class Config {
           "medium/index.html": "medium.pug",
           "component/index.html": "component.pug",
           "organism/index.html": "organism.pug",
+          "roundtree/index.html": "roundtree.pug",
         }
       },
       less: {

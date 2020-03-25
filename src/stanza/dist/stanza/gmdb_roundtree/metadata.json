@@ -2,7 +2,7 @@
   "@context": {
     "stanza": "http://togostanza.org/resource/stanza#"
   },
-  "@id": "gm_roundtree",
+  "@id": "gmdb_roundtree",
   "stanza:label": "GM clustering tree",
   "stanza:definition": "Greeting.",
   "stanza:parameter": [
@@ -13,7 +13,7 @@
        "stanza:required": true
      }
   ],
-  "stanza:usage": "<togostanza-gm_roundtree newick='http://keggoc-rdf.dbcls.jp/tmp/phylo2.newick'></togostanza-gm_roundtree>",
+  "stanza:usage": "<togostanza-gmdb_roundtree newick='http://keggoc-rdf.dbcls.jp/tmp/phylo2.newick'></togostanza-gmdb_roundtree>",
   "stanza:type": "Stanza",
   "stanza:context": "",
   "stanza:display": "",
