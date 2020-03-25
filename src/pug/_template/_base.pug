@@ -66,8 +66,8 @@ html(lang = 'ja', xmlns:og="http://ogp.me/ns#")
         a(href="/"): figure.logo
         nav
           ul
-            li: a(href="/") Home
-            li: a(href=TBD) Documents
+            li(class = `${lev1ID === 'top' ? 'active' : ''}`): a(href="/") Home
+            li(class = `${lev1ID === 'about' ? 'active' : ''}`): a(href="/about") Documents
             li: a(href=TBD) tid_roundtree
           form(method="GET" action="/")
             input(placeholder="search", name="query")
@@ -75,5 +75,3 @@ html(lang = 'ja', xmlns:og="http://ogp.me/ns#")
       block main
     script(src=`${pathToLibs}anime.min.js`)
     block scripts
-
-
