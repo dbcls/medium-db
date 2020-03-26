@@ -56,7 +56,6 @@ Stanza(function(stanza, params) {
 	    }	
 	}
 	
-	console.log(data);
 	
 	stanza.render({
 	    template: "stanza.html",

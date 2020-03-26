@@ -50,7 +50,6 @@ Stanza(function(stanza, params){
     }
 
     if(json.other_type_material){
-      console.log(json.other_type_material);
       const others = json.other_type_material;
       const names = others.map(obj => obj.name).reduce(function(a, b){
         if(a.indexOf(b) < 0){
