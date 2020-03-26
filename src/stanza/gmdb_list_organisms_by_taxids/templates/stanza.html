@@ -18,19 +18,12 @@
   }
 
   h2{
-    margin-bottom: 10px;
+    font-size: 30px;
     font-weight: 600;
+    padding-left: 8px;
+    margin-bottom: 8px;
   }
 
-  .query-key {
-    background-color: #f5f4f3;
-    padding: 5px 10px;
-    color: #CC3366;
-    font-weight: 300;
-    border-radius: 3px;
-    display: inline-block;
-    margin-bottom: 5px;
-  }
 
   .id-list {
     border: 1px solid #CCC;
@@ -67,13 +60,8 @@
 {{/if}}{{/if}}
 
 {{#unless error}}
+  <h2>Organisms with &nbsp;{{#each result.query}}<span class="query-key">{{this}}</span>{{/each}}</h2>
   <div class="wrapper">
-    <h2>
-      Querying organisms with tax_id:
-      {{#each result.query}}
-        <span class="query-key">{{this}}</span>
-      {{/each}}
-    </h2>
 
     {{#if result.items.length}}
       <table class="id-list">
