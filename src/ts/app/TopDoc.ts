@@ -2,6 +2,7 @@ import {MainDoc} from "./MainDoc";
 import {qs} from "imagelogic-tools/src/dom/qs";
 import {fromEvent, Observable} from "rxjs";
 import {debounceTime, first, map, startWith, tap} from "rxjs/operators";
+import {qsa} from "imagelogic-tools/src/dom/qsa";
 
 export class TopDoc extends MainDoc {
   constructor() {
@@ -20,11 +21,10 @@ export class TopDoc extends MainDoc {
     const organismsByKeyword: HTMLElement = qs("#organismsByKeyword");
 
     const urlQuery = location.search.split("=").pop().replace(/\+/g, " ").trim();
-    if(urlQuery){
-      input.value = urlQuery
+    if (urlQuery) {
+      input.value = urlQuery;
     }
     const originalValue = input.value;
-
 
 
     const input$: Observable<string> = fromEvent(input, "input").pipe(
@@ -38,11 +38,19 @@ export class TopDoc extends MainDoc {
     });
 
 
-
-
     input$.pipe(
       map(r => mapToQuery(r))
     ).subscribe((r: QueryKeys) => {
+
+      resetHeading();
+      showHeading(mediaByIDs, r.gm_ids, "gm_ids", "Media");
+      showHeading(componentsByIDs, r.gmo_ids, "gmo_ids", "Components");
+      showHeading(organismsByIDs, r.tax_ids, "tax_ids", "Organisms");
+      showHeading(mediaByKeyword, r.keyword, "gm_keyword", "Media");
+      showHeading(componentsByKeyword, r.keyword, "gmo_keyword", "Components");
+      showHeading(organismsByKeyword, r.keyword, "tax_keyword", "Organisms");
+
+
       mediaByIDs.setAttribute("gm_ids", r.gm_ids);
       componentsByIDs.setAttribute("gmo_ids", r.gmo_ids);
       organismsByIDs.setAttribute("tax_ids", r.tax_ids);
@@ -67,6 +75,24 @@ export class TopDoc extends MainDoc {
       duration: 100,
       easing: "easeOutQuart",
       complete: () => toHide.style.display = "none"
+    });
+  }
+
+}
+
+function showHeading(target: HTMLElement, val: string, klass: string, title: string) {
+  if (val) {
+    const str: string = `<h2 class="${klass}">${title} with &nbsp;<span></span></h2>`;
+    target.insertAdjacentHTML("beforebegin", str);
+    qs(`h2.${klass} span`).innerText = val.replace(/,/g, ", ");
+  }
+}
+
+function resetHeading() {
+  const elms: HTMLElement[] = qsa("h2", qs("#stanzaWrapper"));
+  if (elms.length >= 1) {
+    elms.map((e) => {
+      e.remove();
     });
   }
 }

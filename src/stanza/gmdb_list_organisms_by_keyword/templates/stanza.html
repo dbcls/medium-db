@@ -17,13 +17,6 @@
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
   }
 
-  h2{
-    font-size: 30px;
-    font-weight: 600;
-    padding-left: 8px;
-    margin-bottom: 8px;
-  }
-
   .id-list {
     border: 1px solid #CCC;
     border-radius: 5px;
@@ -60,7 +53,6 @@
 {{/if}}{{/if}}
 
 {{#unless error}}
-  <h2>Organisms with &nbsp;{{#each result.query}}<span class="query-key">{{this}}</span>{{/each}}</h2>
   <div class="wrapper">
 
     {{#if result.items.length}}
