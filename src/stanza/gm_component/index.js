@@ -1,3 +1,5 @@
+
+
 Stanza(function(stanza, params) {
 
     let formBody = [];
@@ -25,13 +27,13 @@ Stanza(function(stanza, params) {
 	let data = {};
 	let component = {};
 	let keys = Object.keys(json);
-	
+
 	for(let i = 0; i < keys.length; i++){
 	    if(json[keys[i]].component){
 		for(let j = 0; j < json[keys[i]].component.length; j++){
 		    component[json[keys[i]].component[j]] = 1;
 		}
-	    }	
+	    }
 	}
 	let sortedComponent = Object.keys(component);
 	data.head = [{text: "Organism", cols: 1, rows: 2}, {text: "Growth medium", cols: 1, rows: 2}, {text: "Components", cols: sortedComponent.length, rows: 1}];
@@ -40,7 +42,7 @@ Stanza(function(stanza, params) {
 	    data.subHead.push({text: sortedComponent[i].replace("http://purl.jp/bio/10/gmo/", "")});
 	}
 	data.body = [];
-	
+
 	for(let i = 0; i < keys.length; i++){
 	    if(keys[i].match(/^T\d{5}$/)){
 		let list = [];
@@ -53,10 +55,10 @@ Stanza(function(stanza, params) {
 		    list.push({label: json[keys[i]].gm[j].replace("http://purl.jp/bio/10/gm/", ""), exist: exist});
 		}
 		data.body.push({organism: keys[i], rows: json[keys[i]].gm.length, gm: list})
-	    }	
+	    }
 	}
-	
-	
+
+
 	stanza.render({
 	    template: "stanza.html",
 	    parameters: {
