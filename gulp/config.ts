@@ -5,6 +5,7 @@ import {IProfile} from "imagelogic-gulp";
 import {IBuild} from "imagelogic-gulp";
 
 const PROFILE_STATIC: string = "static";
+const PROFILE_STANZA: string = "stanza";
 const BUILD_STATIC: string = "static";
 
 const SRC_DIR = join(process.cwd(), "src");
@@ -12,6 +13,7 @@ const PUBLIC_DIR = join(process.cwd(), "public_static");
 // const PROD_DIR = join(PUBLIC_DIR, "products");
 const PROD_DIR = join(PUBLIC_DIR);
 const ASSETS_DIR = join(PROD_DIR, "assets");
+const STANZA_DIR = join(SRC_DIR, "stanza");
 
 class Config {
 
@@ -87,6 +89,17 @@ class Config {
           watch: false
         }
       ]
+    },
+    {
+      name: PROFILE_STANZA,
+      ts: {
+        src: STANZA_DIR,
+        dest: STANZA_DIR,
+        watch: ["ts"],
+        files: {
+          "gmdb_component_by_gmoid/index.js": "gmdb_component_by_gmoid/index.ts",
+        }
+      }
     }
   ];
   build: IBuild[] = [

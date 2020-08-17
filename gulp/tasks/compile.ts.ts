@@ -53,7 +53,7 @@ function makeWebpackConfig(profile: ITs, watch: boolean = false): webpack.Config
           test: /\.ts$/,
           loader: "ts-loader",
           options: {
-            configFile: "./tsconfig.json"
+            configFile: `${profile.src}/tsconfig.json`
           }
         }
       ]
