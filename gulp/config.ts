@@ -98,6 +98,7 @@ class Config {
         watch: ["ts"],
         files: {
           "gmdb_component_by_gmoid/index.js": "gmdb_component_by_gmoid/index.ts",
+          "gmdb_meta_list/index.js": "gmdb_meta_list/index.ts",
         }
       }
     }
