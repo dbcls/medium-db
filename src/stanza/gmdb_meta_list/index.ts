@@ -1,6 +1,3 @@
-import {qs} from "imagelogic-tools/src/dom/qs";
-import {api_url} from "../typescript/consts";
-
 interface StanzaHtmlParam {
   api_url: string;
   query: string;
@@ -9,17 +6,16 @@ interface StanzaHtmlParam {
 }
 
 interface HTMLParams {
-  num: number;
+  columnLabels: string[];
+  data: Item[][];
+  page: number;
 }
 
 
 Stanza<StanzaHtmlParam>(function(stanza, params) {
-  const data = myData;
-  const htmlParams: HTMLParams = {
-    num: 0
-  };
-  render(stanza, htmlParams);
+  render(stanza, processData(myData, 1));
 });
+
 
 const render = (stanza: StanzaInstance, params: HTMLParams) => {
   stanza.render({
@@ -27,11 +23,29 @@ const render = (stanza: StanzaInstance, params: HTMLParams) => {
     parameters: params
   });
   stanza.select("#myBtn").addEventListener("click", () => {
-    params.num += 1;
-    render(stanza, params);
+    const data = processData(myData, params.page + 1);
+    render(stanza, data);
   });
 };
 
+const processData = (response: APIResponse, page: number): HTMLParams => {
+  const columnLabels: string[] = response.columns.map(item => item.label);
+  const keys: string[] = response.columns.map(item => item.key);
+  const data: Item[][] = response.contents.map(item => {
+    const result: Item[] = [];
+    keys.forEach(key => {
+      const value = item[key];
+      result.push(value);
+    });
+    return result;
+  });
+
+  return {
+    page: page,
+    columnLabels,
+    data: data
+  };
+};
 
 const myData: APIResponse = {
   total: 9999,
@@ -65,6 +79,8 @@ const myData: APIResponse = {
 };
 
 
+type Item = (string | LinkItem);
+
 interface APIResponse {
   total: number;
   offset: number;
@@ -73,7 +89,7 @@ interface APIResponse {
 }
 
 interface Content {
-  [key: string]: (string | LinkItem);
+  [key: string]: Item;
 }
 
 interface LinkItem {

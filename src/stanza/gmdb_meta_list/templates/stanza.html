@@ -1,2 +1,23 @@
-<button id="myBtn">PRESS ME!</button>
-{{num}}
+<table>
+  <tr>
+    {{#each columnLabels}}
+      <th>{{this}}</th>
+    {{/each}}
+  </tr>
+  {{#each data}}
+    <tr>
+      {{#each this}}
+        <td>
+          {{#if this.href}}
+            <a href="{{this.href}}">{{this.label}}</a>
+          {{/if}}
+          {{#unless this.href}}
+            {{this}}
+          {{/unless}}
+        </td>
+      {{/each}}
+    </tr>
+  {{/each}}
+
+</table>
+<button id="myBtn"> PRESS ME</button>
