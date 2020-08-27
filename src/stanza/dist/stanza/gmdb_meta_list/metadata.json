@@ -3,18 +3,42 @@
     "stanza": "http://togostanza.org/resource/stanza#"
   },
   "@id": "gmdb_meta_list",
-  "stanza:label": "Hello Example",
-  "stanza:definition": "Greeting.",
+  "stanza:label": "List meta stanza",
+  "stanza:definition": "List Meta Stanza.",
   "stanza:parameter": [
+    {
+      "stanza:key": "api_url",
+      "stanza:example": "",
+      "stanza:description": "URL of the SPARQLIST API",
+      "stanza:required": true
+    },
+    {
+      "stanza:key": "query",
+      "stanza:example": "glucose",
+      "stanza:description": "querying keyword",
+      "stanza:required": true
+    },
+    {
+      "stanza:key": "offset",
+      "stanza:example": "1",
+      "stanza:description": "offset",
+      "stanza:required": true
+    },
+    {
+      "stanza:key": "limit",
+      "stanza:example": "10",
+      "stanza:description": "limit",
+      "stanza:required": true
+    }
   ],
   "stanza:usage": "<togostanza-gmdb_meta_list></togostanza-gmdb_meta_list>",
   "stanza:type": "Stanza",
   "stanza:context": "",
   "stanza:display": "",
-  "stanza:provider": "provider of this stanza",
+  "stanza:provider": "DBCLS",
   "stanza:license": "",
-  "stanza:author": "author name",
-  "stanza:address": "name@example.org",
+  "stanza:author": "Shuichi Kawashima",
+  "stanza:address": "kwsm At dbcls.rois.ac.jp",
   "stanza:contributor": [
   ],
   "stanza:created": "2020-08-27",

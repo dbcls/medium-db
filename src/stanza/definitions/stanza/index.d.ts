@@ -2,6 +2,7 @@ declare function Stanza<T = any>(func: (stanza: StanzaInstance, params: T) => vo
 
 interface StanzaInstance {
   render: (opts: StanzaOptions) => void;
+  select: (query: string) => HTMLElement;
 }
 
 interface StanzaOptions {
