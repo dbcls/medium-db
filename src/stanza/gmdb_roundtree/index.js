@@ -98,7 +98,7 @@ Stanza(function(stanza, params){
 
     mkLeafList(json);
 
-//	console.log(json);
+    console.log(json);
 
     stanza.render({
       template: "stanza.html",
@@ -182,15 +182,45 @@ Stanza(function(stanza, params){
 
     svg.selectAll(".branchNode")
       .on("click", function(d){
+        console.log(d);
         let tax = d.data.leaf_list.join(",");
         let gm_stanza = d3.select(stanza.select("#gm_stanza")).html("");
         gm_stanza.append("togostanza-gms_by_tid_3")
           .attr("t_id", tax);
-        svg.selectAll(".branchNode").selectAll("circle").classed("active", false);
-        svg.select("#" + d.data.name).classed("active", true);
+        //
+        // highlight selected node and children
+        svg.selectAll(".branchNode, .leafNode").selectAll("circle").classed("active", false);
+        const activeIDs = getChildrenIDs(d);
+        activeIDs.push(d.data.name);
+        activeIDs.forEach(str => {
+          svg.select(`#${str}`).classed("active", true);
+        });
+        //
+
       })
       .on("mouseover", function(d){ svg.select("#" + d.data.name).style("stroke", "#89ffff"); })
       .on("mouseout", function(d){ svg.select("#" + d.data.name).style("stroke", "#cccccc"); });
+
+    svg.selectAll(".leafNode").on("click", function(d){
+      console.log(d);
+    });
+
+    const getChildrenIDs = (d) => {
+      const arr = [];
+      const loopChildren = (c) => {
+        c.children.forEach(child => {
+          if(child.children){
+            // console.log("has children", child);
+            arr.push(child.data.name);
+            loopChildren(child);
+          }else{
+            arr.push(child.data.name);
+          }
+        })
+      };
+      loopChildren(d);
+      return arr;
+    }
 
     // re-plot by 'change tree shape' button
     let rePlot = function(){
@@ -302,7 +332,7 @@ Stanza(function(stanza, params){
     let mouseX = 0;
     let mouseY = 0;
     document.body.addEventListener("mousemove", function(e){
-      mouseX = e.pageX
+      mouseX = e.pageX;
       mouseY = e.pageY;
     });
   });
