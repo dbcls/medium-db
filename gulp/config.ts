@@ -4,9 +4,9 @@ import {ENV_DEV} from "./utils/consts";
 import {IProfile} from "imagelogic-gulp";
 import {IBuild} from "imagelogic-gulp";
 
-const PROFILE_STATIC: string = "static";
+const PROFILE_PAGES: string = "pages";
 const PROFILE_STANZA: string = "stanza";
-const BUILD_STATIC: string = "static";
+const BUILD_ALL: string = "all";
 
 const SRC_DIR = join(process.cwd(), "src");
 const PUBLIC_DIR = join(process.cwd(), "public_static");
@@ -21,7 +21,7 @@ class Config {
 
   profile: IProfile[] = [
     {
-      name: PROFILE_STATIC,
+      name: PROFILE_PAGES,
       pug: {
         src: join(SRC_DIR, "pug"),
         dest: join(PROD_DIR),
@@ -105,9 +105,9 @@ class Config {
   ];
   build: IBuild[] = [
     {
-      name: BUILD_STATIC,
+      name: BUILD_ALL,
       clean: [join(PROD_DIR)],
-      profiles: [PROFILE_STATIC],
+      profiles: [PROFILE_PAGES],
       livereload: {
         dir: PUBLIC_DIR,
         ext: ["php", "html", "css", "js", "jpg", "gif", "svg", "png"],

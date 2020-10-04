@@ -29,7 +29,7 @@
 
                 <dd>
                   <p class="id_box">
-                    <input type="text" value="" data-param-key="api_url">
+                    <input type="text" value="http://ep.dbcls.jp/sparqlist/api/gmdb_list_media_by_keyword_2" data-param-key="api_url">
 
                     
                       <span class="required">required</span>
@@ -45,11 +45,11 @@
           
             <li>
               <dl>
-                <dt>query</dt>
+                <dt>keyword</dt>
 
                 <dd>
                   <p class="id_box">
-                    <input type="text" value="glucose" data-param-key="query">
+                    <input type="text" value="MRS medium" data-param-key="keyword">
 
                     
                       <span class="required">required</span>
@@ -58,26 +58,6 @@
 
                   <p class="eg">
                     querying keyword
-                  </p>
-                </dd>
-              </dl>
-            </li>
-          
-            <li>
-              <dl>
-                <dt>offset</dt>
-
-                <dd>
-                  <p class="id_box">
-                    <input type="text" value="1" data-param-key="offset">
-
-                    
-                      <span class="required">required</span>
-                    
-                  </p>
-
-                  <p class="eg">
-                    offset
                   </p>
                 </dd>
               </dl>
@@ -98,6 +78,42 @@
 
                   <p class="eg">
                     limit
+                  </p>
+                </dd>
+              </dl>
+            </li>
+          
+            <li>
+              <dl>
+                <dt>title</dt>
+
+                <dd>
+                  <p class="id_box">
+                    <input type="text" value="Media with #keyword#" data-param-key="title">
+
+                    
+                  </p>
+
+                  <p class="eg">
+                    title. &#39;#keyword&#39; will be replaced with the keyword
+                  </p>
+                </dd>
+              </dl>
+            </li>
+          
+            <li>
+              <dl>
+                <dt>column_names</dt>
+
+                <dd>
+                  <p class="id_box">
+                    <input type="text" value="true" data-param-key="column_names">
+
+                    
+                  </p>
+
+                  <p class="eg">
+                    whether display columnnames
                   </p>
                 </dd>
               </dl>

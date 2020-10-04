@@ -8,20 +8,14 @@
   "stanza:parameter": [
     {
       "stanza:key": "api_url",
-      "stanza:example": "",
+      "stanza:example": "http://ep.dbcls.jp/sparqlist/api/gmdb_list_media_by_keyword_2",
       "stanza:description": "URL of the SPARQLIST API",
       "stanza:required": true
     },
     {
-      "stanza:key": "query",
-      "stanza:example": "glucose",
+      "stanza:key": "keyword",
+      "stanza:example": "MRS medium",
       "stanza:description": "querying keyword",
-      "stanza:required": true
-    },
-    {
-      "stanza:key": "offset",
-      "stanza:example": "1",
-      "stanza:description": "offset",
       "stanza:required": true
     },
     {
@@ -29,6 +23,18 @@
       "stanza:example": "10",
       "stanza:description": "limit",
       "stanza:required": true
+    },
+    {
+      "stanza:key": "title",
+      "stanza:example": "Media with #keyword#",
+      "stanza:description": "title. '#keyword' will be replaced with the keyword",
+      "stanza:required": false
+    },
+    {
+      "stanza:key": "column_names",
+      "stanza:example": "true",
+      "stanza:description": "whether display columnnames",
+      "stanza:required": false
     }
   ],
   "stanza:usage": "<togostanza-gmdb_meta_list></togostanza-gmdb_meta_list>",
