@@ -56,17 +56,17 @@ Stanza(function(stanza, params){
 
     let array = newick.split("").reverse();
     for(let i = 0; i < array.length; i++){
-      if(array[i] == ")"){
+      if(array[i] === ")"){
         stack.push(nodeObj);
         nodeObj = child.children = [];
-      }else if(array[i] == "("){
+      }else if(array[i] === "("){
         nodeObj = stack.pop();
-      }else if(array[i] == ","){
+      }else if(array[i] === ","){
         //
       }else{
         let string = "";
         for(let j = i; j < array.length; j++){
-          if(array[j] == "(" || array[j] == ")" || array[j] == ","){
+          if(array[j] === "(" || array[j] === ")" || array[j] === ","){
             i = j - 1;
             let element = string.split(":");
             let obj = {name: element[0], distance: element[1], type: "branch"};
@@ -84,8 +84,10 @@ Stanza(function(stanza, params){
 
     // make T_num list for 'gms_by_tid' stanza
     let mkLeafList = function(json){
-      if(json.type && json.type == "leaf"){
-        return [code2tnum[json.name].tid];
+      if(json.type && json.type === "leaf"){
+        const id = code2tnum[json.name].tid;
+        json.id = id;
+        return id;
       }else if(json.children){
         let array = [];
         for(let i = 0; i < json.children.length; i++){
@@ -182,9 +184,9 @@ Stanza(function(stanza, params){
 
     svg.selectAll(".branchNode")
       .on("click", function(d){
-        console.log(d);
-        let tax = d.data.leaf_list.join(",");
-        let gm_stanza = d3.select(stanza.select("#gm_stanza")).html("");
+        // switch detail stanza
+        const tax = d.data.leaf_list.join(",");
+        const gm_stanza = d3.select(stanza.select("#gm_stanza")).html("");
         gm_stanza.append("togostanza-gms_by_tid_3")
           .attr("t_id", tax);
         //
@@ -196,14 +198,24 @@ Stanza(function(stanza, params){
           svg.select(`#${str}`).classed("active", true);
         });
         //
-
       })
       .on("mouseover", function(d){ svg.select("#" + d.data.name).style("stroke", "#89ffff"); })
-      .on("mouseout", function(d){ svg.select("#" + d.data.name).style("stroke", "#cccccc"); });
+      .on("mouseout", function(d){ svg.select("#" + d.data.name).style("stroke", ""); });
 
-    svg.selectAll(".leafNode").on("click", function(d){
-      console.log(d);
-    });
+    svg.selectAll(".leafNode")
+      .on("click", function(d){
+        const tax = d.data.id;
+        const gm_stanza = d3.select(stanza.select("#gm_stanza")).html("");
+        gm_stanza.append("togostanza-gms_by_tid_3")
+          .attr("t_id", tax);
+        //
+        svg.selectAll(".branchNode, .leafNode").selectAll("circle").classed("active", false);
+        svg.select(`#${d.data.name}`).classed("active", true);
+        //
+      })
+      .on("mouseover", function(d){ svg.select("#" + d.data.name).style("stroke", "#89ffff"); })
+      .on("mouseout", function(d){ svg.select("#" + d.data.name).style("stroke", ""); });
+
 
     const getChildrenIDs = (d) => {
       const arr = [];
@@ -216,11 +228,11 @@ Stanza(function(stanza, params){
           }else{
             arr.push(child.data.name);
           }
-        })
+        });
       };
       loopChildren(d);
       return arr;
-    }
+    };
 
     // re-plot by 'change tree shape' button
     let rePlot = function(){
