@@ -1,6 +1,4 @@
 Stanza(function(stanza, params){
-  console.log("HELLO");
-
   let newick_url = "";
   if(params["newick"]){
     newick_url = params["newick"];
@@ -100,8 +98,6 @@ Stanza(function(stanza, params){
 
     mkLeafList(json);
 
-    console.log(json);
-
     stanza.render({
       template: "stanza.html",
     });
@@ -198,6 +194,7 @@ Stanza(function(stanza, params){
           svg.select(`#${str}`).classed("active", true);
         });
         //
+        scrollToDetail();
       })
       .on("mouseover", function(d){ svg.select("#" + d.data.name).style("stroke", "#89ffff"); })
       .on("mouseout", function(d){ svg.select("#" + d.data.name).style("stroke", ""); });
@@ -212,9 +209,29 @@ Stanza(function(stanza, params){
         svg.selectAll(".branchNode, .leafNode").selectAll("circle").classed("active", false);
         svg.select(`#${d.data.name}`).classed("active", true);
         //
+        scrollToDetail();
       })
       .on("mouseover", function(d){ svg.select("#" + d.data.name).style("stroke", "#89ffff"); })
       .on("mouseout", function(d){ svg.select("#" + d.data.name).style("stroke", ""); });
+
+    const scrollToDetail = () => {
+      setTimeout(() => {
+        const wrapper = stanza.select("#renderDiv");
+        const rect = wrapper.getBoundingClientRect();
+        const scrollY = window.scrollY;
+        const targetY = rect.top + rect.height + scrollY;
+        // window.scrollTo(0, targetY);
+        const interval = window.setInterval(() => {
+          const scrollBy = (targetY - window.scrollY) / 20;
+          window.scrollBy(0, scrollBy);
+          const isBottom = ((window.innerHeight + window.scrollY) >= document.body.offsetHeight);
+          const isScrolled = scrollBy <= 1;
+          if(isBottom || isScrolled){
+            window.clearInterval(interval);
+          }
+        }, 1000 / 60);
+      }, 500);
+    };
 
 
     const getChildrenIDs = (d) => {

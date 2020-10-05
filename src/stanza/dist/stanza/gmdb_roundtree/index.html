@@ -5,14 +5,12 @@
 <script src="../assets/js/stanza.js"></script>
 <script>
   (function() {
-    const descriptor = {"templates":{"stanza.html":"\u003cstyle\u003e\n\n.node circle {\n  fill: #fff;\n  stroke: #cccccc;\n  stroke-width: 1.5px;\n}\n\n.node text {\n  font: 10px sans-serif;\n}\n\n.branchNode, .leafNode {\n  cursor: pointer;\n}\n\n\n.aeNode circle {\n  stroke: #89c4ff;\n}\n\n.anNode circle {\n  stroke: #ff8989; \n}\n\n.faNode circle {\n  stroke: #8989ff;\n}\n\n.oaNode circle {\n  stroke: #ffff89;\n}\n\n.maNode circle {\n  stroke: #ff89ff; \n}\n\n.onNode circle {\n  stroke: #89ff89; \n}\n\ncircle.active{\n  fill:#FFFF00;\n}\n\n.edge {\n  fill: none;\n  stroke: #ccc;\n  stroke-width: 1.5px;\n}\n\ninput.downloadButton {\n  color: #4ea0c9;\n  font-weight: bold;\n  border: solid 2px #4ea0c9;\n  background-color: transparent;\n  cursor: pointer;\n  margin-left: 10px;\n}\n\ndiv#gm_stanza {\n  overflow: scroll;\n}\n\u003c/style\u003e\n\u003cdiv id=\"renderDiv\"\u003e\u003c/div\u003e\n\u003cdiv id=\"gm_stanza\"\u003e\u003c/div\u003e\n"},"parameters":["newick"],"elementName":"togostanza-gmdb_roundtree","development":false};
+    const descriptor = {"templates":{"stanza.html":"\u003cstyle\u003e\n  html {\n    scroll-behavior: smooth;\n  }\n\n  #renderDiv {\n    text-align: center;\n    padding: 12px;\n    border-radius: 5px;\n    background-color: #fff;\n    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);\n  }\n\n  .node circle {\n    fill: #fff;\n    stroke: #cccccc;\n    stroke-width: 1.5px;\n  }\n\n  .node text {\n    font: 10px sans-serif;\n  }\n\n  .branchNode, .leafNode {\n    cursor: pointer;\n  }\n\n\n  .aeNode circle {\n    stroke: #89c4ff;\n  }\n\n  .anNode circle {\n    stroke: #ff8989;\n  }\n\n  .faNode circle {\n    stroke: #8989ff;\n  }\n\n  .oaNode circle {\n    stroke: #ffff89;\n  }\n\n  .maNode circle {\n    stroke: #ff89ff;\n  }\n\n  .onNode circle {\n    stroke: #89ff89;\n  }\n\n  circle.active {\n    fill: #FFFF00;\n  }\n\n  .edge {\n    fill: none;\n    stroke: #ccc;\n    stroke-width: 1.5px;\n  }\n\n  input.downloadButton {\n    color: #4ea0c9;\n    font-weight: bold;\n    border: solid 2px #4ea0c9;\n    background-color: transparent;\n    cursor: pointer;\n    margin-left: 10px;\n  }\n\n  div#gm_stanza {\n    /*overflow: scroll;*/\n    overflow: hidden;\n    margin-top: 20px;\n  }\n\u003c/style\u003e\n\u003cdiv id=\"renderDiv\"\u003e\u003c/div\u003e\n\u003cdiv id=\"gm_stanza\"\u003e\u003c/div\u003e\n"},"parameters":["newick"],"elementName":"togostanza-gmdb_roundtree","development":false};
 
     if ('Promise' in window && 'URLSearchParams' in window && 'fetch' in window) {
       const Stanza = TogoStanza.initialize(descriptor);
 
       Stanza(function(stanza, params){
-  console.log("HELLO");
-
   let newick_url = "";
   if(params["newick"]){
     newick_url = params["newick"];
@@ -112,8 +110,6 @@
 
     mkLeafList(json);
 
-    console.log(json);
-
     stanza.render({
       template: "stanza.html",
     });
@@ -210,6 +206,7 @@
           svg.select(`#${str}`).classed("active", true);
         });
         //
+        scrollToDetail();
       })
       .on("mouseover", function(d){ svg.select("#" + d.data.name).style("stroke", "#89ffff"); })
       .on("mouseout", function(d){ svg.select("#" + d.data.name).style("stroke", ""); });
@@ -224,9 +221,29 @@
         svg.selectAll(".branchNode, .leafNode").selectAll("circle").classed("active", false);
         svg.select(`#${d.data.name}`).classed("active", true);
         //
+        scrollToDetail();
       })
       .on("mouseover", function(d){ svg.select("#" + d.data.name).style("stroke", "#89ffff"); })
       .on("mouseout", function(d){ svg.select("#" + d.data.name).style("stroke", ""); });
+
+    const scrollToDetail = () => {
+      setTimeout(() => {
+        const wrapper = stanza.select("#renderDiv");
+        const rect = wrapper.getBoundingClientRect();
+        const scrollY = window.scrollY;
+        const targetY = rect.top + rect.height + scrollY;
+        // window.scrollTo(0, targetY);
+        const interval = window.setInterval(() => {
+          const scrollBy = (targetY - window.scrollY) / 20;
+          window.scrollBy(0, scrollBy);
+          const isBottom = ((window.innerHeight + window.scrollY) >= document.body.offsetHeight);
+          const isScrolled = scrollBy <= 1;
+          if(isBottom || isScrolled){
+            window.clearInterval(interval);
+          }
+        }, 1000 / 60);
+      }, 500);
+    };
 
 
     const getChildrenIDs = (d) => {

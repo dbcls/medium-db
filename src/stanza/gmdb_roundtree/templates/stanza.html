@@ -1,66 +1,79 @@
 <style>
+  html {
+    scroll-behavior: smooth;
+  }
 
-.node circle {
-  fill: #fff;
-  stroke: #cccccc;
-  stroke-width: 1.5px;
-}
+  #renderDiv {
+    text-align: center;
+    padding: 12px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  }
 
-.node text {
-  font: 10px sans-serif;
-}
+  .node circle {
+    fill: #fff;
+    stroke: #cccccc;
+    stroke-width: 1.5px;
+  }
 
-.branchNode, .leafNode {
-  cursor: pointer;
-}
+  .node text {
+    font: 10px sans-serif;
+  }
+
+  .branchNode, .leafNode {
+    cursor: pointer;
+  }
 
 
-.aeNode circle {
-  stroke: #89c4ff;
-}
+  .aeNode circle {
+    stroke: #89c4ff;
+  }
 
-.anNode circle {
-  stroke: #ff8989; 
-}
+  .anNode circle {
+    stroke: #ff8989;
+  }
 
-.faNode circle {
-  stroke: #8989ff;
-}
+  .faNode circle {
+    stroke: #8989ff;
+  }
 
-.oaNode circle {
-  stroke: #ffff89;
-}
+  .oaNode circle {
+    stroke: #ffff89;
+  }
 
-.maNode circle {
-  stroke: #ff89ff; 
-}
+  .maNode circle {
+    stroke: #ff89ff;
+  }
 
-.onNode circle {
-  stroke: #89ff89; 
-}
+  .onNode circle {
+    stroke: #89ff89;
+  }
 
-circle.active{
-  fill:#FFFF00;
-}
+  circle.active {
+    fill: #FFFF00;
+  }
 
-.edge {
-  fill: none;
-  stroke: #ccc;
-  stroke-width: 1.5px;
-}
+  .edge {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+  }
 
-input.downloadButton {
-  color: #4ea0c9;
-  font-weight: bold;
-  border: solid 2px #4ea0c9;
-  background-color: transparent;
-  cursor: pointer;
-  margin-left: 10px;
-}
+  input.downloadButton {
+    color: #4ea0c9;
+    font-weight: bold;
+    border: solid 2px #4ea0c9;
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: 10px;
+  }
 
-div#gm_stanza {
-  overflow: scroll;
-}
+  div#gm_stanza {
+    /*overflow: scroll;*/
+    overflow: hidden;
+    margin-top: 20px;
+  }
 </style>
 <div id="renderDiv"></div>
 <div id="gm_stanza"></div>
