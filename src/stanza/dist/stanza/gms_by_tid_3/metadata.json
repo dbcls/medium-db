@@ -8,7 +8,7 @@
   "stanza:parameter": [
      {
        "stanza:key": "t_id",
-       "stanza:example": "T00077,T00741",
+       "stanza:example": "T00077,T00741,T03382,T03902,T02663,T03900,T00022,T02976,T05425",
        "stanza:description": "KEGG organism identifier",
        "stanza:required": true
      }
