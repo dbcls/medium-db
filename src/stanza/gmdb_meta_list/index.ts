@@ -4,7 +4,7 @@ Stanza<StanzaParams>(async function(stanza, stanzaParams) {
     parameters: {}
   });
   const offset: number = 0;
-  const data = await fetchData(stanzaParams.api_url, stanzaParams.keyword, offset, parseInt(stanzaParams.limit, 10));
+  const data = await fetchData(stanzaParams.api_url, offset, parseInt(stanzaParams.limit, 10));
   const htmlPrams: HTMLParams = processData(data, offset, stanzaParams);
   render(stanza, htmlPrams, stanzaParams);
 });
@@ -19,14 +19,14 @@ const render = (stanza: StanzaInstance, htmlParams: HTMLParams, stanzaParams: St
   stanza.select("#btnPrev")?.addEventListener("click", async() => {
     render(stanza, makeEmptyData(htmlParams), stanzaParams);
     const offset = htmlParams.offset - limit;
-    const data = await fetchData(stanzaParams.api_url, stanzaParams.keyword, offset, limit);
+    const data = await fetchData(stanzaParams.api_url, offset, limit);
     const params: HTMLParams = processData(data, offset, stanzaParams);
     render(stanza, params, stanzaParams);
   });
   stanza.select("#btnNext")?.addEventListener("click", async() => {
     render(stanza, makeEmptyData(htmlParams), stanzaParams);
     const offset = htmlParams.offset + limit;
-    const data = await fetchData(stanzaParams.api_url, stanzaParams.keyword, offset, limit);
+    const data = await fetchData(stanzaParams.api_url, offset, limit);
     const params: HTMLParams = processData(data, offset, stanzaParams);
     render(stanza, params, stanzaParams);
   });
@@ -58,7 +58,7 @@ const processData = (response: APIResponse, offset: number, stanzaParams: Stanza
   const end: number = _end <= total ? _end : total;
   const hasPrev: boolean = offset !== 0;
   const hasNext: boolean = end < total;
-  const title: string = stanzaParams.title.replace(/#keyword#/, `"${stanzaParams.keyword}"`);
+  const title: string = stanzaParams.title;
   const info: string = hasNext || hasPrev ? `showing ${offset + 1} to ${end} of total ${total} items` : `total ${total} items`;
   const _columns: string = stanzaParams.column_names;
   const showColumnNames: boolean = _columns.toLocaleLowerCase() === "false" ? false : Boolean(stanzaParams.column_names);
@@ -75,13 +75,14 @@ const processData = (response: APIResponse, offset: number, stanzaParams: Stanza
   };
 };
 
-const fetchData = async(url: string, query: string, offset: number, limit: number): Promise<APIResponse> => {
+const fetchData = async(url: string, offset: number, limit: number): Promise<APIResponse> => {
   // return fetchDummy(query, offset, limit);
-  return fetchLive(url, query, offset, limit);
+  return fetchLive(url, offset, limit);
 };
 
-const fetchLive = async(url: string, query: string, offset: number, limit: number): Promise<APIResponse> => {
-  const response = await fetch(url, makeOptions({keyword: query, offset, limit}));
+const fetchLive = async(url: string, offset: number, limit: number): Promise<APIResponse> => {
+  const [uri, query]: [string, string] = separateURL(url);
+  const response = await fetch(uri, makeOptions({offset, limit}, query));
   const result = await response.json();
   return result;
 };
@@ -138,7 +139,14 @@ const timeout = (ms: number): Promise<void> => {
   return new Promise<void>(resolve => setTimeout(resolve, ms));
 };
 
-const makeOptions = (params: any): RequestInit => {
+const separateURL = (url: string): [string, string] => {
+  const separated = /(.*)\?(.*)/.exec(url);
+  const uri = separated[1];
+  const query = separated[2];
+  return [uri, query];
+};
+
+const makeOptions = (params: any, query: string): RequestInit => {
   let formBody = [];
 
   for (let key in params) {
@@ -146,11 +154,12 @@ const makeOptions = (params: any): RequestInit => {
       formBody.push(key + "=" + encodeURIComponent(params[key]));
     }
   }
+  const body = `${query}&${formBody.join("&")}`;
 
   return {
     method: "POST",
     mode: "cors",
-    body: formBody.join("&"),
+    body,
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/x-www-form-urlencoded"
@@ -163,7 +172,6 @@ type Item = StringItem | LinkItem;
 
 interface StanzaParams {
   api_url: string;
-  keyword: string;
   limit: string;
   title: string;
   column_names: string;

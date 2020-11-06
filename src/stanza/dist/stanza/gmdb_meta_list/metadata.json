@@ -8,14 +8,8 @@
   "stanza:parameter": [
     {
       "stanza:key": "api_url",
-      "stanza:example": "http://ep.dbcls.jp/sparqlist/api/gmdb_list_media_by_keyword_2",
-      "stanza:description": "URL of the SPARQLIST API",
-      "stanza:required": true
-    },
-    {
-      "stanza:key": "keyword",
-      "stanza:example": "MRS medium",
-      "stanza:description": "querying keyword",
+      "stanza:example": "http://ep.dbcls.jp/sparqlist/api/gmdb_list_media_by_keyword_2?keyword=MRS%20medium",
+      "stanza:description": "URL of the SPARQLIST API with query",
       "stanza:required": true
     },
     {
@@ -26,8 +20,8 @@
     },
     {
       "stanza:key": "title",
-      "stanza:example": "Media with #keyword#",
-      "stanza:description": "title. '#keyword' will be replaced with the keyword",
+      "stanza:example": "Media with MRS Medium",
+      "stanza:description": "title.",
       "stanza:required": false
     },
     {
