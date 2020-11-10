@@ -30,6 +30,7 @@ main{
   box-sizing: border-box;
   padding: 0 10px;
   border-bottom: 1px solid #eee;
+
   .inner{
     width: 100%;
     max-width: 1024px;
@@ -39,6 +40,7 @@ main{
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     .logo{
       display: block;
       width: 135px;
@@ -53,25 +55,30 @@ main{
       display: flex;
       flex-direction: row;
       align-items: center;
+
       ul{
         display: flex;
         flex-direction: row;
         position: relative;
         top: 2px;
         margin-right: 45px;
+
         li{
           margin-left: 30px;
+
           a{
             color: #333;
             text-decoration: none;
             transition-duration: 0.1s;
             transition-property: color;
           }
+
           &:hover{
             a{
               color: @color-dark-green;
             }
           }
+
           &.active a{
             color: @color-dark-green;
           }
@@ -96,7 +103,7 @@ h2{
   margin-top: 48px;
 }
 
-togostanza-gmdb_meta_list{
+togostanza-gmdb_meta_list, togostanza-gmdb_phenotype_info{
   margin-top: 48px;
   display: block;
 }
