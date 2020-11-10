@@ -99,6 +99,7 @@ class Config {
         files: {
           "gmdb_component_by_gmoid/index.js": "gmdb_component_by_gmoid/index.ts",
           "gmdb_meta_list/index.js": "gmdb_meta_list/index.ts",
+          "gmdb_phenotype_info/index.js": "gmdb_phenotype_info/index.ts",
         }
       }
     }
