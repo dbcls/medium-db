@@ -8,7 +8,7 @@
   "stanza:parameter": [
     {
       "stanza:key": "api_url",
-      "stanza:example": "http://ep.dbcls.jp/sparqlist/api/gmdb_list_media_by_keyword_2?keyword=MRS%20medium",
+      "stanza:example": "http://growthmedium.org/sparqlist/api/gmdb_list_similar_media_by_gmid?gm_id=JCM_M25",
       "stanza:description": "URL of the SPARQLIST API with query",
       "stanza:required": true
     },
@@ -20,14 +20,14 @@
     },
     {
       "stanza:key": "title",
-      "stanza:example": "Media with MRS Medium",
+      "stanza:example": "Similar Growth Media of JCM M25",
       "stanza:description": "title.",
       "stanza:required": false
     },
     {
       "stanza:key": "column_names",
       "stanza:example": "true",
-      "stanza:description": "whether display columnnames",
+      "stanza:description": "whether display column names",
       "stanza:required": false
     }
   ],
