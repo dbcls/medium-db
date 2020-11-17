@@ -30,6 +30,7 @@ class Config {
         files: {
           "index.html": "top.pug",
           "about/index.html": "about.pug",
+          "statistics/index.html": "statistics.pug",
           "medium/index.html": "medium.pug",
           "component/index.html": "component.pug",
           "organism/index.html": "organism.pug",

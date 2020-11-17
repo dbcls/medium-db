@@ -1,0 +1,12 @@
+extends _template/_base
+
+block vars
+  - lev = 1
+  - lev1ID = "statistics"
+  - stanzaIDs = ["gmdb_meta_list"]
+
+block main
+  togostanza-gmdb_meta_list(api_url="http://growthmedium.org/sparqlist/api/gmdb_stat_phylum_gm", limit="", title="this is title", column_names="true")
+
+
+block scripts
