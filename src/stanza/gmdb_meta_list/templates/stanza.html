@@ -46,6 +46,7 @@
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 8px;
+    padding-left: 8px;
   }
 
   footer {
@@ -60,12 +61,12 @@
   }
 </style>
 {{#if info}}
+  {{#if title}}
+    <header>
+      <h2>{{title}}</h2>
+    </header>
+  {{/if}}
   <div class="wrapper">
-    {{#if title}}
-      <header>
-        <h2>{{title}}</h2>
-      </header>
-    {{/if}}
     {{#if data}}
       <table>
         {{#if showColumnNames}}
