@@ -141,9 +141,16 @@ const timeout = (ms: number): Promise<void> => {
 
 const separateURL = (url: string): [string, string] => {
   const separated = /(.*)\?(.*)/.exec(url);
-  const uri = separated[1];
-  const query = separated[2];
+  let uri, query;
+  if (separated) {
+    uri = separated[1];
+    query = separated[2];
+  } else {
+    uri = url;
+    query = "";
+  }
   return [uri, query];
+
 };
 
 const makeOptions = (params: any, query: string): RequestInit => {
