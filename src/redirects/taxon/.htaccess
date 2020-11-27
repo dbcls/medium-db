@@ -1,0 +1,9 @@
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /taxon
+RewriteRule ^taxon/index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /taxon/index.html [L]
+</IfModule>

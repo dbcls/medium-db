@@ -34,6 +34,7 @@ class Config {
           "medium/index.html": "medium.pug",
           "component/index.html": "component.pug",
           "organism/index.html": "organism.pug",
+          "taxon/index.html": "taxon.pug",
           "media_alignment/index.html": "media_alignment.pug",
         }
       },

@@ -134,7 +134,6 @@ const makeEmptyData = (params: HTMLParams): HTMLParams => {
   return {...params, data: []};
 };
 
-
 const timeout = (ms: number): Promise<void> => {
   return new Promise<void>(resolve => setTimeout(resolve, ms));
 };
