@@ -11,6 +11,7 @@ body.top{
     border-radius: 5px;
     border: 1px solid #CCCCCC;
   }
+
   .info{
     @base-color: @color-green;
     display: block;
@@ -29,7 +30,36 @@ body.top{
   .stanza{
     margin-bottom: 20px;
     display: block;
+  }
 
+  .message{
+    font-size: 24px;
+    text-align: center;
+  }
+
+  @keyframes blink{
+    0%{
+      opacity: 1;
+    }
+    30%{
+      opacity: 1;
+    }
+    50%{
+      opacity: 0;
+    }
+    70%{
+      opacity: 1;
+    }
+    100%{
+      opacity: 1;
+    }
+
+  }
+
+  .blink{
+    animation-name: blink;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
   }
 
 }

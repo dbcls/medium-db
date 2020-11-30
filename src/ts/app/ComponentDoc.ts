@@ -10,11 +10,14 @@ export class ComponentDoc extends MainDoc {
     const param: string = getPram();
 
     const info: HTMLElement = qs("#info");
-    const media: HTMLElement = qs("#media");
-    const GMOID:HTMLElement = qs("#GMOID");
     info.setAttribute("gmo_id", param);
-    media.setAttribute("gmo_id", param);
-
-    GMOID.innerText = param;
+    //
+    const mediaWrapper: HTMLElement = qs("#media");
+    const mediaStanza: HTMLElement = document.createElement("togostanza-gmdb_meta_list");
+    mediaStanza.setAttribute("limit", "10");
+    mediaStanza.setAttribute("column_names", "true");
+    mediaStanza.setAttribute("api_url", `http://growthmedium.org/sparqlist/api/gmdb_media_by_gmoid?gmo_ids=${param}`);
+    mediaStanza.setAttribute("title", `Media with ${param}`);
+    mediaWrapper.append(mediaStanza);
   }
 }

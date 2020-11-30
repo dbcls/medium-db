@@ -7,10 +7,12 @@ block vars
 block main
   h2 Medium Information
   togostanza-gmdb_medium_by_gmid#info(gm_id="")
-  togostanza-gmdb_meta_list#similar(api_url="", limit="10", title="", column_names="true")
-  h2 Organisms cultured in &nbsp;
-    span#GMID XXXX
-  togostanza-gmdb_organisms_by_gmid#organisms(gm_id="")
+  div#similar.stanza-wrapper
+  div#organisms.stanza-wrapper
+  //togostanza-gmdb_meta_list#similar(api_url="", limit="10", title="", column_names="true")
+  //h2 Organisms cultured in &nbsp;
+  //  span#GMID XXXX
+  //togostanza-gmdb_organisms_by_gmid#organisms(gm_id="")
 
 block scripts
   script(src=`${pathToJS}media.js`)

@@ -1,8 +1,9 @@
 import {MainDoc} from "./MainDoc";
 import {qs} from "imagelogic-tools/src/dom/qs";
-import {fromEvent, Observable} from "rxjs";
-import {debounceTime, first, map, startWith, tap} from "rxjs/operators";
-import {qsa} from "imagelogic-tools/src/dom/qsa";
+import {fromEvent, Observable, of, zip} from "rxjs";
+import {concatMap, debounceTime, map, startWith, switchMap, tap} from "rxjs/operators";
+import {fromFetch} from "rxjs/fetch";
+import {fromPromise} from "rxjs/internal-compatibility";
 
 export class TopDoc extends MainDoc {
   constructor() {
@@ -13,12 +14,6 @@ export class TopDoc extends MainDoc {
     const info: HTMLElement = qs("#info");
     const stanzas: HTMLElement = qs("#stanzaWrapper");
     const input: HTMLInputElement = qs("#queryInput");
-    const mediaByIDs: HTMLElement = qs("#mediaByIDs");
-    const mediaByKeyword: HTMLElement = qs("#mediaByKeyword");
-    const componentsByIDs: HTMLElement = qs("#componentsByIDs");
-    const componentsByKeyword: HTMLElement = qs("#componentsByKeyword");
-    const organismsByIDs: HTMLElement = qs("#organismsByIDs");
-    const organismsByKeyword: HTMLElement = qs("#organismsByKeyword");
 
     const urlQuery = location.search.split("=").pop().replace(/\+/g, " ").trim();
     if (urlQuery) {
@@ -39,24 +34,24 @@ export class TopDoc extends MainDoc {
 
 
     input$.pipe(
-      map(r => mapToQuery(r))
-    ).subscribe((r: QueryKeys) => {
-
-      resetHeading();
-      showHeading(mediaByIDs, r.gm_ids, "gm_ids", "Media");
-      showHeading(componentsByIDs, r.gmo_ids, "gmo_ids", "Components");
-      showHeading(organismsByIDs, r.tax_ids, "tax_ids", "Organisms");
-      showHeading(mediaByKeyword, r.keyword, "gm_keyword", "Media");
-      showHeading(componentsByKeyword, r.keyword, "gmo_keyword", "Components");
-      showHeading(organismsByKeyword, r.keyword, "tax_keyword", "Organisms");
-
-
-      mediaByIDs.setAttribute("gm_ids", r.gm_ids);
-      componentsByIDs.setAttribute("gmo_ids", r.gmo_ids);
-      organismsByIDs.setAttribute("tax_ids", r.tax_ids);
-      mediaByKeyword.setAttribute("keyword", r.keyword);
-      componentsByKeyword.setAttribute("keyword", r.keyword);
-      organismsByKeyword.setAttribute("keyword", r.keyword);
+      map(r => mapToQuery(r)),
+      tap(() => showSearching()),
+      switchMap((r: QueryKeys) => {
+        switch (true) {
+          case !!r.gm_ids:
+            return loadMediaByIDs$(r.gm_ids);
+          case !!r.gmo_ids:
+            return loadComponentsByIDs$(r.gmo_ids);
+          case !!r.tax_ids:
+            return loadOrganismsByIDs$(r.tax_ids);
+          case !!r.keyword:
+            return loadItemsByKeywords(r.keyword);
+          default:
+            return of(0);
+        }
+      }),
+    ).subscribe((r) => {
+      console.log(r);
     });
   }
 
@@ -78,23 +73,6 @@ export class TopDoc extends MainDoc {
     });
   }
 
-}
-
-function showHeading(target: HTMLElement, val: string, klass: string, title: string) {
-  if (val) {
-    const str: string = `<h2 class="${klass}">${title} with &nbsp;<span></span></h2>`;
-    target.insertAdjacentHTML("beforebegin", str);
-    qs(`h2.${klass} span`).innerText = val.replace(/,/g, ", ");
-  }
-}
-
-function resetHeading() {
-  const elms: HTMLElement[] = qsa("h2", qs("#stanzaWrapper"));
-  if (elms.length >= 1) {
-    elms.map((e) => {
-      e.remove();
-    });
-  }
 }
 
 function mapToQuery(original: string): QueryKeys {
@@ -135,9 +113,175 @@ export function matchWithTAXID(str: string): boolean {
   return str.match(/^(\d){1,7}$/) !== null;
 }
 
+const showSearching = () => {
+  clearWrapper();
+  const searching = document.createElement("div");
+  searching.textContent = "Searching";
+  searching.classList.add("message");
+  searching.classList.add("blink");
+  findWrapper().appendChild(searching);
+};
+
+const clearWrapper = () => {
+  const wrapper = findWrapper();
+  wrapper.innerHTML = "";
+};
+
+const loadMediaByIDs$ = (query: string): Observable<any> => {
+  return fromFetch(`${API_MEDIA_BY_ID}${encodeURI(query)}&limit=10&offset=0`).pipe(
+    concatMap(r => fromPromise(r.json())),
+    tap(r => {
+      clearWrapper();
+      showMediaByID(query);
+    }),
+  );
+};
+
+const showMediaByID = (query: string) => {
+  const stanza: HTMLElement = document.createElement("togostanza-gmdb_meta_list");
+  stanza.setAttribute("limit", "10");
+  stanza.setAttribute("column_names", "true");
+  stanza.setAttribute("api_url", `${API_MEDIA_BY_ID}${encodeURI(query)}`);
+  stanza.setAttribute("title", `Media of ${query}`);
+  findWrapper().append(stanza);
+};
+
+const loadComponentsByIDs$ = (query: string): Observable<any> => {
+  return fromFetch(`${API_COMPONENTS_BY_ID}${encodeURI(query)}${API_LIST_PARAMS}`).pipe(
+    concatMap(r => fromPromise(r.json())),
+    tap(r => {
+      clearWrapper();
+      showComponentsByID(query);
+    }),
+  );
+};
+
+const showComponentsByID = (query: string) => {
+  const stanza: HTMLElement = document.createElement("togostanza-gmdb_meta_list");
+  stanza.setAttribute("limit", "10");
+  stanza.setAttribute("column_names", "true");
+  stanza.setAttribute("api_url", `${API_COMPONENTS_BY_ID}${encodeURI(query)}`);
+  stanza.setAttribute("title", `Components of ${query}`);
+  findWrapper().append(stanza);
+};
+
+const loadOrganismsByIDs$ = (query: string): Observable<any> => {
+  return fromFetch(`${API_ORGANISMS_BY_ID}${encodeURI(query)}${API_LIST_PARAMS}`).pipe(
+    concatMap(r => fromPromise(r.json())),
+    tap(r => {
+      clearWrapper();
+      showOrganismsByID(query);
+    }),
+  );
+};
+
+const showOrganismsByID = (query: string) => {
+  const stanza: HTMLElement = document.createElement("togostanza-gmdb_meta_list");
+  stanza.setAttribute("limit", "10");
+  stanza.setAttribute("column_names", "true");
+  stanza.setAttribute("api_url", `${API_ORGANISMS_BY_ID}${encodeURI(query)}`);
+  stanza.setAttribute("title", `Organisms of ${query}`);
+  findWrapper().append(stanza);
+};
+
+const loadItemsByKeywords = (query: string): Observable<any> => {
+  return zip(
+    fromFetch(`${API_MEDIA_BY_KEYWORD}${encodeURI(query)}${API_LIST_PARAMS}`).pipe(concatMap(r => fromPromise(r.json()))),
+    fromFetch(`${API_COMPONENTS_BY_KEYWORD}${encodeURI(query)}${API_LIST_PARAMS}`).pipe(concatMap(r => fromPromise(r.json()))),
+    fromFetch(`${API_ORGANISMS_BY_KEYWORD}${encodeURI(query)}${API_LIST_PARAMS}`).pipe(concatMap(r => fromPromise(r.json())))
+  ).pipe(
+    tap(([media, components, organisms]: [ListResults, ListResults, ListResults]) => {
+      const hasMedia = hasContents(media);
+      const hasComponents = hasContents(components);
+      const hasOrganisms = hasContents(organisms);
+      //
+      clearWrapper();
+      setTimeout(() => {
+        hasMedia ? showMediaByKeyword(query) : "";
+      }, 200);
+      setTimeout(() => {
+        hasComponents ? showComponentsByKeyword(query) : "";
+      }, 400);
+      setTimeout(() => {
+        hasOrganisms ? showOrganismsByKeyword(query) : "";
+      }, 600);
+      !hasMedia && !hasComponents && !hasOrganisms ? showNotFound() : "";
+    })
+  );
+};
+
+const showMediaByKeyword = (query: string) => {
+  const stanza: HTMLElement = document.createElement("togostanza-gmdb_meta_list");
+  stanza.setAttribute("limit", "10");
+  stanza.setAttribute("column_names", "true");
+  stanza.setAttribute("api_url", `${API_MEDIA_BY_KEYWORD}${encodeURI(query)}`);
+  stanza.setAttribute("title", `Media of ${query}`);
+  findWrapper().append(stanza);
+};
+
+const showComponentsByKeyword = (query: string) => {
+  const stanza: HTMLElement = document.createElement("togostanza-gmdb_meta_list");
+  stanza.setAttribute("limit", "10");
+  stanza.setAttribute("column_names", "true");
+  stanza.setAttribute("api_url", `${API_COMPONENTS_BY_KEYWORD}${encodeURI(query)}`);
+  stanza.setAttribute("title", `Components of ${query}`);
+  findWrapper().append(stanza);
+};
+
+const showOrganismsByKeyword = (query: string) => {
+  const stanza: HTMLElement = document.createElement("togostanza-gmdb_meta_list");
+  stanza.setAttribute("limit", "10");
+  stanza.setAttribute("column_names", "true");
+  stanza.setAttribute("api_url", `${API_ORGANISMS_BY_KEYWORD}${encodeURI(query)}`);
+  stanza.setAttribute("title", `Organisms of ${query}`);
+  findWrapper().append(stanza);
+};
+
+const showNotFound = () => {
+  clearWrapper();
+  const notFound = document.createElement("div");
+  notFound.textContent = "Not Found";
+  notFound.classList.add("message");
+  findWrapper().appendChild(notFound);
+};
+
+
+const API_LIST_PARAMS = "&limit=10&offset=0";
+const API_MEDIA_BY_ID = "http://growthmedium.org/sparqlist/api/gmdb_list_media_by_gmids?gm_ids=";
+const API_MEDIA_BY_KEYWORD = "http://growthmedium.org/sparqlist/api/gmdb_list_media_by_keyword?keyword=";
+const API_COMPONENTS_BY_ID = "http://growthmedium.org/sparqlist/api/gmdb_list_components_by_gmoids?gmo_ids=";
+const API_COMPONENTS_BY_KEYWORD = "http://growthmedium.org/sparqlist/api/gmdb_list_components_by_keyword?keyword=";
+const API_ORGANISMS_BY_ID = "http://growthmedium.org/sparqlist/api/gmdb_list_organisms_by_taxids?tax_ids=";
+const API_ORGANISMS_BY_KEYWORD = "http://growthmedium.org/sparqlist/api/gmdb_list_organisms_by_keyword?keyword=";
+
+
+const findWrapper = (): HTMLElement => {
+  return qs("#stanzaWrapper");
+};
+
+const toNumber = (val: string | number): number => {
+  if (typeof val === "string") {
+    return parseInt(val, 10);
+  } else {
+    return val;
+  }
+};
+
+const hasContents = (obj: ListResults): boolean => {
+  return toNumber(obj.total) > 0;
+};
+
 interface QueryKeys {
   gm_ids: string;
   gmo_ids: string;
   tax_ids: string;
   keyword: string;
+}
+
+interface ListResults {
+  columns: any[];
+  contents: any[];
+  limit: string | number;
+  total: string | number;
+  offset: string | number;
 }
