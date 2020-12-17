@@ -1,8 +1,4 @@
 Stanza<StanzaParams>(async function(stanza, stanzaParams) {
-  stanza.render({
-    template: "stanza.html",
-    parameters: {}
-  });
   const offset: number = 0;
   const data = await fetchData(stanzaParams.api_url, offset, parseInt(stanzaParams.limit, 10));
   const htmlPrams: HTMLParams = processData(data, offset, stanzaParams);
@@ -17,27 +13,36 @@ const render = (stanza: StanzaInstance, htmlParams: HTMLParams, stanzaParams: St
     parameters: htmlParams
   });
   stanza.select("#btnPrev")?.addEventListener("click", async() => {
-    render(stanza, {...htmlParams, isLoading: true}, stanzaParams);
-    const offset = htmlParams.offset - limit;
-    const data = await fetchData(stanzaParams.api_url, offset, limit);
-    const params: HTMLParams = processData(data, offset, stanzaParams);
-    render(stanza, params, stanzaParams);
+    await movePage(stanza, htmlParams, stanzaParams, limit * -1);
   });
   stanza.select("#btnNext")?.addEventListener("click", async() => {
-    render(stanza, {...htmlParams, isLoading: true}, stanzaParams);
-    const offset = htmlParams.offset + limit;
-    const data = await fetchData(stanzaParams.api_url, offset, limit);
-    const params: HTMLParams = processData(data, offset, stanzaParams);
-    render(stanza, params, stanzaParams);
+    await movePage(stanza, htmlParams, stanzaParams, limit);
   });
 };
 
+const movePage = async(stanza: StanzaInstance, htmlParams: HTMLParams, stanzaParams: StanzaParams, limit: number) => {
+  render(stanza, {...htmlParams, isLoading: true}, stanzaParams);
+  const offset = htmlParams.offset + limit;
+  const data = await fetchData(stanzaParams.api_url, offset, limit);
+  const params: HTMLParams = processData(data, offset, stanzaParams);
+  render(stanza, params, stanzaParams);
+};
+
 const processData = (response: APIResponse, offset: number, stanzaParams: StanzaParams): HTMLParams => {
-  const columnLabels: string[] = response.columns.map(item => item.label);
-  const keys: string[] = response.columns.map(item => item.key);
+  switch (response.status) {
+    case 200:
+      return makeSuccessData(response, offset, stanzaParams);
+    default:
+      return makeFailParams(response, stanzaParams);
+  }
+};
+
+const makeSuccessData = (response: APIResponse, offset: number, stanzaParams: StanzaParams): HTMLParams => {
+  const columnLabels: string[] = response.body.columns.map(item => item.label);
+  const keys: string[] = response.body.columns.map(item => item.key);
   const noWraps: {[key: string]: boolean} = {};
-  response.columns.forEach(item => noWraps[item.key] = item.nowrap);
-  const data: Item[][] = response.contents.map(item => {
+  response.body.columns.forEach(item => noWraps[item.key] = item.nowrap);
+  const data: Item[][] = response.body.contents.map(item => {
     const result: Item[] = [];
     keys.forEach(key => {
       let value: StringItem;
@@ -53,7 +58,7 @@ const processData = (response: APIResponse, offset: number, stanzaParams: Stanza
     });
     return result;
   });
-  const total: number = response.total;
+  const total: number = response.body.total;
   const _end: number = parseInt(stanzaParams.limit, 10) + offset;
   const end: number = _end <= total ? _end : total;
   const hasPrev: boolean = offset !== 0;
@@ -71,8 +76,26 @@ const processData = (response: APIResponse, offset: number, stanzaParams: Stanza
     hasNext,
     hasPrev,
     info,
-    showColumnNames
+    showColumnNames,
+    status: 200,
+    statusText: ""
   };
+};
+
+const makeFailParams = (response: APIResponse, stanzaParams: StanzaParams): HTMLParams => {
+  return {
+    title: stanzaParams.title,
+    offset: 0,
+    columnLabels: null,
+    data: null,
+    hasNext: false,
+    hasPrev: false,
+    info: null,
+    showColumnNames: false,
+    status: response.status,
+    statusText: response.message,
+  };
+
 };
 
 const fetchData = async(url: string, offset: number, limit: number): Promise<APIResponse> => {
@@ -83,32 +106,45 @@ const fetchData = async(url: string, offset: number, limit: number): Promise<API
 const fetchLive = async(url: string, offset: number, limit: number): Promise<APIResponse> => {
   const [uri, query]: [string, string] = separateURL(url);
   const response = await fetch(uri, makeOptions({offset, limit}, query));
-  const result = await response.json();
-  return result;
+  if (response.status !== 200) {
+    return {
+      status: response.status,
+      message: response.statusText,
+      body: null
+    };
+  }
+  const body: any = await response.json();
+  return {
+    status: 200,
+    body
+  };
 };
 
 const fetchDummy = async(query: string, offset: number, limit: number): Promise<APIResponse> => {
   await timeout(1000);
   const total: number = 22;
   return {
-    total: total,
-    offset: offset,
-    contents: makeContents(limit, offset, total),
-    columns: [
-      {
-        key: "index",
-        label: "INDEX",
-      },
-      {
-        key: "gm_id",
-        label: "GM ID",
-        nowrap: true,
-      },
-      {
-        key: "name",
-        label: "NAME"
-      },
-    ]
+    status: 200,
+    body: {
+      total: total,
+      offset: offset,
+      contents: makeContents(limit, offset, total),
+      columns: [
+        {
+          key: "index",
+          label: "INDEX",
+        },
+        {
+          key: "gm_id",
+          label: "GM ID",
+          nowrap: true,
+        },
+        {
+          key: "name",
+          label: "NAME"
+        },
+      ]
+    }
   };
 };
 
@@ -152,6 +188,7 @@ const separateURL = (url: string): [string, string] => {
 };
 
 const filterQuery = (query: string): string => {
+
   // console.log(query);
   let isOmitted: boolean = false;
   const result: string = query.split("&").filter(str => {
@@ -216,13 +253,19 @@ interface HTMLParams {
   info: string;
   showColumnNames: boolean;
   isLoading?: boolean;
+  status: number;
+  statusText: string;
 }
 
 interface APIResponse {
-  total: number;
-  offset: number;
-  contents: Content[];
-  columns: Column[];
+  status: number;
+  message?: string;
+  body: {
+    total: number;
+    offset: number;
+    contents: Content[];
+    columns: Column[];
+  };
 }
 
 interface Content {

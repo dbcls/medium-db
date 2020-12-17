@@ -16,14 +16,14 @@
     position: relative;
   }
 
-  .wrapper[data-is-loading]:after{
+  .wrapper[data-is-loading]:after {
     content: "loading...";
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
-    background-color: rgba(255,255,255,0.8);
-    top:0;
+    background-color: rgba(255, 255, 255, 0.8);
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
@@ -74,6 +74,13 @@
     font-size: 14px;
     padding-right: 8px;
   }
+
+  .error {
+    background-color: #FFFFFF;
+    padding: 16px;
+    border-radius: 5px;
+    color: #990000;
+  }
 </style>
 {{#if info}}
   {{#if title}}
@@ -82,46 +89,58 @@
     </header>
   {{/if}}
   <div class="wrapper" {{#if isLoading}} data-is-loading{{/if}}>
-  {{#if data}}
-    <table>
-      {{#if showColumnNames}}
-        <tr>
-          {{#each columnLabels}}
-            <th>{{this}}</th>
-          {{/each}}
-        </tr>
-      {{/if}}
-      {{#each data}}
-        <tr>
-          {{#each this}}
-            {{#if this.nowrap}}
-            <td class="no-wrap">
-            {{/if}}
-            {{#unless this.nowrap}}
-            <td>
-            {{/unless}}
-            {{#if this.href}}
-              <a href="{{this.href}}">{{this.label}}</a>
-            {{/if}}
-            {{#unless this.href}}
-              {{this.label}}
-            {{/unless}}
-          </td>
-          {{/each}}
-        </tr>
-      {{/each}}
-    </table>
-    <footer>
-      <div>
-        {{#if hasPrev}}
-          <button id="btnPrev">PREV</button>
+    {{#if data}}
+      <table>
+        {{#if showColumnNames}}
+          <tr>
+            {{#each columnLabels}}
+              <th>{{this}}</th>
+            {{/each}}
+          </tr>
         {{/if}}
-        {{#if hasNext}}
-          <button id="btnNext">NEXT</button>
-        {{/if}}
-      </div>
-      <p class="info">{{info}}</p>
-    </footer>
+        {{#each data}}
+          <tr>
+            {{#each this}}
+              {{#if this.nowrap}}
+              <td class="no-wrap">
+              {{/if}}
+              {{#unless this.nowrap}}
+              <td>
+              {{/unless}}
+              {{#if this.href}}
+                <a href="{{this.href}}">{{this.label}}</a>
+              {{/if}}
+              {{#unless this.href}}
+                {{this.label}}
+              {{/unless}}
+            </td>
+            {{/each}}
+          </tr>
+        {{/each}}
+      </table>
+      <footer>
+        <div>
+          {{#if hasPrev}}
+            <button id="btnPrev">PREV</button>
+          {{/if}}
+          {{#if hasNext}}
+            <button id="btnNext">NEXT</button>
+          {{/if}}
+        </div>
+        <p class="info">{{info}}</p>
+      </footer>
+    {{/if}}
+  </div>
 {{/if}}
-</div>
-{{/if}}
+{{#unless info}}
+  <div class="error">
+    {{#if status}}
+      ERROR {{status}}<br>
+      {{statusText}}
+    {{/if}}
+    {{#unless status}}
+      UNKNOWN ERROR
+    {{/unless}}
+  </div>
+{{/unless}}
+
