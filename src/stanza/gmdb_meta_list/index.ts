@@ -17,14 +17,14 @@ const render = (stanza: StanzaInstance, htmlParams: HTMLParams, stanzaParams: St
     parameters: htmlParams
   });
   stanza.select("#btnPrev")?.addEventListener("click", async() => {
-    render(stanza, makeEmptyData(htmlParams), stanzaParams);
+    render(stanza, {...htmlParams, isLoading: true}, stanzaParams);
     const offset = htmlParams.offset - limit;
     const data = await fetchData(stanzaParams.api_url, offset, limit);
     const params: HTMLParams = processData(data, offset, stanzaParams);
     render(stanza, params, stanzaParams);
   });
   stanza.select("#btnNext")?.addEventListener("click", async() => {
-    render(stanza, makeEmptyData(htmlParams), stanzaParams);
+    render(stanza, {...htmlParams, isLoading: true}, stanzaParams);
     const offset = htmlParams.offset + limit;
     const data = await fetchData(stanzaParams.api_url, offset, limit);
     const params: HTMLParams = processData(data, offset, stanzaParams);
@@ -215,6 +215,7 @@ interface HTMLParams {
   hasPrev: boolean;
   info: string;
   showColumnNames: boolean;
+  isLoading?: boolean;
 }
 
 interface APIResponse {
