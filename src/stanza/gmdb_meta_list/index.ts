@@ -13,16 +13,16 @@ const render = (stanza: StanzaInstance, htmlParams: HTMLParams, stanzaParams: St
     parameters: htmlParams
   });
   stanza.select("#btnPrev")?.addEventListener("click", async() => {
-    await movePage(stanza, htmlParams, stanzaParams, limit * -1);
+    await movePage(stanza, htmlParams, stanzaParams, limit, DIRECTION.PREV);
   });
   stanza.select("#btnNext")?.addEventListener("click", async() => {
-    await movePage(stanza, htmlParams, stanzaParams, limit);
+    await movePage(stanza, htmlParams, stanzaParams, limit, DIRECTION.NEXT);
   });
 };
 
-const movePage = async(stanza: StanzaInstance, htmlParams: HTMLParams, stanzaParams: StanzaParams, limit: number) => {
+const movePage = async(stanza: StanzaInstance, htmlParams: HTMLParams, stanzaParams: StanzaParams, limit: number, direction: DIRECTION) => {
   render(stanza, {...htmlParams, isLoading: true}, stanzaParams);
-  const offset = htmlParams.offset + limit;
+  const offset = htmlParams.offset + limit * direction;
   const data = await fetchData(stanzaParams.api_url, offset, limit);
   const params: HTMLParams = processData(data, offset, stanzaParams);
   render(stanza, params, stanzaParams);
@@ -232,6 +232,11 @@ const makeOptions = (params: any, query: string): RequestInit => {
     }
   };
 };
+
+enum DIRECTION {
+  NEXT = 1,
+  PREV = -1
+}
 
 
 type Item = StringItem | LinkItem;
