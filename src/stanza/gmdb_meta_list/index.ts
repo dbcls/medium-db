@@ -149,18 +149,41 @@ const separateURL = (url: string): [string, string] => {
     query = "";
   }
   return [uri, query];
-
 };
+
+const filterQuery = (query: string): string => {
+  // console.log(query);
+  let isOmitted: boolean = false;
+  const result: string = query.split("&").filter(str => {
+    const reg = /(.*)=(.*)/.exec(str);
+    const [key, value]: [string, string] = [reg[1], reg[2]];
+    switch (key) {
+      case "limit":
+      case "offset":
+        isOmitted = true;
+        return false;
+      default:
+        return true;
+    }
+  }).join("&");
+  if (isOmitted) {
+    console.warn("limit and offset on API_URL have been omitted as they are set from the Stanza");
+  }
+  // console.log(result);
+  return result;
+};
+
 
 const makeOptions = (params: any, query: string): RequestInit => {
   let formBody = [];
+
 
   for (let key in params) {
     if (params[key] !== undefined) {
       formBody.push(key + "=" + encodeURIComponent(params[key]));
     }
   }
-  const body = `${query}&${formBody.join("&")}`;
+  const body = `${filterQuery(query)}&${formBody.join("&")}`;
 
   return {
     method: "POST",

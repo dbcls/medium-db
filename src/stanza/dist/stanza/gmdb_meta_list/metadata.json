@@ -8,7 +8,7 @@
   "stanza:parameter": [
     {
       "stanza:key": "api_url",
-      "stanza:example": "http://growthmedium.org/sparqlist/api/gmdb_list_similar_media_by_gmid?gm_id=JCM_M25",
+      "stanza:example": "http://growthmedium.org/sparqlist/api/gmdb_list_similar_media_by_gmid?gm_id=JCM_M25&limit=10&offset=0",
       "stanza:description": "URL of the SPARQLIST API with query",
       "stanza:required": true
     },
