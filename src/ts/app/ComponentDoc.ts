@@ -16,7 +16,7 @@ export class ComponentDoc extends MainDoc {
     const mediaStanza: HTMLElement = document.createElement("togostanza-gmdb_meta_list");
     mediaStanza.setAttribute("limit", "10");
     mediaStanza.setAttribute("column_names", "true");
-    mediaStanza.setAttribute("api_url", `http://growthmedium.org/sparqlist/api/gmdb_media_by_gmoid?gmo_ids=${param}`);
+    mediaStanza.setAttribute("api_url", `http://growthmedium.org/sparqlist/api/gmdb_media_by_gmoid?gmo_id=${param}`);
     mediaStanza.setAttribute("title", `Media with ${param}`);
     mediaWrapper.append(mediaStanza);
   }
