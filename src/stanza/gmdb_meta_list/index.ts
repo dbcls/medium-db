@@ -175,6 +175,7 @@ const timeout = (ms: number): Promise<void> => {
 };
 
 const separateURL = (url: string): [string, string] => {
+  console.log(url);
   const separated = /(.*)\?(.*)/.exec(url);
   let uri, query;
   if (separated) {
@@ -188,7 +189,7 @@ const separateURL = (url: string): [string, string] => {
 };
 
 const filterQuery = (query: string): string => {
-  if (!query) {return "";}
+  if (!query) { return ""; }
   // console.log(query);
   let isOmitted: boolean = false;
   const result: string = query.split("&").filter(str => {
