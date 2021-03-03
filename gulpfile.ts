@@ -255,30 +255,3 @@ config.build.forEach((build: IBuild) => {
   registerDevelop(build);
 });
 
-
-gulp.task("stanza.build", (done) => {
-  exec("ts build", {cwd: join(process.cwd(), "src/stanza")}, (err, stdout, stderr) => {
-    if (err) {
-      console.error(err);
-    } else {
-      console.log(`stdout: ${stdout}`);
-      console.log(`stderr: ${stderr}`);
-    }
-    done();
-  });
-});
-
-gulp.task("stanza.build.watch", () => {
-  // const watchList: string[] = [
-  //   "gmdb_organism_by_taxid"
-  // ];
-  const globs: string[] = [];
-  const base: string = join(process.cwd(), "src/stanza");
-  globs.push(join(base, "/**/*.*"));
-  const dist = join(base, "dist", "/**/*.*");
-  globs.push(`!${dist}`);
-  // watchList.forEach(str => {
-  //   globs.push(join(base, str, "/**/*.*"));
-  // });
-  gulp.watch(globs, gulp.series("stanza.build"));
-});

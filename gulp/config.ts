@@ -5,15 +5,12 @@ import {IProfile} from "imagelogic-gulp";
 import {IBuild} from "imagelogic-gulp";
 
 const PROFILE_PAGES: string = "pages";
-const PROFILE_STANZA: string = "stanza";
 const BUILD_ALL: string = "all";
 
 const SRC_DIR = join(process.cwd(), "src");
 const PUBLIC_DIR = join(process.cwd(), "public_static");
-// const PROD_DIR = join(PUBLIC_DIR, "products");
 const PROD_DIR = join(PUBLIC_DIR);
 const ASSETS_DIR = join(PROD_DIR, "assets");
-const STANZA_DIR = join(SRC_DIR, "stanza");
 
 class Config {
 
@@ -64,12 +61,6 @@ class Config {
       },
       sync: [
         {
-          name: "stanza",
-          src: join(SRC_DIR, "stanza/dist/stanza"),
-          dest: join(PROD_DIR, "stanza"),
-          watch: true
-        },
-        {
           name: "img",
           src: join(SRC_DIR, "assets/img"),
           dest: join(ASSETS_DIR, "images"),
@@ -91,19 +82,6 @@ class Config {
           watch: false
         }
       ]
-    },
-    {
-      name: PROFILE_STANZA,
-      ts: {
-        src: STANZA_DIR,
-        dest: STANZA_DIR,
-        watch: ["ts"],
-        files: {
-          "gmdb_component_by_gmoid/index.js": "gmdb_component_by_gmoid/index.ts",
-          "gmdb_meta_list/index.js": "gmdb_meta_list/index.ts",
-          "gmdb_phenotype_info/index.js": "gmdb_phenotype_info/index.ts",
-        }
-      }
     }
   ];
   build: IBuild[] = [
