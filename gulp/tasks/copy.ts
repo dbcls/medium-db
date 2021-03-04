@@ -6,7 +6,7 @@ import ReadWriteStream = NodeJS.ReadWriteStream;
 const plugins = <any>gulpLoadPlugins();
 
 export function processSync(profile: ISync, name: string, done: any) {
-  let src = profile.src + "/**/*.*";
+  let src = [profile.src + "/**/*.*", profile.src + "/**/.*"];
   gulp
     .src(src)
     .pipe(cache(name))

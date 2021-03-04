@@ -18,6 +18,7 @@ import { processImagemin } from "./gulp/tasks/imagemin";
 import { openURL } from "./gulp/tasks/open";
 import * as browserSync from "browser-sync";
 import { join } from "path";
+import historyApiFallback = require("connect-history-api-fallback");
 
 export enum KEYS {
   PUG = "pug",
@@ -190,7 +191,26 @@ function registerBrowserSync(build: IBuild) {
     browserSync.init({
       server: {
         baseDir: build.server.base,
+        routes: {
+          "/taxon": "taxon",
+        },
       },
+      middleware: [
+        historyApiFallback({
+          rewrites: [
+            { from: /^\/about\/*/, to: "/about/index.html" },
+            { from: /^\/statistics\/*/, to: "/statistics/index.html" },
+            {
+              from: /^\/media_alignment\/*/,
+              to: "/media_alignment/index.html",
+            },
+            { from: /^\/taxon\/*/, to: "/taxon/index.html" },
+            { from: /^\/media\/*/, to: "/media/index.html" },
+            { from: /^\/component\/*/, to: "/component/index.html" },
+            { from: /^\/organism\/*/, to: "/organism/index.html" },
+          ],
+        }),
+      ],
     });
   });
 }
