@@ -215,10 +215,22 @@ const createOptions = (data: SelectOption[]): HTMLOptionElement[] => {
 };
 
 const parseApiResult = (data: fetchResult): SelectOption[] => {
-  return data.map((item) => ({
-    name: item.name,
-    value: item.id.split("/").pop(),
-  }));
+  return data
+    .map((item) => ({
+      name: item.name,
+      value: item.id.split("/").pop(),
+    }))
+    .sort((a, b) => {
+      const nameA = a.name.toLowerCase();
+      const nameB = b.name.toLowerCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
 };
 
 type fetchResult = { id: string; name: string }[];

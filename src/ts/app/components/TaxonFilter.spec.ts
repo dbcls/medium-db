@@ -27,6 +27,6 @@ describe("parseApiResult", () => {
   ];
 
   const result = parseApiResult(API_RESULT);
-  expect(result[0].name).toBe("Euryarchaeota");
-  expect(result[1].value).toBe("28889");
+  expect(result[0].name).toBe("Crenarchaeota");
+  expect(result[1].value).toBe("28890");
 });
