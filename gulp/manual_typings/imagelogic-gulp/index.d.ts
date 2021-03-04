@@ -1,5 +1,4 @@
 declare module "imagelogic-gulp" {
-
   import * as autoprefixer from "autoprefixer";
 
   interface IProfile {
@@ -17,6 +16,10 @@ declare module "imagelogic-gulp" {
     livereload?: ILiveReload;
     imagemin?: IImagemin;
     url?: string | string[];
+    server?: {
+      base: string;
+      port?: number;
+    };
   }
 
   interface ISync {
@@ -38,9 +41,7 @@ declare module "imagelogic-gulp" {
     autoprefixer: autoprefixer.Options;
   }
 
-  interface ITs extends ISrc {
-
-  }
+  interface ITs extends ISrc {}
 
   interface IPug extends ISrc {
     data?: string[];

@@ -1,8 +1,8 @@
-import {join} from "path";
+import { join } from "path";
 import * as util from "gulp-util";
-import {ENV_DEV} from "./utils/consts";
-import {IProfile} from "imagelogic-gulp";
-import {IBuild} from "imagelogic-gulp";
+import { ENV_DEV } from "./utils/consts";
+import { IProfile } from "imagelogic-gulp";
+import { IBuild } from "imagelogic-gulp";
 
 const PROFILE_PAGES: string = "pages";
 const BUILD_ALL: string = "all";
@@ -13,7 +13,6 @@ const PROD_DIR = join(PUBLIC_DIR);
 const ASSETS_DIR = join(PROD_DIR, "assets");
 
 class Config {
-
   env: string = ENV_DEV;
 
   profile: IProfile[] = [
@@ -33,7 +32,7 @@ class Config {
           "organism/index.html": "organism.pug",
           "taxon/index.html": "taxon.pug",
           "media_alignment/index.html": "media_alignment.pug",
-        }
+        },
       },
       less: {
         src: join(SRC_DIR, "less"),
@@ -42,11 +41,7 @@ class Config {
         files: {
           "main.css": "main.less",
         },
-        autoprefixer: {
-          browsers: [
-            "last 2 versions"
-          ]
-        }
+        autoprefixer: {},
       },
       ts: {
         src: join(SRC_DIR, "ts"),
@@ -57,32 +52,35 @@ class Config {
           "component.js": "component.ts",
           "media.js": "media.ts",
           "organism.js": "organism.ts",
-        }
+        },
       },
       sync: [
         {
           name: "img",
           src: join(SRC_DIR, "assets/img"),
           dest: join(ASSETS_DIR, "images"),
-          watch: false
-        }, {
+          watch: false,
+        },
+        {
           name: "libs",
           src: join(SRC_DIR, "assets/libs"),
           dest: join(ASSETS_DIR, "libs"),
-          watch: true
-        }, {
+          watch: true,
+        },
+        {
           name: "fonts",
           src: join(SRC_DIR, "assets/fonts"),
           dest: join(ASSETS_DIR, "fonts"),
-          watch: false
-        }, {
+          watch: false,
+        },
+        {
           name: "redirects",
           src: join(SRC_DIR, "redirects"),
           dest: PROD_DIR,
-          watch: false
-        }
-      ]
-    }
+          watch: false,
+        },
+      ],
+    },
   ];
   build: IBuild[] = [
     {
@@ -98,8 +96,10 @@ class Config {
         pngquant: [0.4, 1],
         jpegmin: 80,
       },
-      url: "http://medium-db.localhost",
-    }
+      server: {
+        base: PUBLIC_DIR,
+      },
+    },
   ];
 
   changeEnv(env: string) {
@@ -113,4 +113,3 @@ class Config {
 
 const config: Config = new Config();
 export = config;
-

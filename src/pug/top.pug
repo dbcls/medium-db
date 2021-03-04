@@ -2,22 +2,27 @@ extends _template/_base
 
 block vars
   - lev1ID = "top";
-  - stanzaIDs = ["gmdb_meta_list"]
+  - stanzaIDs = ["gmdb-meta-list"]
 
 
 block main
-  input#queryInput(placeholder="search")
-  p.info#info
-    | Try searching with any IDs and keyword you are come up with.<br>
-    | Terms should be separated by "," if multiple queries are requested.<br>
-    | e.g. Glucose, GMO_001010, 315405
-  .stanza-wrapper#stanzaWrapper
-    //togostanza-gmdb_list_media_by_gmids#mediaByIDs.stanza(gm_ids="")
-    //togostanza-gmdb_list_media_by_keyword#mediaByKeyword.stanza(keyword="")
-    //togostanza-gmdb_list_components_by_gmoids#componentsByIDs.stanza(gmo_ids="")
-    //togostanza-gmdb_list_components_by_keyword#componentsByKeyword.stanza(keyword="")
-    //togostanza-gmdb_list_organisms_by_taxids#organismsByIDs.stanza(tax_ids="")
-    //togostanza-gmdb_list_organisms_by_keyword#organismsByKeyword.stanza(keyword="")
+  div#freeSearch
+    input#queryInput(placeholder="search")
+    p.info#info
+      | Try searching with any IDs and keyword you are come up with.<br>
+      | Terms should be separated by "," if multiple queries are requested.<br>
+      | e.g. Glucose, GMO_001010, 315405
+    .stanza-wrapper#stanzaWrapper
+  p OR
+  div
+
+  table#rankTable
+    //tr#kingdomRow
+    //  th Kingdom
+    //  td
+    //    select#kingdomSelect
+    //      option() Select
+
 
 
 block scripts

@@ -1,35 +1,39 @@
 import * as gulp from "gulp";
 import * as Undertaker from "undertaker";
 import * as config from "./gulp/config";
-import {compilePug} from "./gulp/tasks/compile.pug";
-import {compileLess} from "./gulp/tasks/compile.less";
-import {compileTs} from "./gulp/tasks/compile.ts";
-import {processSync} from "./gulp/tasks/copy";
-import {IBuild, ILess, IProfile, IPug, ISync, ITs} from "imagelogic-gulp";
-import {clean} from "./gulp/tasks/clean";
-import {ENV_DEV, ENV_PROD} from "./gulp/utils/consts";
-import {liveReload, reloadBrowser, runWatchCompile, runWatchCopy} from "./gulp/tasks/watches";
-import {processImagemin} from "./gulp/tasks/imagemin";
-import {openURL} from "./gulp/tasks/open";
-import {exec} from "child_process";
-import {join} from "path";
-
+import { compilePug } from "./gulp/tasks/compile.pug";
+import { compileLess } from "./gulp/tasks/compile.less";
+import { compileTs } from "./gulp/tasks/compile.ts";
+import { processSync } from "./gulp/tasks/copy";
+import { IBuild, ILess, IProfile, IPug, ISync, ITs } from "imagelogic-gulp";
+import { clean } from "./gulp/tasks/clean";
+import { ENV_DEV, ENV_PROD } from "./gulp/utils/consts";
+import {
+  liveReload,
+  reloadBrowser,
+  runWatchCompile,
+  runWatchCopy,
+} from "./gulp/tasks/watches";
+import { processImagemin } from "./gulp/tasks/imagemin";
+import { openURL } from "./gulp/tasks/open";
+import * as browserSync from "browser-sync";
+import { join } from "path";
 
 export enum KEYS {
-  PUG           = "pug",
-  LESS          = "less",
-  TS            = "ts",
-  WATCH         = "watch",
-  OPEN          = "open",
-  SYNC          = "sync",
-  CLEAN         = "clean",
-  IMAGEMIN      = "imagemin",
-  LIVE_RELOAD   = "liveReload",
+  PUG = "pug",
+  LESS = "less",
+  TS = "ts",
+  WATCH = "watch",
+  OPEN = "open",
+  SYNC = "sync",
+  CLEAN = "clean",
+  IMAGEMIN = "imagemin",
+  LIVE_RELOAD = "liveReload",
   SINGLE_RELOAD = "singleReload",
-  PRIORITY      = "priority",
-  BUILD         = "build",
+  BROWSER_SYNC = "browser-sync",
+  PRIORITY = "priority",
+  BUILD = "build",
 }
-
 
 function registerPug(profile: IPug, profileName: string) {
   const name: string = `${profileName}.${KEYS.PUG}`;
@@ -45,7 +49,6 @@ function registerPug(profile: IPug, profileName: string) {
   gulp.task(`${name}.${KEYS.WATCH}`, () => {
     runWatchCompile(profile, profileName, KEYS.PUG);
   });
-
 }
 
 function registerLess(profile: ILess, profileName: string) {
@@ -156,17 +159,18 @@ function registerWatch(build: IBuild) {
   if (build.livereload) {
     tasks.push(`${build.name}.${KEYS.LIVE_RELOAD}`);
   }
+  if (build.server) {
+    tasks.push(`${build.name}.${KEYS.BROWSER_SYNC}`);
+  }
   gulp.task(`${build.name}.${KEYS.WATCH}`, gulp.parallel(...tasks));
 }
 
 function registerDevelop(build: IBuild) {
   const tasks: Undertaker.Task[] = [
     `${build.name}.${KEYS.BUILD}.${ENV_DEV}`,
-    `${build.name}.${KEYS.OPEN}`,
     `${build.name}.${KEYS.WATCH}`,
   ];
   gulp.task(`${build.name}.${ENV_DEV}`, gulp.series(...tasks));
-
 }
 
 function registerLiveReload(build: IBuild) {
@@ -178,6 +182,18 @@ function registerLiveReload(build: IBuild) {
   });
 }
 
+function registerBrowserSync(build: IBuild) {
+  if (!build.server) {
+    return;
+  }
+  gulp.task(`${build.name}.${KEYS.BROWSER_SYNC}`, () => {
+    browserSync.init({
+      server: {
+        baseDir: build.server.base,
+      },
+    });
+  });
+}
 
 function createTaskSequence(build: IBuild): Undertaker.Task[] {
   const buildName: string = build.name;
@@ -220,7 +236,6 @@ function findProfile(key: string) {
   return r;
 }
 
-
 gulp.task(`${KEYS.SINGLE_RELOAD}`, (done) => {
   reloadBrowser();
   done();
@@ -249,9 +264,9 @@ config.build.forEach((build: IBuild) => {
   registerClean(build);
   registerImagemin(build);
   registerLiveReload(build);
+  registerBrowserSync(build);
   registerBuildDevelop(build);
   registerBuildProd(build);
   registerWatch(build);
   registerDevelop(build);
 });
-
