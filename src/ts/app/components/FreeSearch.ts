@@ -228,7 +228,7 @@ const loadItemsByKeywords = (query: string): Observable<any> => {
 
 const showMediaByKeyword = (query: string) => {
   const title = `Media of ${query}`;
-  insertStanza(API_COMPONENTS_BY_KEYWORD, query, title);
+  insertStanza(API_MEDIA_BY_KEYWORD, query, title);
 };
 
 const showComponentsByKeyword = (query: string) => {

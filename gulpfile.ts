@@ -205,7 +205,7 @@ function registerBrowserSync(build: IBuild) {
               to: "/media_alignment/index.html",
             },
             { from: /^\/taxon\/*/, to: "/taxon/index.html" },
-            { from: /^\/media\/*/, to: "/media/index.html" },
+            { from: /^\/medium\/*/, to: "/medium/index.html" },
             { from: /^\/component\/*/, to: "/component/index.html" },
             { from: /^\/organism\/*/, to: "/organism/index.html" },
           ],

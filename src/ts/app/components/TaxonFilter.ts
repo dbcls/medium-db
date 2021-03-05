@@ -1,6 +1,3 @@
-import { async } from "rxjs";
-import { createEvalAwarePartialHost } from "ts-node/dist/repl";
-
 export const setUpTaxonFilter = () => {
   setUpTable();
   setKingdomSelect();
@@ -37,8 +34,7 @@ const availableRanks: TAXON_RANK[] = [
 
 const setUpTable = () => {
   const table = getTable();
-  availableRanks.forEach((rank: string, i: number) => {
-    const next = availableRanks[i + 1];
+  availableRanks.forEach((rank: string) => {
     const tr = document.createElement("tr");
     tr.dataset.rank = rank;
     const th = document.createElement("th");

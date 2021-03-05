@@ -2,14 +2,19 @@ extends _template/_base
 
 block vars
   - lev = 1
-  - stanzaIDs = ["gmdb_medium_by_gmid", "gmdb_organisms_by_gmid","gmdb_meta_list"]
+  - stanzaIDs = ["gmdb-medium-by-gmid", "gmdb-meta-list"]
 
 block main
   h2 Medium Information
-  togostanza-gmdb_medium_by_gmid#info(gm_id="")
-  div#similar.stanza-wrapper
-  div#organisms.stanza-wrapper
-  //togostanza-gmdb_meta_list#similar(api_url="", limit="10", title="", column_names="true")
+  //div#info.stanza-wrapper
+  //div#similar.stanza-wrapper
+  //div#organisms.stanza-wrapper
+  div.stanza-wrapper
+    togostanza-gmdb-medium-by-gmid#info(gm_id="", togostanza-about-link-placement="none")
+  div.stanza-wrapper
+    togostanza-gmdb-meta-list#similar(api_url="", limit="10", title="", column_names="true", togostanza-about-link-placement="none")
+  div.stanza-wrapper
+    togostanza-gmdb-meta-list#organisms(api_url="", limit="10", title="", column_names="true", togostanza-about-link-placement="none")
   //h2 Organisms cultured in &nbsp;
   //  span#GMID XXXX
   //togostanza-gmdb_organisms_by_gmid#organisms(gm_id="")
