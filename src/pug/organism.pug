@@ -2,13 +2,16 @@ extends _template/_base
 
 block vars
   - lev = 1
-  - stanzaIDs = ["gmdb_organism_by_taxid", "gmdb_phenotype_info", "gmdb_meta_list"]
+  - stanzaIDs = ["gmdb-organism-by-taxid", "gmdb-phenotype-info", "gmdb-meta-list"]
 
 block main
   h2 Organism Information
-  togostanza-gmdb_organism_by_taxid#info(tax_id="")
-  togostanza-gmdb_phenotype_info#phenotype
-  div#media.stanza-wrapper
+  div.stanza-wrapper
+    togostanza-gmdb-organism-by-taxid#info(tax_id="", togostanza-about-link-placement="none")
+  div.stanza-wrapper
+    togostanza-gmdb-phenotype-info#phenotype(tax_id="", togostanza-about-link-placement="none")
+  div.stanza-wrapper
+    togostanza-gmdb-meta-list#media(api_url="", limit="10", title="", column_names="true", togostanza-about-link-placement="none")
 
 block scripts
   script(src=`${pathToJS}organism.js`)
