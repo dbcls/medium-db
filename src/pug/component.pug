@@ -2,12 +2,14 @@ extends _template/_base
 
 block vars
   - lev = 1
-  - stanzaIDs = ["gmdb_component_by_gmoid", "gmdb_meta_list"]
+  - stanzaIDs = ["gmdb-component-by-gmoid", "gmdb-meta-list"]
 
 block main
   h2 Component Information
-  togostanza-gmdb_component_by_gmoid#info(gmo_id="")
-  div#media.stanza-wrapper
+  div.stanza-wrapper
+    togostanza-gmdb-component-by-gmoid#info(gmo_id="", togostanza-about-link-placement="none")
+  div.stanza-wrapper
+    togostanza-gmdb-meta-list#media(api_url="", limit="10", title="", column_names="true", togostanza-about-link-placement="none")
 
 block scripts
   script(src=`${pathToJS}component.js`)
