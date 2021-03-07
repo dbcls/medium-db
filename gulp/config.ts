@@ -52,6 +52,7 @@ class Config {
           "component.js": "component.ts",
           "media.js": "media.ts",
           "organism.js": "organism.ts",
+          "taxon.js": "taxon.ts",
         },
       },
       sync: [

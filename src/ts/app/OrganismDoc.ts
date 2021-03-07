@@ -10,18 +10,6 @@ export class OrganismDoc extends MainDoc {
   protected onReady() {
     super.onReady();
     setup();
-    // const param: string = getPram();
-    //
-    // const info: HTMLElement = qs("#info");
-    // info.setAttribute("tax_id", param);
-    // //
-    // const mediaWrapper: HTMLElement = qs("#media");
-    // const mediaStanza: HTMLElement = document.createElement("togostanza-gmdb_meta_list");
-    // mediaStanza.setAttribute("limit", "10");
-    // mediaStanza.setAttribute("column_names", "true");
-    // mediaStanza.setAttribute("api_url", `http://growthmedium.org/sparqlist/api/gmdb_media_by_taxid?gmo_ids=${param}`);
-    // mediaStanza.setAttribute("title", `Media with ${param}`);
-    // mediaWrapper.append(mediaStanza);
   }
 }
 
