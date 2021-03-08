@@ -22,7 +22,7 @@ const setup = () => {
   const mediaStanza: HTMLElement = qs("#media");
   mediaStanza.setAttribute(
     "api_url",
-    `http://growthmedium.org/sparqlist/api/gmdb_media_by_gmoid?gmo_ids=${param}`
+    `http://growthmedium.org/sparqlist/api/gmdb_media_by_gmoid?gmo_id=${param}`
   );
   mediaStanza.setAttribute("title", `Media with ${param}`);
 };
