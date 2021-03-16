@@ -1,5 +1,5 @@
-import {MainDoc} from "./app/MainDoc";
+import { EVENT_READY } from "./app/Consts";
 
-(function() {
-  let doc = new MainDoc();
+(() => {
+  document.addEventListener(EVENT_READY, () => {});
 })();

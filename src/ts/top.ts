@@ -1,5 +1,10 @@
-import {TopDoc} from "./app/TopDoc";
+import { EVENT_READY } from "./app/Consts";
+import { setUpFreeSearch } from "./app/components/FreeSearch";
+import { setUpTaxonFilter } from "./app/components/TaxonFilter";
 
-(function() {
-  let doc = new TopDoc();
+(() => {
+  document.addEventListener(EVENT_READY, () => {
+    setUpFreeSearch();
+    setUpTaxonFilter();
+  });
 })();

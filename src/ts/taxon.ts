@@ -1,5 +1,15 @@
-import { TaxonDoc } from "./app/TaxonDoc";
+import { EVENT_READY } from "./app/Consts";
+import { getPram } from "./app/utils";
+import { qs } from "imagelogic-tools/src/dom/qs";
 
-(function () {
-  let doc = new TaxonDoc();
+(() => {
+  document.addEventListener(EVENT_READY, () => {
+    setup();
+  });
+
+  const setup = () => {
+    const id: string = getPram();
+    const info: HTMLElement = qs("#info");
+    info.setAttribute("tax_id", id);
+  };
 })();
