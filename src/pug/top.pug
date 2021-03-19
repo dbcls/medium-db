@@ -10,6 +10,25 @@ block main
   section.instruction
     p A short description of this site comes here. A short description of this site comes here.A short description of this site comes here.A short description of this site comes here.A short description of this site comes here.A short description of this site comes here.A short description of this site comes here.
 
+  section.stats
+    h2 On our database
+    div.container
+      a(href="/medium/")
+        include ./_include/flask-potion-light.svg
+        span
+          span#numMedia &nbsp;
+          span media
+      a(href="/organism/")
+        include ./_include/disease-light.svg
+        span
+          span#numOrganisms &nbsp;
+          span organisms
+      a(href="/component/")
+        include ./_include/mortar-pestle-light.svg
+        span
+          span#numComponents &nbsp;
+          span components
+
   section.taxon-filter
       h2: span Find organism from taxon
       ul#rankList

@@ -52,7 +52,7 @@ export const setUpFreeSearch = () => {
       })
     )
     .subscribe((r) => {
-      console.log(r);
+      // console.log(r);
     });
 };
 
