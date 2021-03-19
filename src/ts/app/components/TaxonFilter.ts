@@ -1,14 +1,16 @@
+import pluralize = require("pluralize");
+
 export const setUpTaxonFilter = () => {
   setUpTable();
   setKingdomSelect();
-  setRowVisibility(TAXON_RANK._0_KINGDOM, false);
+  setItemVisibility(TAXON_RANK._0_KINGDOM, false);
   setLinkVisibility(TAXON_RANK._0_KINGDOM, false);
 };
 
 const NULL_VALUE = "null";
 
 enum TAXON_RANK {
-  _0_KINGDOM = "Kingdom",
+  _0_KINGDOM = "Superkingdom",
   _1_PHYLUM = "Phylum",
   _2_CLASS = "Class",
   _3_ORDER = "Order",
@@ -33,35 +35,33 @@ const availableRanks: TAXON_RANK[] = [
 ];
 
 const setUpTable = () => {
-  const table = getTable();
+  const list = getList();
   availableRanks.forEach((rank: string) => {
-    const tr = document.createElement("tr");
-    tr.dataset.rank = rank;
-    const th = document.createElement("th");
-    th.innerText = rank;
-    tr.append(th);
-    const td1 = document.createElement("td");
-    tr.append(td1);
+    const listItem = document.createElement("li");
+    listItem.dataset.rank = rank;
+
+    const label = document.createElement("span");
+    label.innerText = rank;
+    listItem.append(label);
+
     const select = document.createElement("select");
     select.dataset.rank = rank;
     select.addEventListener("change", (e) => {
       onChangeSelect(e.target as HTMLSelectElement);
     });
     const nullOption = document.createElement("option");
-    nullOption.text = "select";
+    nullOption.text = `--Select--`;
     nullOption.value = NULL_VALUE;
     select.append(nullOption);
-    td1.append(select);
+    listItem.append(select);
 
-    const td2 = document.createElement("td");
-    tr.append(td2);
     const link = document.createElement("a");
-    link.text = "Show Detail";
+    link.text = rank === TAXON_RANK._9_SPECIES ? "Organism Info" : "Taxon Info";
     link.href = "#";
     link.dataset.rank = rank;
-    td2.append(link);
+    listItem.append(link);
 
-    table.append(tr);
+    list.append(listItem);
   });
 };
 
@@ -70,7 +70,7 @@ const onChangeSelect = async (select: HTMLSelectElement) => {
   const value = select.value;
   const nextRank = getNextTaxon(rank);
   clearSubSelections(rank);
-  setRowVisibility(rank, value !== NULL_VALUE);
+  setItemVisibility(rank, value !== NULL_VALUE);
   setLinkVisibility(rank, value !== NULL_VALUE);
   setLink(rank, value);
 
@@ -85,15 +85,15 @@ const setLink = (rank: TAXON_RANK, value: string) => {
   if (value === NULL_VALUE) {
     return;
   }
-  const link = getTable().querySelector<HTMLAnchorElement>(
+  const link = getList().querySelector<HTMLAnchorElement>(
     `a[data-rank=${rank}]`
   );
   link.href =
     rank === TAXON_RANK._9_SPECIES ? `/organism/${value}` : `/taxon/${value}`;
 };
 
-const setRowVisibility = (rank: TAXON_RANK, isSelected: boolean) => {
-  const rows = getTable().querySelectorAll("tr");
+const setItemVisibility = (rank: TAXON_RANK, isSelected: boolean) => {
+  const rows = getList().querySelectorAll("li");
   const rankLevel = getRankLevel(rank);
   rows.forEach((item) => {
     const myRank: TAXON_RANK = item.dataset.rank as TAXON_RANK;
@@ -101,13 +101,13 @@ const setRowVisibility = (rank: TAXON_RANK, isSelected: boolean) => {
     if (rankLevel + (isSelected ? 1 : 0) < myRankLevel) {
       item.style.display = "none";
     } else {
-      item.style.display = "table-row";
+      item.style.display = "flex";
     }
   });
 };
 
 const setLinkVisibility = (rank: TAXON_RANK, isSelected: boolean) => {
-  const links = getTable().querySelectorAll("a");
+  const links = getList().querySelectorAll("a");
   const rankLevel = getRankLevel(rank);
   links.forEach((item) => {
     const myRank: TAXON_RANK = item.dataset.rank as TAXON_RANK;
@@ -115,13 +115,13 @@ const setLinkVisibility = (rank: TAXON_RANK, isSelected: boolean) => {
     if (rankLevel + (isSelected ? 1 : 0) <= myRankLevel) {
       item.style.display = "none";
     } else {
-      item.style.display = "block";
+      item.style.display = "inline-block";
     }
   });
 };
 
 const clearSubSelections = (rank: TAXON_RANK) => {
-  const selects = getTable().querySelectorAll("select");
+  const selects = getList().querySelectorAll("select");
   const rankLevel = getRankLevel(rank);
   selects.forEach((item) => {
     const myRank: TAXON_RANK = item.dataset.rank as TAXON_RANK;
@@ -133,13 +133,13 @@ const clearSubSelections = (rank: TAXON_RANK) => {
 };
 
 const clearSelection = (rank: TAXON_RANK) => {
-  const select = getTable().querySelector(`select[data-rank=${rank}]`);
+  const select = getList().querySelector(`select[data-rank=${rank}]`);
   while (select.children.length > 1) {
     select.removeChild(select.children[select.children.length - 1]);
   }
 };
 const setSelectOptions = (rank: TAXON_RANK, data: SelectOption[]) => {
-  const select = getTable().querySelector(`select[data-rank=${rank}]`);
+  const select = getList().querySelector(`select[data-rank=${rank}]`);
   createOptions(data).forEach((elm) => select.append(elm));
 };
 
@@ -156,7 +156,7 @@ const getNextTaxon = (rank: TAXON_RANK): TAXON_RANK => {
 };
 
 const setKingdomSelect = () => {
-  const select = getTable().querySelector(
+  const select = getList().querySelector(
     `select[data-rank=${TAXON_RANK._0_KINGDOM}]`
   );
   createOptions(kingdomOptions).forEach((elm) => select.append(elm));
@@ -166,8 +166,8 @@ const changeSelect = async (id: string, rank: TAXON_RANK) => {
   const data = await fetchTaxon(id, rank);
 };
 
-const getTable = () => {
-  return document.querySelector("#rankTable");
+const getList = () => {
+  return document.querySelector("#rankList");
 };
 
 const setPhylumSelect = () => {};

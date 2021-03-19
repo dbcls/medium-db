@@ -8,16 +8,30 @@ import { qs } from "imagelogic-tools/src/dom/qs";
   });
 
   const setup = () => {
-    const param: string = getPram();
+    const id: string = getPram();
+    !!id ? showSingleItem(id) : showComponentList();
+  };
+
+  const showComponentList = () => {
+    qs("#all").style.display = "block";
+    const list = qs("#list");
+    list.setAttribute(
+      "api_url",
+      "http://growthmedium.org/sparqlist/api/list_components"
+    );
+  };
+
+  const showSingleItem = (id: string) => {
+    qs("#singleItem").style.display = "block";
 
     const info: HTMLElement = qs("#info");
-    info.setAttribute("gmo_id", param);
+    info.setAttribute("gmo_id", id);
     //
     const mediaStanza: HTMLElement = qs("#media");
     mediaStanza.setAttribute(
       "api_url",
-      `http://growthmedium.org/sparqlist/api/gmdb_media_by_gmoid?gmo_id=${param}`
+      `http://growthmedium.org/sparqlist/api/gmdb_media_by_gmoid?gmo_id=${id}`
     );
-    mediaStanza.setAttribute("title", `Media with ${param}`);
+    mediaStanza.setAttribute("title", `Media with ${id}`);
   };
 })();

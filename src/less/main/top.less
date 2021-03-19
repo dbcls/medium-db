@@ -1,66 +1,151 @@
 @import (reference) "../_include/variables";
 
-body.top{
-  #queryInput{
-    display: block;
-    width: 80%;
-    max-width: 480px;
-    margin: 40px auto 40px;
-    font-size: 32px;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #CCCCCC;
-  }
 
-  .info{
-    @base-color: @color-green;
-    display: block;
-    width: 80%;
-    max-width: 640px;
-    margin: 40px auto 80px;
-    line-height: 1.4;
-    font-size: 20px;
-    border: 1px solid @base-color;
-    padding: 8px;
-    border-radius: 5px;
-    color: darken(@base-color, 20);
-    background-color: fadeout(@base-color, 95);
-  }
-
-  .stanza{
-    margin-bottom: 20px;
-    display: block;
-  }
-
-  .message{
-    font-size: 24px;
+.section-wrapper(){
+  width: 100%;
+  margin: 0 auto 80px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+  box-sizing: border-box;;
+  h2{
     text-align: center;
+    margin-top: -24px;
+    margin-bottom: 16px;
+    span{
+      padding: 0 4px;
+      background-color: @color-gray-bg;
+    }
+  }
+}
+
+body.top{
+  .instruction{
+    width: 80%;
+    margin: 20px auto 80px;
+    font-size: 18px;
+    line-height: 1.5;
   }
 
-  @keyframes blink{
-    0%{
-      opacity: 1;
+  .taxon-filter{
+    .section-wrapper();
+    #rankList{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      li{
+        border: 1px solid #CCC;
+        padding: 8px;
+        margin-right: 8px;
+        margin-bottom: 8px;
+        background-color: @color-white-pure;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+
+        select{
+          margin-bottom: 5px;
+          font-size: 14px;
+          padding: 2px;
+        }
+
+        span{
+          font-size: 16px;
+          margin-bottom: 4px;
+          display: block;
+          font-weight: 400;
+        }
+
+        a{
+          background-color: @color-green;
+          color: @color-white-pure;
+          padding: 4px 8px 2px;
+          border-radius: 3px;
+          text-decoration: none;
+          font-size: 14px;
+          font-weight: 600;
+          display: inline-block;
+          line-height: 1;
+        }
+      }
     }
-    30%{
-      opacity: 1;
+  }
+
+
+  .free-search{
+    .section-wrapper();
+    #queryInput{
+      display: block;
+      width: 80%;
+      max-width: 480px;
+      margin: 40px auto 40px;
+      font-size: 32px;
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #CCCCCC;
     }
-    50%{
-      opacity: 0;
+
+    .info{
+      @base-color: @color-green;
+      display: block;
+      width: 80%;
+      max-width: 640px;
+      margin: 40px auto 40px;
+      line-height: 1.4;
+      font-size: 20px;
+      border: 1px solid @base-color;
+      padding: 8px;
+      border-radius: 5px;
+      color: darken(@base-color, 20);
+      background-color: fadeout(@base-color, 95);
     }
-    70%{
-      opacity: 1;
+
+    .stanza{
+      margin-bottom: 20px;
+      display: block;
     }
-    100%{
-      opacity: 1;
+
+    .message{
+      font-size: 24px;
+      text-align: center;
+    }
+
+    @keyframes blink{
+      0%{
+        opacity: 1;
+      }
+      30%{
+        opacity: 1;
+      }
+      50%{
+        opacity: 0;
+      }
+      70%{
+        opacity: 1;
+      }
+      100%{
+        opacity: 1;
+      }
+
+    }
+
+    .blink{
+      animation-name: blink;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+    }
+
+    .stanza-wrapper{
+      div + div{
+        margin-top: 40px;
+      }
     }
 
   }
 
-  .blink{
-    animation-name: blink;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-  }
 
 }
 

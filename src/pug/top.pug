@@ -6,7 +6,16 @@ block vars
 
 
 block main
-  div#freeSearch
+
+  section.instruction
+    p A short description of this site comes here. A short description of this site comes here.A short description of this site comes here.A short description of this site comes here.A short description of this site comes here.A short description of this site comes here.A short description of this site comes here.
+
+  section.taxon-filter
+      h2: span Find organism from taxon
+      ul#rankList
+
+  section#freeSearch.free-search
+    h2: span Free search with keywords and IDs
     input#queryInput(placeholder="search")
     p.info#info
       | Try searching with any IDs and keyword you are come up with.<br>
@@ -14,8 +23,8 @@ block main
       | e.g. Glucose, GMO_001010, 315405
     .stanza-wrapper#stanzaWrapper
 
-  div
-    table#rankTable
+
+
 
 
 

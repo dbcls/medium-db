@@ -9,6 +9,21 @@ import { qs } from "imagelogic-tools/src/dom/qs";
 
   const setup = () => {
     const id: string = getPram();
+    !!id ? showSingleItem(id) : showMediaList();
+  };
+
+  const showMediaList = () => {
+    qs("#all").style.display = "block";
+    const list = qs("#list");
+    list.setAttribute(
+      "api_url",
+      "http://growthmedium.org/sparqlist/api/list_media"
+    );
+  };
+
+  const showSingleItem = (id: string) => {
+    qs("#singleItem").style.display = "block";
+
     const info = qs("#info");
     info.setAttribute("gm_id", id);
     //

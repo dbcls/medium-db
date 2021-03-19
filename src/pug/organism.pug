@@ -5,13 +5,18 @@ block vars
   - stanzaIDs = ["gmdb-organism-by-taxid", "gmdb-phenotype-info", "gmdb-meta-list"]
 
 block main
-  h2 Organism Information
-  div.stanza-wrapper
-    togostanza-gmdb-organism-by-taxid#info(tax_id="", togostanza-about-link-placement="none")
-  div.stanza-wrapper
-    togostanza-gmdb-phenotype-info#phenotype(tax_id="", togostanza-about-link-placement="none")
-  div.stanza-wrapper
-    togostanza-gmdb-meta-list#media(api_url="", limit="10", title="", column_names="true", togostanza-about-link-placement="none")
+  div#all(style="display:none;")
+    h2 All Organisms
+    div.stanza-wrapper
+      togostanza-gmdb-meta-list#list(api_url="", limit="20", title="", column_names="true", togostanza-about-link-placement="none")
+  div#singleItem(style="display:none;")
+    h2 Organism Information
+    div.stanza-wrapper
+      togostanza-gmdb-organism-by-taxid#info(tax_id="", togostanza-about-link-placement="none")
+    div.stanza-wrapper
+      togostanza-gmdb-phenotype-info#phenotype(tax_id="", togostanza-about-link-placement="none")
+    div.stanza-wrapper
+      togostanza-gmdb-meta-list#media(api_url="", limit="10", title="", column_names="true", togostanza-about-link-placement="none")
 
 block scripts
   script(src=`${pathToJS}organism.js`)

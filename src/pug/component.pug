@@ -5,11 +5,16 @@ block vars
   - stanzaIDs = ["gmdb-component-by-gmoid", "gmdb-meta-list"]
 
 block main
-  h2 Component Information
-  div.stanza-wrapper
-    togostanza-gmdb-component-by-gmoid#info(gmo_id="", togostanza-about-link-placement="none")
-  div.stanza-wrapper
-    togostanza-gmdb-meta-list#media(api_url="", limit="10", title="", column_names="true", togostanza-about-link-placement="none")
+  div#all(style="display:none;")
+    h2 All Components
+    div.stanza-wrapper
+      togostanza-gmdb-meta-list#list(api_url="", limit="20", title="", column_names="true", togostanza-about-link-placement="none")
+  div#singleItem(style="display:none;")
+    h2 Component Information
+    div.stanza-wrapper
+      togostanza-gmdb-component-by-gmoid#info(gmo_id="", togostanza-about-link-placement="none")
+    div.stanza-wrapper
+      togostanza-gmdb-meta-list#media(api_url="", limit="10", title="", column_names="true", togostanza-about-link-placement="none")
 
 block scripts
   script(src=`${pathToJS}component.js`)

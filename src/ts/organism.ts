@@ -8,6 +8,19 @@ import { qs } from "imagelogic-tools/src/dom/qs";
   });
   const setup = () => {
     const id: string = getPram();
+    !!id ? showSingleItem(id) : showOrganismList();
+  };
+  const showOrganismList = () => {
+    qs("#all").style.display = "block";
+    const list = qs("#list");
+    list.setAttribute(
+      "api_url",
+      "http://growthmedium.org/sparqlist/api/list_organisms"
+    );
+  };
+  const showSingleItem = (id: string) => {
+    qs("#singleItem").style.display = "block";
+
     const info: HTMLElement = qs("#info");
     info.setAttribute("tax_id", id);
 
