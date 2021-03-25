@@ -21,10 +21,34 @@
 
 body.top{
   .instruction{
-    width: 80%;
     margin: 20px auto 80px;
-    font-size: 18px;
-    line-height: 1.5;
+    p:first-child{
+      border-top: 1px solid @color-green;
+      border-bottom: 1px solid @color-green;
+      padding: 15px;
+      line-height: 1;
+      font-size: 40px;
+      width: 70%;
+      color: @color-dark-green;
+      margin: 0 auto 18px;
+      font-style: italic;
+      //text-align: center;
+      span{
+        display: block;
+        &:first-child{
+          text-align: left;
+        }
+        &:last-child{
+          text-align: right;
+        }
+      }
+    }
+    p:nth-child(n + 2){
+      font-size: 18px;
+      line-height: 1.5;
+      width: 70%;
+      margin: 0 auto;
+    }
   }
   .stats{
     h2{
