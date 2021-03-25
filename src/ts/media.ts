@@ -19,6 +19,7 @@ import { qs } from "imagelogic-tools/src/dom/qs";
       "api_url",
       "http://growthmedium.org/sparqlist/api/list_media"
     );
+    list.setAttribute("column_sizes", "15,85");
   };
 
   const showSingleItem = (id: string) => {
@@ -33,6 +34,7 @@ import { qs } from "imagelogic-tools/src/dom/qs";
       `http://growthmedium.org/sparqlist/api/gmdb_list_similar_media_by_gmid?gm_id=${id}`
     );
     similar.setAttribute("title", `Similar Growth Media of ${id}`);
+    similar.setAttribute("column_sizes", "15,70,15");
 
     const organisms = qs("#organisms");
     organisms.setAttribute(
@@ -40,5 +42,6 @@ import { qs } from "imagelogic-tools/src/dom/qs";
       `http://growthmedium.org/sparqlist/api/gmdb_organisms_by_gmid?gm_id=${id}`
     );
     organisms.setAttribute("title", `Organisms cultured in ${id}`);
+    organisms.setAttribute("column_sizes", "15,85");
   };
 })();

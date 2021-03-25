@@ -2,14 +2,15 @@ extends _template/_base
 
 block vars
   - lev = 1
-  - stanzaIDs = ["gmdb_roundtree"]
+  - stanzaIDs = ["gmdb-roundtree", "gmdb-gms-by-tid"]
   - lev1ID = "alignment"
 
 block main
   h2 Media alignment
-  togostanza-gmdb_roundtree#info(newick="http://keggoc-rdf.dbcls.jp/tmp/phylo2.newick")
+  togostanza-gmdb-roundtree#info(newick="http://keggoc-rdf.dbcls.jp/tmp/phylo2.newick", togostanza-about-link-placement="none")
+  togostanza-gmdb-gms-by-tid#table(togostanza-about-link-placement="none")
 
 
 
 block scripts
-  //script(src=`${pathToJS}organism.js`)
+  script(src=`${pathToJS}media-alignment.js`)

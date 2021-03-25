@@ -53,6 +53,7 @@ class Config {
           "media.js": "media.ts",
           "organism.js": "organism.ts",
           "taxon.js": "taxon.ts",
+          "media-alignment.js": "media-alignment.ts",
         },
       },
       sync: [

@@ -19,6 +19,7 @@ import { qs } from "imagelogic-tools/src/dom/qs";
       "api_url",
       "http://growthmedium.org/sparqlist/api/list_components"
     );
+    list.setAttribute("column_sizes", "11,89");
   };
 
   const showSingleItem = (id: string) => {
@@ -33,5 +34,6 @@ import { qs } from "imagelogic-tools/src/dom/qs";
       `http://growthmedium.org/sparqlist/api/gmdb_media_by_gmoid?gmo_id=${id}`
     );
     mediaStanza.setAttribute("title", `Media with ${id}`);
+    mediaStanza.setAttribute("column_sizes", "15,85");
   };
 })();

@@ -2,12 +2,16 @@ extends _template/_base
 
 block vars
   - lev = 1
-  - stanzaIDs = ["gmdb-taxon-by-taxid"]
+  - stanzaIDs = ["gmdb-taxon-by-taxid", "gmdb-meta-list"]
 
 block main
   h2 Taxon Information
   div.stanza-wrapper
     togostanza-gmdb-taxon-by-taxid#info(tax_id="", togostanza-about-link-placement="none")
+  div.stanza-wrapper
+    togostanza-gmdb-meta-list#media(api_url="", limit="10", title="", column_names="true", togostanza-about-link-placement="none")
+  div.stanza-wrapper
+    togostanza-gmdb-meta-list#organisms(api_url="", limit="10", title="", column_names="true", togostanza-about-link-placement="none")
 
 
 
