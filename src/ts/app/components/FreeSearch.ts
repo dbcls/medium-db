@@ -10,6 +10,8 @@ import {
 } from "rxjs/operators";
 import { fromFetch } from "rxjs/fetch";
 import { fromPromise } from "rxjs/internal-compatibility";
+import { SmoothScroll } from "imagelogic-tools/src/motion/SmoothScroll";
+import { EasingType } from "imagelogic-tools/src/motion/Easing";
 
 export const setUpFreeSearch = () => {
   const info: HTMLElement = qs("#info");
@@ -19,6 +21,10 @@ export const setUpFreeSearch = () => {
   const urlQuery = location.search.split("=").pop().replace(/\+/g, " ").trim();
   if (urlQuery) {
     input.value = urlQuery;
+    SmoothScroll.animate(input, {
+      easing: EasingType.easeInOutQuart,
+      duration: 1000,
+    });
   }
   const originalValue = input.value;
 
