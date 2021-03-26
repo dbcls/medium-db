@@ -14,7 +14,7 @@ const API_COMPONENTS: string =
 
 const setNum = async (api: string, elm: HTMLElement) => {
   const num = await getCount(api);
-  elm.innerText = num.toString();
+  elm.innerText = num.toLocaleString("ja");
 };
 
 const getCount = async (api: string): Promise<number> => {
