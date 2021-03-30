@@ -96,7 +96,7 @@
 
 [https://dbcls.github.io/togomedium-stanza/gmdb-meta-list.html][21]
 
-* [http://growthmedium.org/sparqlist/gmdb\_list\_similar\_media\_by\_gmid][22]
+* [http://growthmedium.org/sparqlist/gmdb\_organisms\_by\_gmid][22]
 
 ### 生物種一覧ページ
 
@@ -229,7 +229,7 @@ Phylumに基づいてデータベースに登録された生物種数の一覧�
 [19]:	https://dbcls.github.io/togomedium-stanza/gmdb-medium-by-gmid.html
 [20]:	http://growthmedium.org/sparqlist/gmdb_list_similar_media_by_gmid
 [21]:	https://dbcls.github.io/togomedium-stanza/gmdb-meta-list.html
-[22]:	http://growthmedium.org/sparqlist/gmdb_list_similar_media_by_gmid
+[22]:	http://growthmedium.org/sparqlist/gmdb_organisms_by_gmid
 [23]:	http://growthmedium.org/organism/
 [24]:	https://dbcls.github.io/togomedium-stanza/gmdb-meta-list.html
 [25]:	http://growthmedium.org/sparqlist/list_organism
