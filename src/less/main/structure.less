@@ -3,6 +3,11 @@
 @import (reference) "../_include/decoration";
 @import (reference) "../_include/relatives";
 
+
+#dbcls-common-header nav.gnav{
+  width: auto !important;
+  margin: 0 30px !important;
+}
 body{
   background-color: #f4f3f2;
   font-weight: 300;
@@ -10,7 +15,6 @@ body{
 
 ///
 main{
-  max-width: 1024px;
   display: block;
   margin: 0 auto;
   padding: 80px 30px 30px;
@@ -28,15 +32,14 @@ main{
   width: 100%;
   background-color: #fff;
   height: 45px;
-  box-sizing: border-box;
   padding: 0 10px;
   border-bottom: 1px solid #eee;
+  box-sizing: border-box;
 
   .inner{
-    width: 100%;
-    max-width: 1024px;
-    margin-left: auto;
-    margin-right: auto;
+    width: auto;
+    margin-left: 20px;
+    margin-right: 20px;
     height: 100%;
     display: flex;
     justify-content: space-between;
