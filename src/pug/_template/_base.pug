@@ -23,7 +23,8 @@ block vars
 - var pathToJS = pathToAssets + "js/";
 - var pathToCSS = pathToAssets + "css/";
 - var pathToLibs = pathToAssets + "libs/";
-- var pathToStanza = "https://dbcls.github.io/togomedium-stanza/";
+// - var pathToStanza = "https://dbcls.github.io/togomedium-stanza/";
+- var pathToStanza = "http://localhost:8080/";
 - var pathToSVG = pathToAssets + "images/svg/";
 - var pathToImgLG = pathToAssets + "images/lg/";
 - var pathToImgMD = pathToAssets + "images/md/";
@@ -61,6 +62,7 @@ html(lang = 'ja', xmlns:og="http://ogp.me/ns#")
         nav
           ul
             li(class = `${lev1ID === 'top' ? 'active' : ''}`): a(href="/") Home
+            li(class = `${lev1ID === 'search' ? 'active' : ''}`): a(href="/search") Search
             li(class = `${lev1ID === 'about' ? 'active' : ''}`): a(href="/about") About
             li(class = `${lev1ID === 'statistics' ? 'active' : ''}`): a(href="/statistics") Statistics
             li(class = `${lev1ID === 'alignment' ? 'active' : ''}`): a(href="/media_alignment") Media alignment

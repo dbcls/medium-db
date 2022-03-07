@@ -199,6 +199,7 @@ function registerBrowserSync(build: IBuild) {
         historyApiFallback({
           rewrites: [
             { from: /^\/about\/*/, to: "/about/index.html" },
+            { from: /^\/search\/*/, to: "/search/index.html" },
             { from: /^\/statistics\/*/, to: "/statistics/index.html" },
             {
               from: /^\/media_alignment\/*/,

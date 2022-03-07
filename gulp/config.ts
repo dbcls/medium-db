@@ -31,6 +31,7 @@ class Config {
           "component/index.html": "component.pug",
           "organism/index.html": "organism.pug",
           "taxon/index.html": "taxon.pug",
+          "search/index.html": "search.pug",
           "media_alignment/index.html": "media_alignment.pug",
         },
       },
@@ -49,6 +50,7 @@ class Config {
         watch: ["ts"],
         files: {
           "top.js": "top.ts",
+          "search.js": "search.ts",
           "component.js": "component.ts",
           "media.js": "media.ts",
           "organism.js": "organism.ts",

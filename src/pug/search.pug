@@ -1,0 +1,15 @@
+extends _template/_base
+
+block vars
+  - lev1ID = "search";
+  - stanzaIDs = ["gmdb-media-finder", "gmdb-media-alignment-table"]
+
+block main
+  div()
+    h2 Advanced Search
+    div.stanza-wrapper
+      togostanza-gmdb-media-finder(togostanza-about-link-placement="none")
+      togostanza-gmdb-media-alignment-table(gm_ids="HM_D00001a,HM_D00065" togostanza-about-link-placement="none" style="display:none; min-height:600px")
+
+block scripts
+  script(src=`${pathToJS}search.js`)
