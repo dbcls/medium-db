@@ -1,6 +1,8 @@
 export const DEBUG_USE_LOADER: boolean = true;
 export const DEBUG_RESET_SCROLL: boolean = true;
 
+export const URL_API_BASE: string = "http://growthmedium.org/sparqlist/api/";
+
 export const EVENT_LOAD: string = "load";
 export const EVENT_READY: string = "DOMContentLoaded";
 export const EVENT_CLICK: string = "click";
