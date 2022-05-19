@@ -209,6 +209,7 @@ function registerBrowserSync(build: IBuild) {
             { from: /^\/medium\/*/, to: "/medium/index.html" },
             { from: /^\/component\/*/, to: "/component/index.html" },
             { from: /^\/organism\/*/, to: "/organism/index.html" },
+            { from: /^\/compare\/*/, to: "/compare/index.html" },
           ],
         }),
       ],
