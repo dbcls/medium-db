@@ -34,7 +34,7 @@ const showSingleItem = async (id: string) => {
     "api_url",
     `${URL_API_BASE}gmdb_list_similar_media_by_gmid?gm_id=${id}`
   );
-  similar.setAttribute("title", `Similar Growth Media of ${name}`);
+  similar.setAttribute("title", `Similar growth media of ${name}`);
   similar.setAttribute("column_sizes", "15,70,15");
 
   const organisms = qs("#organisms");

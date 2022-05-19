@@ -233,17 +233,20 @@ const loadItemsByKeywords = (query: string): Observable<any> => {
 };
 
 const showMediaByKeyword = (query: string) => {
-  const title = `Media of ${query}`;
+  // const title = `Media of ${query}`;
+  const title = `Media`;
   insertStanza(API_MEDIA_BY_KEYWORD, query, title);
 };
 
 const showComponentsByKeyword = (query: string) => {
-  const title = `Components of ${query}`;
+  // const title = `Components of ${query}`;
+  const title = `Components`;
   insertStanza(API_COMPONENTS_BY_KEYWORD, query, title);
 };
 
 const showOrganismsByKeyword = (query: string) => {
-  const title = `Organisms of ${query}`;
+  // const title = `Organisms of ${query}`;
+  const title = `Organisms`;
   insertStanza(API_ORGANISMS_BY_KEYWORD, query, title);
 };
 
