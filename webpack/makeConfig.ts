@@ -223,6 +223,11 @@ const makeLessLoadRule = (): RuleSetRule => {
       },
       {
         loader: "less-loader",
+        options: {
+          lessOptions: {
+            relativeUrls: false,
+          },
+        },
       },
     ],
   };
