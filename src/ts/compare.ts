@@ -9,16 +9,31 @@ import { qs } from "imagelogic-tools/src/dom/qs";
     const table = qs<HTMLElement>("togostanza-gmdb-media-alignment-table");
     const ids = qs<HTMLInputElement>("#ids");
     const button = qs("#compareBtn");
+    const url = new URL(location.href);
+    const queriedGmIds = url.searchParams.get("gm_ids");
     //
-
-    button.addEventListener(EVENT_CLICK, () => {
+    const execute = () => {
       const value = ids.value
         .split(",")
-        .reverse()
+        // .reverse()
         .map((str) => str.trim())
         .join(",");
       table.setAttribute("gm_ids", value);
       table.style.display = "block";
-    });
+      //
+      const url = new URL(location.href);
+      url.searchParams.set("gm_ids", value);
+      history.pushState(null, "", url);
+    };
+
+    if (queriedGmIds) {
+      ids.value = queriedGmIds;
+      execute();
+    } else {
+      ids.value = "HM_D00001,JCM_M333";
+    }
+    //
+
+    button.addEventListener(EVENT_CLICK, () => execute());
   };
 })();
