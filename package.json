@@ -50,6 +50,7 @@
     "animejs": "^3.2.1",
     "imagelogic-tools": "^0.2.10",
     "pluralize": "^8.0.0",
-    "rxjs": "^6.6.6"
+    "rxjs": "^6.6.6",
+    "yohak-tools": "^0.2.1"
   }
 }

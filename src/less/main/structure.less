@@ -45,14 +45,28 @@ main{
     justify-content: space-between;
     align-items: center;
 
+    
     .logo{
-      display: block;
+      display: flex;
       width: 135px;
       height: 30px;
       background-image: url("@{path-svg}logo.svg");
       background-repeat: no-repeat;
       background-size: contain;
       background-position: left top;
+      text-decoration: none;
+      position: relative;
+      &::after{
+        content: "";
+        display: block;
+        position: absolute;
+        right: -34px;
+        bottom: 4px;
+        width: 34px;
+        height: 18px;
+        transform: scale(75%);
+        background-image: url("@{path-svg}beta.svg");
+      }
     }
 
     nav{
