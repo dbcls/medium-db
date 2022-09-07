@@ -6,13 +6,13 @@ block vars
 
 block main
   div()
-    h2 Compare
+    h2 Compare by organisms
     fieldset.id-input
-      input#ids(type="text", placeholder="HM_D00001,JCM_M333")
+      input#ids(type="text", placeholder="1111041,1658616,760260")
       input#compareBtn(type="button" value="compare")
       span.error-msg#errorMsg
     div.stanza-wrapper
       togostanza-gmdb-media-alignment-table(gm_ids="" togostanza-about-link-placement="none" style="display:none; min-height:600px")
 
 block scripts
-  script(src=`${pathToJS}compare.js`)
+  script(src=`${pathToJS}compare_by_organisms.js`)

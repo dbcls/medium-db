@@ -5,42 +5,65 @@ import { Nullable, qs } from "yohak-tools";
   document.addEventListener(EVENT_READY, () => {
     setupCompareInput();
   });
+
+  const fetchMedia = async (tax_ids: string[]) => {
+    const API = "http://growthmedium.org/sparqlist/api/gmdb_media_by_taxon";
+    const response = await fetch(API, {
+      method: "POST",
+      mode: "cors",
+      body: `tax_ids=${tax_ids}`,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+    const data: MediaByTaxonResponse = await response.json();
+    return data.contents.map((item) => item.gm_id);
+  };
   const setupCompareInput = () => {
     const table = qs<HTMLElement>("togostanza-gmdb-media-alignment-table");
     const ids = qs<HTMLInputElement>("#ids");
     const button = qs("#compareBtn");
     const url = new URL(location.href);
-    const queriedGmIds = url.searchParams.get("gm_ids");
+    const queriedTaxIds = url.searchParams.get("tax_ids");
     let queriedData: string[] = [];
     //
-    const execute = () => {
+    const execute = async () => {
       queriedData = ids.value.split(",").map((str) => str.trim());
-      const value = queriedData.join(",");
+      console.log(queriedData);
+
+      const gmIds = await fetchMedia(queriedData);
+      const value = gmIds.join(",");
       table.setAttribute("gm_ids", value);
       table.style.display = "block";
       //
       const url = new URL(location.href);
-      url.searchParams.set("gm_ids", value);
+      console.log(queriedData.join(","));
+      url.searchParams.set("tax_ids", queriedData.join(","));
       history.pushState(null, "", url);
     };
 
-    if (queriedGmIds) {
-      ids.value = queriedGmIds;
+    if (queriedTaxIds) {
+      ids.value = queriedTaxIds;
       execute();
     } else {
-      ids.value = "HM_D00001,JCM_M333";
+      // ids.value = "1111041,1658616,760260";
+      ids.value = "1111041,1658616,169489";
     }
     //
 
     button.addEventListener(EVENT_CLICK, () => execute());
     document.addEventListener("STANZA_ON_QUERY_DATA", (e: CustomEvent) => {
-      queriedData = (e.detail as string[]).filter((str) => str !== "");
+      // queriedData = (e.detail as string[]).filter((str) => str !== "");
+      qs("#errorMsg").textContent = "";
     });
     document.addEventListener("STANZA_ON_LOAD_DATA", (e: CustomEvent) => {
       const response: MediaAlignmentTableResponse = e.detail;
-      const loadedMedia: string[] = response.media.map((m) => m.gm_id);
+      const loadedOrganisms: string[] = response.organisms.map((m) => m.tax_id);
       //
-      const notFound = queriedData.filter((str) => !loadedMedia.includes(str));
+      const notFound = queriedData.filter(
+        (str) => !loadedOrganisms.includes(str)
+      );
       const errorMsg = notFound.length
         ? `Not found: ${notFound.join(", ")}`
         : "";
@@ -65,5 +88,14 @@ export type MediaAlignmentTableResponse = {
     name: string;
     parent: Nullable<string>;
     function: Nullable<string>;
+  }[];
+};
+export type MediaByTaxonResponse = {
+  total: number;
+  offset: number;
+  limit: number;
+  contents: {
+    gm_id: string;
+    name: string;
   }[];
 };
