@@ -6,8 +6,23 @@ import { Nullable, qs } from "yohak-tools";
     setupCompareInput();
   });
 
-  const fetchMedia = async (tax_ids: string[]) => {
+  const fetchMedia = async (tax_ids: string[]): Promise<string[]> => {
     const API = "http://growthmedium.org/sparqlist/api/gmdb_media_by_taxon";
+    const response = await fetch(API, {
+      method: "POST",
+      mode: "cors",
+      body: `tax_ids=${tax_ids}&limit=${100}`,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+    const data: MediaByTaxonResponse = await response.json();
+    return data.contents.map((item) => item.gm_id);
+  };
+  const filterTaxIds = async (tax_ids: string[]): Promise<string[]> => {
+    const API =
+      "http://growthmedium.org/sparqlist/api/gmdb_taxa_with_media_within_genus";
     const response = await fetch(API, {
       method: "POST",
       mode: "cors",
@@ -17,9 +32,17 @@ import { Nullable, qs } from "yohak-tools";
         "Content-Type": "application/x-www-form-urlencoded",
       },
     });
-    const data: MediaByTaxonResponse = await response.json();
-    return data.contents.map((item) => item.gm_id);
+    return await response.json();
   };
+
+  const setError = (queried: string[], filtered: string[]) => {
+    const errorData = queried.filter((str) => !filtered.includes(str));
+    const errorMsg = errorData.length
+      ? `Not found: ${errorData.join(", ")}`
+      : "";
+    qs("#errorMsg").textContent = errorMsg;
+  };
+
   const setupCompareInput = () => {
     const table = qs<HTMLElement>("togostanza-gmdb-media-alignment-table");
     const ids = qs<HTMLInputElement>("#ids");
@@ -30,15 +53,15 @@ import { Nullable, qs } from "yohak-tools";
     //
     const execute = async () => {
       queriedData = ids.value.split(",").map((str) => str.trim());
-      console.log(queriedData);
-
-      const gmIds = await fetchMedia(queriedData);
+      const filteredData = await filterTaxIds(queriedData);
+      const gmIds = await fetchMedia(filteredData);
       const value = gmIds.join(",");
+      setError(queriedData, filteredData);
       table.setAttribute("gm_ids", value);
+      table.setAttribute("prioritized_tax_ids", filteredData.join(","));
       table.style.display = "block";
       //
       const url = new URL(location.href);
-      console.log(queriedData.join(","));
       url.searchParams.set("tax_ids", queriedData.join(","));
       history.pushState(null, "", url);
     };
@@ -48,27 +71,11 @@ import { Nullable, qs } from "yohak-tools";
       execute();
     } else {
       // ids.value = "1111041,1658616,760260";
-      ids.value = "1111041,1658616,169489";
+      ids.value = "77580,28024,2771,38275";
     }
     //
 
     button.addEventListener(EVENT_CLICK, () => execute());
-    document.addEventListener("STANZA_ON_QUERY_DATA", (e: CustomEvent) => {
-      // queriedData = (e.detail as string[]).filter((str) => str !== "");
-      qs("#errorMsg").textContent = "";
-    });
-    document.addEventListener("STANZA_ON_LOAD_DATA", (e: CustomEvent) => {
-      const response: MediaAlignmentTableResponse = e.detail;
-      const loadedOrganisms: string[] = response.organisms.map((m) => m.tax_id);
-      //
-      const notFound = queriedData.filter(
-        (str) => !loadedOrganisms.includes(str)
-      );
-      const errorMsg = notFound.length
-        ? `Not found: ${notFound.join(", ")}`
-        : "";
-      qs("#errorMsg").textContent = errorMsg;
-    });
   };
 })();
 
