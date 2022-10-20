@@ -10,6 +10,7 @@ const setup = () => {
 };
 
 const showComponentList = async () => {
+  qs("#all").style.display = "block";
   const list = qs("#list");
   list.setAttribute(
     "api_url",
