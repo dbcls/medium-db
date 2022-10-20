@@ -13,6 +13,7 @@ import { EasingType } from "imagelogic-tools/src/motion/Easing";
         "togostanza-gmdb-media-alignment-table"
       );
       table.setAttribute("gm_ids", (e.detail as string[]).join(","));
+      table.setAttribute("togostanza-menu-placement", "none");
       table.style.display = "block";
       setTimeout(() => {
         SmoothScroll.animate({

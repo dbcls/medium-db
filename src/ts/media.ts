@@ -17,6 +17,7 @@ const showMediaList = () => {
     "http://growthmedium.org/sparqlist/api/list_media"
   );
   list.setAttribute("column_sizes", "15,85");
+  list.setAttribute("togostanza-menu-placement", "none");
 };
 
 const showSingleItem = async (id: string) => {
@@ -28,6 +29,7 @@ const showSingleItem = async (id: string) => {
 
   const info = qs("#info");
   info.setAttribute("gm_id", id);
+  info.setAttribute("togostanza-menu-placement", "none");
   //
   const similar = qs("#similar");
   similar.setAttribute(
@@ -36,6 +38,7 @@ const showSingleItem = async (id: string) => {
   );
   similar.setAttribute("title", `Similar growth media of ${name}`);
   similar.setAttribute("column_sizes", "15,70,15");
+  similar.setAttribute("togostanza-menu-placement", "none");
 
   const organisms = qs("#organisms");
   organisms.setAttribute(
@@ -44,4 +47,5 @@ const showSingleItem = async (id: string) => {
   );
   organisms.setAttribute("title", `Organisms cultured in ${name}`);
   organisms.setAttribute("column_sizes", "15,85");
+  organisms.setAttribute("togostanza-menu-placement", "none");
 };

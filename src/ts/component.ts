@@ -17,6 +17,7 @@ const showComponentList = async () => {
     "http://growthmedium.org/sparqlist/api/list_components"
   );
   list.setAttribute("column_sizes", "11,89");
+  list.setAttribute("togostanza-menu-placement", "none");
 };
 
 const showSingleItem = async (id: string) => {
@@ -27,6 +28,7 @@ const showSingleItem = async (id: string) => {
 
   const info: HTMLElement = qs("#info");
   info.setAttribute("gmo_id", id);
+  info.setAttribute("togostanza-menu-placement", "none");
   //
   const mediaStanza: HTMLElement = qs("#media");
   mediaStanza.setAttribute(
@@ -35,4 +37,5 @@ const showSingleItem = async (id: string) => {
   );
   mediaStanza.setAttribute("title", `Media with ${name}`);
   mediaStanza.setAttribute("column_sizes", "15,85");
+  mediaStanza.setAttribute("togostanza-menu-placement", "none");
 };

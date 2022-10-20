@@ -258,7 +258,7 @@ const insertStanza = (apiBase: string, query: string, title: string): void => {
 };
 
 const createListStanza = (api: string, title: string): string => {
-  return `<togostanza-gmdb-meta-list api_url="${api}" limit="10" title="${title}" column_names="true" ></togostanza-gmdb-meta-list>`;
+  return `<togostanza-gmdb-meta-list api_url="${api}" limit="10" title="${title}" column_names="true" togostanza-menu-placement="none" ></togostanza-gmdb-meta-list>`;
 };
 
 const showNotFound = () => {

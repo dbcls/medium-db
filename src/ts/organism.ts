@@ -16,6 +16,7 @@ const showOrganismList = () => {
     "http://growthmedium.org/sparqlist/api/list_organisms"
   );
   list.setAttribute("column_sizes", "10,40,50");
+  list.setAttribute("togostanza-menu-placement", "none");
 };
 const showSingleItem = async (id: string) => {
   qs("#singleItem").style.display = "block";
@@ -25,9 +26,11 @@ const showSingleItem = async (id: string) => {
 
   const info: HTMLElement = qs("#info");
   info.setAttribute("tax_id", id);
+  info.setAttribute("togostanza-menu-placement", "none");
 
   const phenotype: HTMLElement = qs("#phenotype");
   phenotype.setAttribute("tax_id", id);
+  phenotype.setAttribute("togostanza-menu-placement", "none");
 
   const media: HTMLElement = qs("#media");
   media.setAttribute(
@@ -36,4 +39,5 @@ const showSingleItem = async (id: string) => {
   );
   media.setAttribute("column_sizes", "20,80");
   media.setAttribute("title", `Media with ${name}`);
+  media.setAttribute("togostanza-menu-placement", "none");
 };
